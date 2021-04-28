@@ -8,5 +8,9 @@ namespace DigtailReceiptReader.Views {
         public AboutPage() {
             InitializeComponent();
         }
+
+        private void Button_Clicked(object sender, EventArgs e) {
+            DisplayAlert("Title", "Hello World", "OK");
+        }
     }
 }
