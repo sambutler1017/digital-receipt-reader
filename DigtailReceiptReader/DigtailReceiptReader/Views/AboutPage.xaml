@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DigtailReceiptReader.Views.AboutPage"
              xmlns:vm="clr-namespace:DigtailReceiptReader.ViewModels"
+             xmlns:lib="clr-namespace:DigtailReceiptReader.lib"
              Title="{Binding Title}">
     
     <ContentPage.BindingContext>
@@ -41,7 +42,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Button Text="Click me!" Clicked="Button_Clicked"></Button>
+                <lib:LoadingIndicator IsLoading="True" LoadingColor="Black"></lib:LoadingIndicator>
             </StackLayout>
         </ScrollView>
     </Grid>
