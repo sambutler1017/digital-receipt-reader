@@ -42,7 +42,8 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <lib:LoadingIndicator IsLoading="True" LoadingColor="Black"></lib:LoadingIndicator>
+                <lib:LoadingIndicator Enabled="{Binding IsLoading}" LoadingColor="Black"></lib:LoadingIndicator>
+                <Button Text="Toggle Loading" Command="{Binding ToggleLoadingCommand}"></Button>
             </StackLayout>
         </ScrollView>
     </Grid>

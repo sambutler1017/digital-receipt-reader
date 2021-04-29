@@ -6,6 +6,6 @@
     x:Class="DigtailReceiptReader.lib.LoadingIndicator">
     
     <ContentView.Content>
-        <ActivityIndicator BindingContext="{x:Reference this}" IsRunning="{Binding IsLoading, FallbackValue=True}" Color="{Binding LoadingColor, FallbackValue=Orange}"/>
+        <ActivityIndicator BindingContext="{x:Reference this}" IsRunning="{Binding Enabled, FallbackValue=True}" Color="{Binding LoadingColor, FallbackValue=Orange}"/>
     </ContentView.Content>
 </ContentView>
