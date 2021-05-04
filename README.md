@@ -7,3 +7,22 @@ We are proposing an NFC powered digital receipt system that will transfer receip
 
 ![Data Flow](images/data_flow.png "Flow")
 
+<h2>Group Members</h2>
+
+<h3>Luke Lengel</h3>
+
+* Project Team Leader
+
+<h3>Seth Hancock</h3>
+
+* Integration Team Lead
+
+<h3>Sam Butler</h3>
+
+* Software Lead
+
+<h3>Miah Hale</h3>
+
+* Hardware Lead
+
+
