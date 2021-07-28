@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.ridge.digitalreceiptreader.service.toast.ToastService;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText emailInput;
@@ -32,11 +34,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLogin(String email, String password) {
+        ToastService toastService = new ToastService(this);
+
         if(email.equals("test") && password.equals("password")) {
            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
            startActivity(intent);
+            toastService.showSuccess("Logged in Successfully!");
         } else {
-            loginButton.setText("Invalid Credentials");
+            toastService.showError("Invalid Credentials!");
         }
     }
 }
