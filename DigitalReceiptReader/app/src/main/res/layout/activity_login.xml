@@ -34,9 +34,11 @@
 
     <Button
         android:id="@+id/login_button__login"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="188dp"
         android:layout_height="46dp"
         android:text="Login"
+        app:cornerRadius="280dip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +73,7 @@
 
     <ProgressBar
         android:id="@+id/loading_indicator__login"
-        style="?android:attr/progressBarStyle"
+        style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
