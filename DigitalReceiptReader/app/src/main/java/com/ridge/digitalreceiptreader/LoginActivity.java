@@ -17,7 +17,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.ridge.digitalreceiptreader.service.toast.ToastService;
+
+import org.json.JSONArray;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Login Activity class for handling functionality with the login screen.
@@ -54,10 +67,10 @@ public class LoginActivity extends AppCompatActivity {
      * Initializes any elements that are being used in the activity.
      */
     private void initElements() {
-        emailInput = (EditText)findViewById(R.id.email_textbox__login);
+        emailInput = (EditText) findViewById(R.id.email_textbox__login);
         passwordInput = (EditText) findViewById(R.id.password_textbox__login);
-        loginButton = (Button)findViewById(R.id.login_button__login);
-        loadingIndicator = (ProgressBar)findViewById(R.id.loading_indicator__login);
+        loginButton = (Button) findViewById(R.id.login_button__login);
+        loadingIndicator = (ProgressBar) findViewById(R.id.loading_indicator__login);
         loadingIndicator.setVisibility(View.GONE);
     }
 
@@ -74,7 +87,8 @@ public class LoginActivity extends AppCompatActivity {
      * @param view Current view of the activity.
      */
     public void onLogin(View view) {
-        if(emailInput.getText().toString().equals("test") && passwordInput.getText().toString().equals("password")) {
+        requestTestMethod();
+        if (emailInput.getText().toString().equals("test") && passwordInput.getText().toString().equals("password")) {
             loadingIndicator.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);
 
@@ -89,5 +103,37 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             toastService.showError("Invalid Credentials!");
         }
+    }
+
+    public void requestTestMethod() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://marcs-microservice.herokuapp.com/api/store-app/stores";
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        System.out.println(response.toString());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("That didn't work!");
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization",
+                        "Bearer: eyJhbGciOiJIUzUxMiJ9.eyJ3ZWJSb2xlIjoiUkVHSU9OQUwiLCJmaXJzdE5hbWUiOiJCb2IiLCJsYXN0TmFtZSI6IkJ1dGxlciIsImFjY2VzcyI6eyJtYW5hZ2VyIjpbeyJkZXRhaWwiOiJjcnVkIn0seyJ2YWNhdGlvbiI6ImNydWQifV0sImdsb2JhbCI6W3sicHJvZmlsZSI6ImNydWQifSx7Im5vdGlmaWNhdGlvbiI6ImNydWQifV0sInN0b3JlIjpbeyJkZXRhaWwiOiJyIn1dfSwicmVnaW9uIjoiRUFTVCIsImV4cCI6MTYyNzcxMjY0MCwidXNlcklkIjoyLCJpYXQiOjE2Mjc2OTQ2NDAsImVtYWlsIjoidGdidGdAbXNuLmNvbSIsInVzZXJuYW1lIjoiYm9iYnV0bGVyMTAwNiIsImFwcHMiOlsibWFuYWdlciIsInN0b3JlIiwiY2FsZW5kYXIiLCJibG9ja0RhdGVzIiwibWFwIiwicmVwb3J0IiwicmVxdWVzdFRyYWNrZXIiLCJjb250YWN0Il19.hIGSkBphnYfcLzcYkbqbNSvidEdpRzWr9GJfO7D9qu4f5Q5N0X44EDeMZCz9YJNQ7cIXjr3fr8W_OLI6YHAGlA");
+                return params;
+            }
+
+            ;
+
+        };
+        queue.add(request);
     }
 }
