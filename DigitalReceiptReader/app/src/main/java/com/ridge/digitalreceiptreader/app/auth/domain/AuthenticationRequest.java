@@ -1,5 +1,7 @@
 package com.ridge.digitalreceiptreader.app.auth.domain;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Authentication request object.
  *
@@ -7,7 +9,10 @@ package com.ridge.digitalreceiptreader.app.auth.domain;
  * @since August 1, 2020
  */
 public class AuthenticationRequest {
+    @NotNull
     private String username;
+
+    @NotNull
     private String password;
 
     public AuthenticationRequest(String username, String password) {

@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
 import com.ridge.digitalreceiptreader.service.toast.ToastService;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -79,26 +78,28 @@ public class LoginActivity extends AppCompatActivity {
      *
      * @param view Current view of the activity.
      */
-    public void onLogin(View view) {
+    public <T> void onLogin(View view) {
         showLoading();
-        validateToken(authClient.authenticate(emailInput.getText().toString(), passwordInput.getText().toString()));
-        hideLoading();
+
+        authClient.authenticate(emailInput.getText().toString(), passwordInput.getText().toString())
+                .subscribe(value -> runOnUiThread(() -> validateToken(value)));
     }
 
     /**
-     * Validates the given response entity auth token. If it is valid
-     * then the user will be routed to the home page, otherwise will
-     * see a red toast message of invalid credentials.
+     * Validates the given response entity auth token. If it is valid then the user
+     * will be routed to the home page, otherwise will see a red toast message of
+     * invalid credentials.
      *
      * @param authToken The authtoken to validate.
      */
     private void validateToken(ResponseEntity<DigitalReceiptToken> authToken) {
-        if(authToken.getStatusCode().equals(HttpStatus.OK)) {
+        if (authToken.getStatusCode().equals(HttpStatus.OK)) {
             toastService.showSuccess("Logged in Successfully!");
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         } else {
             toastService.showError("Invalid Credentials!");
+            hideLoading();
         }
     }
 

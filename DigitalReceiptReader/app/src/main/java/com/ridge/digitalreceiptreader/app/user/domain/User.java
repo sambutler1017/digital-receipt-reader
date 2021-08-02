@@ -1,46 +1,80 @@
 package com.ridge.digitalreceiptreader.app.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ridge.digitalreceiptreader.common.enums.WebRole;
 
+import java.util.Date;
+
+/**
+ * Class to create a user profile object
+ *
+ * @author Sam Butler
+ * @since June 25, 2021
+ */
 public class User {
-    @JsonProperty("title")
-    private String title;
-    @JsonProperty("location_type")
-    private String location_type;
-    @JsonProperty("woeid")
-    private int woeid;
-    @JsonProperty("latt_long")
-    private String latt_long;
+    @JsonProperty("id")
+    private int id;
 
-    public String getTitle() {
-        return title;
+    @JsonProperty("firstName")
+    private String firstName;
+
+    @JsonProperty("lastName")
+    private String lastName;
+
+    @JsonProperty("email")
+    private String email;
+
+    @JsonProperty("webRole")
+    private WebRole webRole;
+
+    @JsonProperty("insertDate")
+    private Date insertDate;
+
+    public int getId() {
+        return id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getLocation_type() {
-        return location_type;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setLocation_type(String location_type) {
-        this.location_type = location_type;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public int getWoeid() {
-        return woeid;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setWoeid(int woeid) {
-        this.woeid = woeid;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getLatt_long() {
-        return latt_long;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLatt_long(String latt_long) {
-        this.latt_long = latt_long;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public WebRole getWebRole() {
+        return webRole;
+    }
+
+    public void setWebRole(WebRole webRole) {
+        this.webRole = webRole;
+    }
+
+    public Date getInsertDate() {
+        return insertDate;
+    }
+
+    public void setInsertDate(Date insertDate) {
+        this.insertDate = insertDate;
     }
 }

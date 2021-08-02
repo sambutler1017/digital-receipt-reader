@@ -1,5 +1,6 @@
 package com.ridge.digitalreceiptreader.app.auth.domain;
 
+import com.ridge.digitalreceiptreader.app.user.domain.User;
 import com.ridge.digitalreceiptreader.common.enums.Environment;
 
 import java.util.Date;
@@ -13,9 +14,11 @@ import java.util.Date;
 public class DigitalReceiptToken {
     private String token;
 
-    private Environment environment;
-
     private Date createDate;
+
+    private Date expireDate;
+
+    private User user;
 
     public String getToken() {
         return token;
@@ -25,19 +28,27 @@ public class DigitalReceiptToken {
         this.token = token;
     }
 
-    public Environment getEnvironment() {
-        return environment;
-    }
-
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Date getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(Date expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

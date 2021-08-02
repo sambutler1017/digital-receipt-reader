@@ -1,22 +1,27 @@
 package com.ridge.digitalreceiptreader.service.api;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
+
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Api task class to do background network api processes in the background. Helps
- * to not bog down the main thread.
+ * Api task class to do background network api processes in the background.
+ * Helps to not bog down the main thread.
  *
  * @param <T> Object type that class should be initialized in.
  * @author Sam Butler
  * @since July 31, 2021
  */
-public class ApiTask<T> extends AsyncTask<ApiRequest, ResponseEntity<T>, ResponseEntity<T>> {
+public class ApiTask<T> extends AsyncTask<ApiRequest, Void, ResponseEntity<T>> {
 
     /**
      * Background method to run api task that are on the main thread.
@@ -25,15 +30,25 @@ public class ApiTask<T> extends AsyncTask<ApiRequest, ResponseEntity<T>, Respons
      * @return Responses Entity object of the data.
      */
     @Override
-    protected ResponseEntity<T> doInBackground(ApiRequest... params) {
+    protected ResponseEntity doInBackground(@NotNull ApiRequest... params) {
         ApiRequest request = params[0];
+        HttpMethod requestMethod = request.getMethod();
 
         try {
-            if(request.getMethod().equals(HttpMethod.GET)) return getTask(request);
-            else return postTask(request);
+            if (requestMethod.equals(HttpMethod.GET))
+                return getTask(request);
+            else if (requestMethod.equals(HttpMethod.POST))
+                return postTask(request);
+            else
+                return invalidMethod(requestMethod);
         } catch (HttpServerErrorException errorException) {
-            return new ResponseEntity<T>(errorException.getResponseHeaders(), errorException.getStatusCode());
+            return new ResponseEntity(errorException.getResponseHeaders(), errorException.getStatusCode());
         }
+    }
+
+    protected void onPostExecute(@NotNull ResponseEntity<DigitalReceiptToken> result) {
+        HttpStatus statusCode = result.getStatusCode();
+        DigitalReceiptToken authToken = result.getBody();
     }
 
     /**
@@ -42,7 +57,7 @@ public class ApiTask<T> extends AsyncTask<ApiRequest, ResponseEntity<T>, Respons
      * @param request The request object to consume the endpoint with.
      * @return Responses Entity object of the data.
      */
-    private ResponseEntity<T> getTask(ApiRequest request) {
+    private ResponseEntity getTask(@NotNull ApiRequest request) {
         return new RestTemplate().getForEntity(request.getUrl(), request.getClazz());
     }
 
@@ -52,8 +67,19 @@ public class ApiTask<T> extends AsyncTask<ApiRequest, ResponseEntity<T>, Respons
      * @param request The request object to consume the endpoint with.
      * @return Responses Entity object of the data.
      */
-    private ResponseEntity<T> postTask(ApiRequest request) {
+    private ResponseEntity postTask(@NotNull ApiRequest request) {
         HttpEntity postRequestBody = new HttpEntity(request.getPostParams(), request.getHeaders());
         return new RestTemplate().postForEntity(request.getUrl(), postRequestBody, request.getClazz());
+    }
+
+    /**
+     * Returns bad request when invalid or unsupported method type is passed.
+     *
+     * @param method The invalid method type.
+     * @return Response Entity of type bad request.
+     */
+    private ResponseEntity invalidMethod(@NotNull HttpMethod method) {
+        Log.e("Invalid API Method", method.toString());
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 }

@@ -6,6 +6,9 @@ import com.ridge.digitalreceiptreader.app.auth.service.AuthService;
 
 import org.springframework.http.ResponseEntity;
 
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 /**
  * Authentication Client class to be used accross the application.
  *
@@ -13,10 +16,10 @@ import org.springframework.http.ResponseEntity;
  * @since July 31, 2021
  */
 public class AuthClient {
-    private AuthService AuthService;
+    private AuthService authService;
 
     public AuthClient() {
-        AuthService = new AuthService();
+        authService = new AuthService();
     }
 
     /**
@@ -26,8 +29,10 @@ public class AuthClient {
      * @param password The password with the corresponding user.
      * @return Auth token if the user credentials are correct.
      */
-    public ResponseEntity<DigitalReceiptToken> authenticate(String username, String password) {
-        return AuthService.authenticate(username, password);
+    public Single<ResponseEntity<DigitalReceiptToken>> authenticate(String username, String password) {
+        Single<ResponseEntity<DigitalReceiptToken>> observable = Single
+                .create(s -> s.onSuccess(authService.authenticate(username, password)));
+        return observable.subscribeOn(Schedulers.newThread());
     }
 
     /**
@@ -36,7 +41,9 @@ public class AuthClient {
      * @param authRequest The auth request with the given username and password
      * @return Auth token if the user credentials are correct.
      */
-    public ResponseEntity<DigitalReceiptToken> authenticate(AuthenticationRequest authRequest) {
-        return AuthService.authenticate(authRequest.getUsername(), authRequest.getPassword());
+    public Single<ResponseEntity<DigitalReceiptToken>> authenticate(AuthenticationRequest authRequest) {
+        Single<ResponseEntity<DigitalReceiptToken>> observable = Single.create(
+                s -> s.onSuccess(authService.authenticate(authRequest.getUsername(), authRequest.getPassword())));
+        return observable.subscribeOn(Schedulers.newThread());
     }
 }
