@@ -23,7 +23,7 @@ import org.springframework.http.ResponseEntity;
  * @since July 28, 2021
  */
 public class LoginService {
-    private Activity currentActivity;
+    private final Activity currentActivity;
     private ToastService toastService;
     private AuthClient authClient;
 
@@ -64,10 +64,10 @@ public class LoginService {
      */
     private void initElements() {
 
-        emailInput = (EditText) currentActivity.findViewById(R.id.email_textbox__login);
-        passwordInput = (EditText) currentActivity.findViewById(R.id.password_textbox__login);
-        loginButton = (Button) currentActivity.findViewById(R.id.login_button__login);
-        loadingIndicator = (ProgressBar) currentActivity.findViewById(R.id.loading_indicator__login);
+        emailInput = currentActivity.findViewById(R.id.email_textbox__login);
+        passwordInput = currentActivity.findViewById(R.id.password_textbox__login);
+        loginButton = currentActivity.findViewById(R.id.login_button__login);
+        loadingIndicator = currentActivity.findViewById(R.id.loading_indicator__login);
         loadingIndicator.setVisibility(View.GONE);
     }
 

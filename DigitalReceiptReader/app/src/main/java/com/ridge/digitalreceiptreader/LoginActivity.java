@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
      * Initializes any elements that are being used in the activity.
      */
     private void initElements() {
-        loginButton = (Button) findViewById(R.id.login_button__login);
+        loginButton = findViewById(R.id.login_button__login);
     }
 
     /**
