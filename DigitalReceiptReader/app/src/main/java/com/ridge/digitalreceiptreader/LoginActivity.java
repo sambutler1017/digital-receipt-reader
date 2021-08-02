@@ -80,9 +80,8 @@ public class LoginActivity extends AppCompatActivity {
      */
     public <T> void onLogin(View view) {
         showLoading();
-
         authClient.authenticate(emailInput.getText().toString(), passwordInput.getText().toString())
-                .subscribe(value -> runOnUiThread(() -> validateToken(value)));
+                .subscribe(res -> runOnUiThread(() -> validateToken(res)));
     }
 
     /**
