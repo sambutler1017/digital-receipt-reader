@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.service.api;
+package com.ridge.digitalreceiptreader.common.api;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;

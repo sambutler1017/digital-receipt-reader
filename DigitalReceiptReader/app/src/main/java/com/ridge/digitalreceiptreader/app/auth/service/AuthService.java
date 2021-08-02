@@ -2,12 +2,9 @@ package com.ridge.digitalreceiptreader.app.auth.service;
 
 import com.ridge.digitalreceiptreader.app.auth.domain.AuthenticationRequest;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
-import com.ridge.digitalreceiptreader.service.api.ApiClient;
+import com.ridge.digitalreceiptreader.common.api.ApiClient;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import io.reactivex.rxjava3.core.Single;
 
 /**
  * Authentication Service which will be the middle tier between
