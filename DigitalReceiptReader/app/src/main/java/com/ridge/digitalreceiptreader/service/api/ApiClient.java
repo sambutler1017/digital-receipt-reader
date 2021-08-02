@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
  */
 public class ApiClient {
     private final String BASE_URL = "https://digital-receipt-api.herokuapp.com";
+    private final String LOCAL_URL = "http://10.0.2.2:8080";
 
     /**
      * Gets data from the given url for the request.

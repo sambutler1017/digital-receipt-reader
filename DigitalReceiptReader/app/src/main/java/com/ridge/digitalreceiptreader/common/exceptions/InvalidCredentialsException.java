@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.service.exceptions;
+package com.ridge.digitalreceiptreader.common.exceptions;
 
 /**
  * Invalid Credentials Exception for when user tries to authenticate
