@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
      *
      * @param view Current view of the activity.
      */
-    public <T> void onLogin(View view) {
+    public void onLogin(View view) {
         showLoading();
         authClient.authenticate(emailInput.getText().toString(), passwordInput.getText().toString())
                 .subscribe(res -> runOnUiThread(() -> validateToken(res)));
