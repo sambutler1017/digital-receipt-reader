@@ -1,7 +1,10 @@
 package com.ridge.digitalreceiptreader;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Button;
 
 import com.ridge.digitalreceiptreader.service.login.LoginService;
