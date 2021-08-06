@@ -102,6 +102,46 @@ public class ApiClient {
     }
 
     /**
+     * Updates a given object to the provided api endpoint. Will use absolute path.
+     *
+     * @param url       The url to consume the endpoint too.
+     * @param paramBody The parambody that should be posted.
+     * @param clazz     What class the return type should be mapped too.
+     * @param <T>       Type of class to return.
+     * @param <R>       Object of the post body.
+     * @return The generic type of the mapped object.
+     */
+    public <T, R> ResponseEntity<T> put(String url, R paramBody, Class<T> clazz) {
+        Log.d("API client request", HttpMethod.PUT.toString() + " -> " + buildUrl(url));
+        try {
+            return new ApiTask<T>()
+                    .execute(new ApiRequest(buildUrl(url), HttpMethod.PUT, clazz, getHeaders(), paramBody)).get();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * Updates a given object to the provided api endpoint, uses the given override
+     * url.
+     *
+     * @param url       The url to consume the endpoint too.
+     * @param paramBody The parambody that should be posted.
+     * @param clazz     What class the return type should be mapped too.
+     * @param <T>       Type of class to return.
+     * @param <R>       Object of the post body.
+     * @return The generic type of the mapped object.
+     */
+    public <T, R> ResponseEntity<T> putOverrideUrl(String url, R paramBody, Class<T> clazz) {
+        Log.d("API client request", HttpMethod.PUT.toString() + " -> " + url);
+        try {
+            return new ApiTask<T>().execute(new ApiRequest(url, HttpMethod.PUT, clazz, getHeaders(), paramBody)).get();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
      * Builds out the url with the qualified endpoint path
      *
      * @param url The url to be appended to the base url path.

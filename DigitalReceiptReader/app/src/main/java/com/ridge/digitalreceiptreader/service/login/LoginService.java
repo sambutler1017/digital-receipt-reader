@@ -14,6 +14,7 @@ import com.ridge.digitalreceiptreader.MainActivity;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
+import com.ridge.digitalreceiptreader.app.email.client.EmailClient;
 import com.ridge.digitalreceiptreader.service.toast.ToastService;
 
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ public class LoginService {
     private final Activity currentActivity;
     private ToastService toastService;
     private AuthClient authClient;
+    private EmailClient emailClient;
 
     private EditText emailInput;
     private EditText passwordInput;
@@ -53,6 +55,7 @@ public class LoginService {
      */
     private void initClients() {
         authClient = new AuthClient();
+        emailClient = new EmailClient();
     }
 
     /**
@@ -81,6 +84,21 @@ public class LoginService {
         showLoading();
         authClient.authenticate(emailInput.getText().toString(), passwordInput.getText().toString())
                 .subscribe(res -> currentActivity.runOnUiThread(() -> validateToken(res)));
+    }
+
+    /**
+     * Method for handling when the forgot password link is clicked.
+     */
+    public void onForgotPassword() {
+        showLoading();
+        emailClient.forgotPassword(emailInput.getText().toString()).subscribe(res -> currentActivity.runOnUiThread(() -> {
+            if (res.getStatusCode().equals(HttpStatus.OK)) {
+                toastService.showSuccess("Forgot Password email sent!");
+            } else {
+                toastService.showError("User does not exist for that email!");
+            }
+            hideLoading();
+        }));
     }
 
     /**

@@ -62,6 +62,8 @@
         android:id="@+id/forgot_password_textView__login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:linksClickable="true"
         android:text="Forgot Password?"
         android:textColor="@color/receipt_icon_background"
         app:layout_constraintBottom_toBottomOf="parent"

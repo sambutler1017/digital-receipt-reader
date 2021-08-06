@@ -39,6 +39,8 @@ public class ApiTask<T> extends AsyncTask<ApiRequest, Void, ResponseEntity<T>> {
                 return getTask(request);
             else if (requestMethod.equals(HttpMethod.POST))
                 return postTask(request);
+            else if (requestMethod.equals(HttpMethod.PUT))
+                return putTask(request);
             else
                 return invalidMethod(requestMethod);
         } catch (HttpServerErrorException errorException) {
@@ -70,6 +72,17 @@ public class ApiTask<T> extends AsyncTask<ApiRequest, Void, ResponseEntity<T>> {
     private ResponseEntity postTask(@NotNull ApiRequest request) {
         HttpEntity postRequestBody = new HttpEntity(request.getPostParams(), request.getHeaders());
         return new RestTemplate().postForEntity(request.getUrl(), postRequestBody, request.getClazz());
+    }
+
+    /**
+     * The put task for api request, includes a post body.
+     *
+     * @param request The request object to consume the endpoint with.
+     * @return Responses Entity object of the data.
+     */
+    private ResponseEntity putTask(@NotNull ApiRequest request) {
+        HttpEntity postRequestBody = new HttpEntity(request.getPostParams(), request.getHeaders());
+        return new RestTemplate().exchange(request.getUrl(), HttpMethod.PUT, postRequestBody, request.getClazz());
     }
 
     /**

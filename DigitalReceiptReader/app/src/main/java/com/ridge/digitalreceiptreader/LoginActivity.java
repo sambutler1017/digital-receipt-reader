@@ -3,9 +3,11 @@ package com.ridge.digitalreceiptreader;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.ridge.digitalreceiptreader.service.login.LoginService;
 
@@ -19,6 +21,8 @@ public class LoginActivity extends AppCompatActivity {
     private LoginService loginService;
 
     private Button loginButton;
+
+    private TextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
      * Initializes any elements that are being used in the activity.
      */
     private void initElements() {
+        forgotPassword = findViewById(R.id.forgot_password_textView__login);
         loginButton = findViewById(R.id.login_button__login);
     }
 
@@ -47,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
      * Initializes any listeners that are being used in the activity.
      */
     private void initListeners() {
+        forgotPassword.setOnClickListener(v -> loginService.onForgotPassword());
         loginButton.setOnClickListener(v -> loginService.onLogin());
     }
 
