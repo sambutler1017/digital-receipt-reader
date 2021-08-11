@@ -27,8 +27,15 @@ public class User {
     @JsonProperty("webRole")
     private WebRole webRole;
 
+    @JsonProperty("password")
+    private String password;
+
+    @JsonProperty("forgotPassword")
+    private boolean forgotPassword;
+
     @JsonProperty("insertDate")
     private Date insertDate;
+
 
     public int getId() {
         return id;
@@ -68,6 +75,22 @@ public class User {
 
     public void setWebRole(WebRole webRole) {
         this.webRole = webRole;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isForgotPassword() {
+        return forgotPassword;
+    }
+
+    public void setForgotPassword(boolean forgotPassword) {
+        this.forgotPassword = forgotPassword;
     }
 
     public Date getInsertDate() {

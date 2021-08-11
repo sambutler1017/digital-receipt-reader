@@ -43,7 +43,7 @@ public class AuthClient {
      */
     public Single<ResponseEntity<DigitalReceiptToken>> authenticate(AuthenticationRequest authRequest) {
         Single<ResponseEntity<DigitalReceiptToken>> observable = Single.create(
-                s -> s.onSuccess(authService.authenticate(authRequest.getUsername(), authRequest.getPassword())));
+                s -> s.onSuccess(authService.authenticate(authRequest.getEmail(), authRequest.getPassword())));
         return observable.subscribeOn(Schedulers.newThread());
     }
 }

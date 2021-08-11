@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
  */
 public class ApiClient {
     private final String ACTIVE_URL;
-    private final String BASE_URL = "https://digital-receipt-api.herokuapp.com";
+    private final String BASE_URL = "https://digital-receipt-reader-api.herokuapp.com";
     private final String LOCAL_URL = "http://10.0.2.2:8080";
 
     /**
