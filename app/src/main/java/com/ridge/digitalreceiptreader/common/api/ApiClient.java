@@ -15,14 +15,15 @@ import org.springframework.http.ResponseEntity;
  */
 public class ApiClient {
     private final String ACTIVE_URL;
-    private final String BASE_URL = "https://digital-receipt-reader-api.herokuapp.com";
+    private final String PROD_URL = "https://digital-receipt-production.herokuapp.com";
+    private final String DEV_URL = "https://digital-receipt-development.herokuapp.com";
     private final String LOCAL_URL = "http://10.0.2.2:8080";
 
     /**
      * Default constructor to set active url.
      */
     public ApiClient() {
-        ACTIVE_URL = BASE_URL;
+        ACTIVE_URL = PROD_URL;
     }
 
     /**
