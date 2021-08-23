@@ -1,10 +1,9 @@
-package com.ridge.digitalreceiptreader.service.login;
+package com.ridge.digitalreceiptreader.service;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +14,6 @@ import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
 import com.ridge.digitalreceiptreader.app.email.client.EmailClient;
-import com.ridge.digitalreceiptreader.service.toast.ToastService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +27,8 @@ import org.springframework.http.ResponseEntity;
 public class LoginService {
     private final Activity currentActivity;
     private ToastService toastService;
+    private LocalStorageService localStorage;
+
     private AuthClient authClient;
     private EmailClient emailClient;
 
@@ -62,6 +62,7 @@ public class LoginService {
      * Initializes any service classes being used in the activity.
      */
     private void initServices() {
+        localStorage = new LocalStorageService(currentActivity);
         toastService = new ToastService(currentActivity);
     }
 
@@ -69,7 +70,6 @@ public class LoginService {
      * Initializes any elements that are being used in the activity.
      */
     private void initElements() {
-
         emailInput = currentActivity.findViewById(R.id.email_textbox__login);
         passwordInput = currentActivity.findViewById(R.id.password_textbox__login);
         loginButton = currentActivity.findViewById(R.id.login_button__login);
@@ -111,7 +111,7 @@ public class LoginService {
     private void validateToken(ResponseEntity<DigitalReceiptToken> authToken) {
         if (authToken.getStatusCode().equals(HttpStatus.OK)) {
             toastService.showSuccess("Logged in Successfully!");
-            storeToken(authToken.getBody().getToken());
+            localStorage.setToken(authToken.getBody().getToken());
             Intent intent = new Intent(currentActivity, MainActivity.class);
             currentActivity.startActivity(intent);
         } else {
@@ -134,18 +134,5 @@ public class LoginService {
     private void hideLoading() {
         loadingIndicator.setVisibility(View.GONE);
         loginButton.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * Stores the users auth token in shared preferences.
-     *
-     * @param token The token to be stored.
-     */
-    private void storeToken(String token) {
-        SharedPreferences settings = currentActivity.getSharedPreferences("PREF_TOKEN", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("AUTH_TOKEN", token);
-
-        editor.commit();
     }
 }

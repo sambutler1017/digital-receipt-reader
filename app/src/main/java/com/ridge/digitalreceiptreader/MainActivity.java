@@ -3,6 +3,7 @@ package com.ridge.digitalreceiptreader;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.ridge.digitalreceiptreader.service.LocalStorageService;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

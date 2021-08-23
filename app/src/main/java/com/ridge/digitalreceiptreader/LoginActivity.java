@@ -2,14 +2,11 @@ package com.ridge.digitalreceiptreader;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.SharedPreferences;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.ridge.digitalreceiptreader.service.login.LoginService;
+import com.ridge.digitalreceiptreader.service.LoginService;
 
 /**
  * Login Activity class for handling functionality with the login screen.
