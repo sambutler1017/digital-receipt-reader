@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.service.toast;
+package com.ridge.digitalreceiptreader.service;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -24,7 +24,7 @@ public class ToastService {
     private Context currentContext;
 
     /**
-     * Sets the currentConext to the passed in activity context
+     * Sets the current Context to the passed in activity context
      *
      * @param context Current context of the Activity
      */
