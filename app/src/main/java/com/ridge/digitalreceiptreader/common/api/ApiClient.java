@@ -65,7 +65,7 @@ public class ApiClient {
      * Posts a given object to the provided api endpoint. Will use absolute path.
      *
      * @param url       The url to consume the endpoint too.
-     * @param paramBody The parambody that should be posted.
+     * @param paramBody The param body that should be posted.
      * @param clazz     What class the return type should be mapped too.
      * @param <T>       Type of class to return.
      * @param <R>       Object of the post body.
@@ -86,7 +86,7 @@ public class ApiClient {
      * url.
      *
      * @param url       The url to consume the endpoint too.
-     * @param paramBody The parambody that should be posted.
+     * @param paramBody The param body that should be posted.
      * @param clazz     What class the return type should be mapped too.
      * @param <T>       Type of class to return.
      * @param <R>       Object of the post body.
@@ -105,7 +105,7 @@ public class ApiClient {
      * Updates a given object to the provided api endpoint. Will use absolute path.
      *
      * @param url       The url to consume the endpoint too.
-     * @param paramBody The parambody that should be posted.
+     * @param paramBody The param body that should be posted.
      * @param clazz     What class the return type should be mapped too.
      * @param <T>       Type of class to return.
      * @param <R>       Object of the post body.
@@ -126,7 +126,7 @@ public class ApiClient {
      * url.
      *
      * @param url       The url to consume the endpoint too.
-     * @param paramBody The parambody that should be posted.
+     * @param paramBody The param body that should be posted.
      * @param clazz     What class the return type should be mapped too.
      * @param <T>       Type of class to return.
      * @param <R>       Object of the post body.
