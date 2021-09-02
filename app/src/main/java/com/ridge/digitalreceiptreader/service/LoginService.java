@@ -81,9 +81,11 @@ public class LoginService {
      * Login click event for when the user clicks the login button.
      */
     public void onLogin() {
+        String email = emailInput.getText().toString().trim() == "" ? " " : emailInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim() == "" ? " " : passwordInput.getText().toString().trim();
+
         showLoading();
-        authClient.authenticate(emailInput.getText().toString(), passwordInput.getText().toString())
-                .subscribe(res -> currentActivity.runOnUiThread(() -> validateToken(res)));
+        authClient.authenticate(email, password).subscribe(res -> currentActivity.runOnUiThread(() -> validateToken(res)));
     }
 
     /**
