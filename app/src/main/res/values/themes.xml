@@ -3,7 +3,7 @@
     <style name="Theme.DigitalReceiptReader" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_300</item>
-        <item name="colorPrimaryVariant">@color/blue_300</item>
+        <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue_300</item>
