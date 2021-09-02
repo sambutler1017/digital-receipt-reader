@@ -34,29 +34,34 @@
 
     <Button
         android:id="@+id/login_button__login"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="188dp"
-        android:layout_height="46dp"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        app:backgroundTint="@null"
+        android:background="@drawable/blue_gradient_round_button"
         android:text="Login"
-        app:cornerRadius="280dip"
+        app:cornerRadius="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.792"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_textbox__login"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.116" />
 
     <TextView
         android:id="@+id/app_header_textView__login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/app_name"
+        android:text="@string/login"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="24sp"
+        android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/email_textbox__login"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.506" />
 
     <TextView
         android:id="@+id/forgot_password_textView__login"
