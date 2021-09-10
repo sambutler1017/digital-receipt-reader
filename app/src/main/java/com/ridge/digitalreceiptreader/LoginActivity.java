@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ridge.digitalreceiptreader.service.LoginService;
+import com.ridge.digitalreceiptreader.service.NfcService;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Login Activity class for handling functionality with the login screen.
@@ -24,6 +27,8 @@ import com.ridge.digitalreceiptreader.service.LoginService;
  */
 public class LoginActivity extends AppCompatActivity {
     private LoginService loginService;
+
+    private NfcService nfcService;
 
     private Button loginButton;
 
@@ -35,58 +40,28 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        initNfcAdapter();
         initialization();
+
+        nfcService.initAdapter();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        enableNfcForegroundDispatch();
+        nfcService.enableNfcForegroundDispatch();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        disableNfcForegroundDispatch();
+        nfcService.disableNfcForegroundDispatch();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-            if (rawMessages != null) {
-                NdefMessage[] messages = new NdefMessage[rawMessages.length];
-                for (int i = 0; i < rawMessages.length; i++) {
-                    messages[i] = (NdefMessage) rawMessages[i];
-                }
-            }
-        }
-    }
-
-    private void enableNfcForegroundDispatch() {
-        try {
-            Intent intent = new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            PendingIntent nfcPendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-            adapter.enableForegroundDispatch(this, nfcPendingIntent, null, null);
-        } catch (IllegalStateException ex) {
-            Log.e("NFC", "Error enabling NFC foreground dispatch");
-        }
-    }
-
-    private void disableNfcForegroundDispatch() {
-        try {
-            adapter.disableForegroundDispatch(this);
-        } catch (IllegalStateException ex) {
-            Log.e("NFC", "Error disabling NFC foreground dispatch");
-        }
-    }
-
-    private void initNfcAdapter() {
-        NfcManager nfcManager = (NfcManager)getSystemService(Context.NFC_SERVICE);
-        adapter = nfcManager.getDefaultAdapter();
+        NdefMessage[] messages = nfcService.readTag(intent);
+        Log.i("Nfc Tag", nfcService.buildTagView(messages[0]));
     }
 
     /**
@@ -118,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
      * Initializes any services being used by the activity.
      */
     private void initServices() {
-        loginService = new LoginService(LoginActivity.this);
+        loginService = new LoginService(this);
+        nfcService = new NfcService(this);
     }
 }
