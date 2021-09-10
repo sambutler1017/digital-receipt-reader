@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Larger blue circle in back -->
+    <item>
+        <shape android:shape="rectangle">
+            <size
+                android:width="20dp"
+                android:height="20dp"/>
+            <corners
+                android:bottomRightRadius="100dp"
+                android:bottomLeftRadius="100dp"
+                android:radius="40dp" />
+            <gradient
+                android:angle="180"
+                android:endColor="@color/blue_300"
+                android:startColor="@color/blue_100"
+                android:type="linear" />
+            <padding android:top="30dp"></padding>
+            <padding android:left="10dp"></padding>
+        </shape>
+    </item>
+    <!-- Smaller red circle in front -->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- transparent stroke = larger_circle_size - smaller_circle_size -->
+            <stroke android:color="@android:color/transparent"
+                android:width="20dp"/>
+            <gradient
+                android:angle="90"
+                android:endColor="@color/blue_100"
+                android:startColor="@color/blue_300"
+                android:type="linear" />
+            <size
+                android:width="5dp"
+                android:height="5dp"/>
+            <corners
+                android:bottomRightRadius="50dp"
+                android:bottomLeftRadius="100dp"
+                android:topLeftRadius="20dp"
+                android:radius="40dp" />
+        </shape>
+    </item>
+</layer-list>
