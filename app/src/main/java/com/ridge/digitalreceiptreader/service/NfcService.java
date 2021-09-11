@@ -53,6 +53,10 @@ public class NfcService {
      * of the NFC adapter so it can pick up the information from the tag.
      */
     public void enableNfcForegroundDispatch() {
+        if(adapter == null) {
+            return;
+        }
+
         try {
             Intent intent = new Intent(currentActivity, currentActivity.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent nfcPendingIntent = PendingIntent.getActivity(currentActivity, 0, intent, 0);
@@ -67,6 +71,10 @@ public class NfcService {
      * we need to disable the adapter.
      */
     public void disableNfcForegroundDispatch() {
+        if(adapter == null) {
+            return;
+        }
+
         try {
             adapter.disableForegroundDispatch(currentActivity);
         } catch (IllegalStateException ex) {
@@ -82,6 +90,10 @@ public class NfcService {
      * @return {@link NdefMessage} of the data read from the tag.
      */
     public NdefMessage[] readTag(Intent intent) {
+        if(adapter == null) {
+            return null;
+        }
+
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             if (rawMessages != null) {
@@ -103,6 +115,10 @@ public class NfcService {
      * @return {@link String} of the data in the message.
      */
     public String buildTagView(NdefMessage msg) {
+        if(adapter == null) {
+            return null;
+        }
+
         if (msg == null) return "";
 
         String text = "";
