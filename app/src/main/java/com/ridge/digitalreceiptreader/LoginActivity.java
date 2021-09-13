@@ -2,22 +2,15 @@ package com.ridge.digitalreceiptreader;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.nfc.NdefMessage;
-import android.nfc.NfcAdapter;
-import android.nfc.NfcManager;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.ridge.digitalreceiptreader.service.LoginService;
 import com.ridge.digitalreceiptreader.service.NfcService;
-
-import java.io.UnsupportedEncodingException;
 
 /**
  * Login Activity class for handling functionality with the login screen.
@@ -33,8 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
 
     private TextView forgotPassword;
-
-    private NfcAdapter adapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
