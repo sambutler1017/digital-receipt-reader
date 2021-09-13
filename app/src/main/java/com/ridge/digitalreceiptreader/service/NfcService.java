@@ -23,7 +23,7 @@ public class NfcService {
 
     private NfcAdapter adapter = null;
 
-    private ToastService toastService;
+    private final ToastService toastService;
 
     /**
      * Sets default values for the class.
@@ -49,7 +49,7 @@ public class NfcService {
     }
 
     /**
-     * When the application starts and the processes are in the foreground. This will endable the dispatch 
+     * When the application starts and the processes are in the foreground. This will enable the dispatch
      * of the NFC adapter so it can pick up the information from the tag.
      */
     public void enableNfcForegroundDispatch() {
@@ -67,7 +67,7 @@ public class NfcService {
     }
 
     /**
-     * When the application is closed or clossing or we don't want to read NFC tags at this time then
+     * When the application is closed or closing or we don't want to read NFC tags at this time then
      * we need to disable the adapter.
      */
     public void disableNfcForegroundDispatch() {
@@ -124,7 +124,7 @@ public class NfcService {
         String text = "";
         byte[] payload = msg.getRecords()[0].getPayload();
         String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
-        int languageCodeLength = payload[0] & 0063;
+        int languageCodeLength = payload[0] & 0x0063;
 
         try {
             text = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
