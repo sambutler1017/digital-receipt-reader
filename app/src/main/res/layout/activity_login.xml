@@ -9,7 +9,7 @@
     <EditText
         android:id="@+id/email_textbox__login"
         android:layout_width="307dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="300dp"
         android:ems="10"
         android:hint="Email"
@@ -27,6 +27,7 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +37,7 @@
     <Button
         android:id="@+id/login_button__login"
         android:layout_width="164dp"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:background="@drawable/blue_gradient_round_button"
         android:text="Login"
         android:textColor="@color/white"
@@ -73,6 +74,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:linksClickable="true"
+        android:minHeight="48dp"
         android:text="Forgot Password?"
         android:textColor="@color/blue_300"
         android:textStyle="bold"
@@ -116,11 +118,13 @@
         android:id="@+id/textView2"
         android:layout_width="268dp"
         android:layout_height="281dp"
-        android:layout_marginStart="228dp"
-        android:layout_marginLeft="228dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginLeft="244dp"
+        android:layout_marginTop="-50dp"
         android:background="@drawable/login_background"
         android:rotation="-40"
-        app:layout_constraintBottom_toTopOf="@+id/email_textbox__login"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

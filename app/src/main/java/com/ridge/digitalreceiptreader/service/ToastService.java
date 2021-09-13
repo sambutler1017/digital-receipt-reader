@@ -3,11 +3,9 @@ package com.ridge.digitalreceiptreader.service;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +19,7 @@ import com.ridge.digitalreceiptreader.R;
  * @since July 28, 2021
  */
 public class ToastService {
-    private Context currentContext;
+    private final Context currentContext;
 
     /**
      * Sets the current Context to the passed in activity context
@@ -76,7 +74,7 @@ public class ToastService {
     }
 
     /**
-     * Get the default view layout for the toast message witht he given message and
+     * Get the default view layout for the toast message with he given message and
      * background color.
      *
      * @param backgroundColor Color to set the background of the toast message
@@ -101,7 +99,7 @@ public class ToastService {
      * @param layout  View for color to be applied too.
      */
     private void setBackgroundColor(String bgColor, View layout) {
-        LinearLayout square = (LinearLayout) layout.findViewById(R.id.toast_background);
+        LinearLayout square = layout.findViewById(R.id.toast_background);
         square.getBackground().setColorFilter(Color.parseColor(bgColor), PorterDuff.Mode.SRC_ATOP);
     }
 
@@ -112,7 +110,7 @@ public class ToastService {
      * @param layout  Layout to display message on.
      */
     private void setTextViewMessage(String message, View layout) {
-        TextView textView = (TextView) layout.findViewById(R.id.toast_message);
+        TextView textView = layout.findViewById(R.id.toast_message);
         textView.setText(message);
         textView.setTextColor(Color.WHITE);
     }

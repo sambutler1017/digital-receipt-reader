@@ -1,7 +1,5 @@
 package com.ridge.digitalreceiptreader;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,7 +12,7 @@ import com.ridge.digitalreceiptreader.service.LoginService;
  * @author Sam Butler
  * @since July 28, 2021
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends NFCEnabledActivity {
     private LoginService loginService;
 
     private Button loginButton;
@@ -25,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         initialization();
     }
 
@@ -57,6 +56,6 @@ public class LoginActivity extends AppCompatActivity {
      * Initializes any services being used by the activity.
      */
     private void initServices() {
-        loginService = new LoginService(LoginActivity.this);
+        loginService = new LoginService(this);
     }
 }
