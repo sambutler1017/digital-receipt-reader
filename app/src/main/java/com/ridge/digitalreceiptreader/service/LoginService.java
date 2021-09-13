@@ -11,7 +11,6 @@ import com.ridge.digitalreceiptreader.MainActivity;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
-import com.ridge.digitalreceiptreader.app.email.client.EmailClient;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +27,6 @@ public class LoginService {
     private LocalStorageService localStorage;
 
     private AuthClient authClient;
-    private EmailClient emailClient;
 
     private EditText emailInput;
     private EditText passwordInput;
@@ -53,7 +51,6 @@ public class LoginService {
      */
     private void initClients() {
         authClient = new AuthClient(currentActivity);
-        emailClient = new EmailClient(currentActivity);
     }
 
     /**
@@ -91,14 +88,7 @@ public class LoginService {
      */
     public void onForgotPassword() {
         showLoading();
-        emailClient.forgotPassword(emailInput.getText().toString()).subscribe(res -> currentActivity.runOnUiThread(() -> {
-            if (res.getStatusCode().equals(HttpStatus.OK)) {
-                toastService.showSuccess("Forgot Password email sent!");
-            } else {
-                toastService.showError("User does not exist for that email!");
-            }
-            hideLoading();
-        }));
+        // Route to the new Intent to handle forgot Password
     }
 
     /**
