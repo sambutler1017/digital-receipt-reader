@@ -1,9 +1,7 @@
 package com.ridge.digitalreceiptreader.service;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,8 +79,8 @@ public class LoginService {
      * Login click event for when the user clicks the login button.
      */
     public void onLogin() {
-        String email = emailInput.getText().toString().trim() == "" ? " " : emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim() == "" ? " " : passwordInput.getText().toString().trim();
+        String email = emailInput.getText().toString().trim().equals("") ? " " : emailInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim().equals("") ? " " : passwordInput.getText().toString().trim();
 
         showLoading();
         authClient.authenticate(email, password).subscribe(res -> currentActivity.runOnUiThread(() -> validateToken(res)));
