@@ -1,16 +1,10 @@
 package com.ridge.digitalreceiptreader;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.nfc.NdefMessage;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.ridge.digitalreceiptreader.service.LoginService;
-import com.ridge.digitalreceiptreader.service.NfcService;
 
 /**
  * Login Activity class for handling functionality with the login screen.
@@ -18,10 +12,8 @@ import com.ridge.digitalreceiptreader.service.NfcService;
  * @author Sam Butler
  * @since July 28, 2021
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends NFCEnabledActivity {
     private LoginService loginService;
-
-    private NfcService nfcService;
 
     private Button loginButton;
 
@@ -31,28 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         initialization();
-
-        nfcService.initAdapter();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        nfcService.enableNfcForegroundDispatch();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        nfcService.disableNfcForegroundDispatch();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        NdefMessage[] messages = nfcService.readTag(intent);
-        Log.i("Nfc Tag", nfcService.buildTagView(messages[0]));
     }
 
     /**
@@ -85,6 +57,5 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void initServices() {
         loginService = new LoginService(this);
-        nfcService = new NfcService(this);
     }
 }

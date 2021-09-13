@@ -1,8 +1,10 @@
 package com.ridge.digitalreceiptreader.service;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
@@ -23,8 +25,6 @@ public class NfcService {
 
     private NfcAdapter adapter = null;
 
-    private final ToastService toastService;
-
     /**
      * Sets default values for the class.
      *
@@ -32,7 +32,6 @@ public class NfcService {
      */
     public NfcService(Activity a) {
         currentActivity = a;
-        toastService = new ToastService(currentActivity);
     }
 
     /**
@@ -44,7 +43,13 @@ public class NfcService {
         NfcManager nfcManager = (NfcManager)currentActivity.getSystemService(Context.NFC_SERVICE);
         adapter = nfcManager.getDefaultAdapter();
         if(adapter == null) {
-            toastService.showWarning("This device does not support NFC");
+            AlertDialog.Builder alert = new AlertDialog.Builder(currentActivity);
+            alert.setTitle("Warning!");
+            alert.setMessage("This device does not support NFC. You will not be able to scan in receipts. Do you want to continue?");
+            alert.setPositiveButton("Continue", null);
+            alert.setNegativeButton("Close", (dialog, id) -> currentActivity.finish());
+            alert.setCancelable(false);
+            alert.create().show();
         }
     }
 
