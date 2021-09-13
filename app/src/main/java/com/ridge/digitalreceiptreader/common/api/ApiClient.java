@@ -1,7 +1,12 @@
 package com.ridge.digitalreceiptreader.common.api;
 
+import android.app.Activity;
 import android.util.Log;
 
+import com.ridge.digitalreceiptreader.MainActivity;
+import com.ridge.digitalreceiptreader.service.LocalStorageService;
+
+import org.springframework.http.HttpAuthentication;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -18,11 +23,14 @@ public class ApiClient {
     private final String PROD_URL = "https://digital-receipt-production.herokuapp.com";
     private final String LOCAL_URL = "http://10.0.2.2:8080";
 
+    private LocalStorageService localStorage;
+
     /**
      * Default constructor to set active url.
      */
-    public ApiClient() {
+    public ApiClient(Activity act) {
         ACTIVE_URL = PROD_URL;
+        localStorage = new LocalStorageService(act);
     }
 
     /**
@@ -37,7 +45,7 @@ public class ApiClient {
     public <T> ResponseEntity<T> get(String url, Class<T> clazz) {
         Log.d("API client request", HttpMethod.GET.toString() + " -> " + buildUrl(url));
         try {
-            return new ApiTask<T>().execute(new ApiRequest(buildUrl(url), HttpMethod.GET, clazz, getHeaders())).get();
+            return new ApiTask<T>().execute(new ApiRequest(buildUrl(url), HttpMethod.GET, clazz, getHeadersWithToken())).get();
         } catch (Exception e) {
             return null;
         }
@@ -55,7 +63,7 @@ public class ApiClient {
     public <T> ResponseEntity<T> getOverrideUrl(String url, Class<T> clazz) {
         Log.d("API client request", HttpMethod.GET.toString() + " -> " + url);
         try {
-            return new ApiTask<T>().execute(new ApiRequest(buildUrl(url), HttpMethod.GET, clazz, getHeaders())).get();
+            return new ApiTask<T>().execute(new ApiRequest(buildUrl(url), HttpMethod.GET, clazz, getHeadersWithToken())).get();
         } catch (Exception e) {
             return null;
         }
@@ -75,7 +83,7 @@ public class ApiClient {
         Log.d("API client request", HttpMethod.POST.toString() + " -> " + buildUrl(url));
         try {
             return new ApiTask<T>()
-                    .execute(new ApiRequest(buildUrl(url), HttpMethod.POST, clazz, getHeaders(), paramBody)).get();
+                    .execute(new ApiRequest(buildUrl(url), HttpMethod.POST, clazz, getHeadersWithToken(), paramBody)).get();
         } catch (Exception e) {
             return null;
         }
@@ -95,7 +103,7 @@ public class ApiClient {
     public <T, R> ResponseEntity<T> postOverrideUrl(String url, R paramBody, Class<T> clazz) {
         Log.d("API client request", HttpMethod.POST.toString() + " -> " + url);
         try {
-            return new ApiTask<T>().execute(new ApiRequest(url, HttpMethod.POST, clazz, getHeaders(), paramBody)).get();
+            return new ApiTask<T>().execute(new ApiRequest(url, HttpMethod.POST, clazz, getHeadersWithToken(), paramBody)).get();
         } catch (Exception e) {
             return null;
         }
@@ -115,7 +123,7 @@ public class ApiClient {
         Log.d("API client request", HttpMethod.PUT.toString() + " -> " + buildUrl(url));
         try {
             return new ApiTask<T>()
-                    .execute(new ApiRequest(buildUrl(url), HttpMethod.PUT, clazz, getHeaders(), paramBody)).get();
+                    .execute(new ApiRequest(buildUrl(url), HttpMethod.PUT, clazz, getHeadersWithToken(), paramBody)).get();
         } catch (Exception e) {
             return null;
         }
@@ -135,7 +143,7 @@ public class ApiClient {
     public <T, R> ResponseEntity<T> putOverrideUrl(String url, R paramBody, Class<T> clazz) {
         Log.d("API client request", HttpMethod.PUT.toString() + " -> " + url);
         try {
-            return new ApiTask<T>().execute(new ApiRequest(url, HttpMethod.PUT, clazz, getHeaders(), paramBody)).get();
+            return new ApiTask<T>().execute(new ApiRequest(url, HttpMethod.PUT, clazz, getHeadersWithToken(), paramBody)).get();
         } catch (Exception e) {
             return null;
         }
@@ -184,7 +192,7 @@ public class ApiClient {
      */
     private HttpHeaders getHeadersWithToken() {
         HttpHeaders headersWithToken = getHeaders();
-        headersWithToken.set("Authorization", "Bearer: " + "");
+        headersWithToken.set("Authorization", "Bearer: " + localStorage.getToken());
         return headersWithToken;
     }
 }

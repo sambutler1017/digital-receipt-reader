@@ -48,11 +48,6 @@ public class ApiTask<T> extends AsyncTask<ApiRequest, Void, ResponseEntity<T>> {
         }
     }
 
-    protected void onPostExecute(@NotNull ResponseEntity<DigitalReceiptToken> result) {
-        HttpStatus statusCode = result.getStatusCode();
-        DigitalReceiptToken authToken = result.getBody();
-    }
-
     /**
      * The get task for api request.
      *
@@ -60,7 +55,8 @@ public class ApiTask<T> extends AsyncTask<ApiRequest, Void, ResponseEntity<T>> {
      * @return Responses Entity object of the data.
      */
     private ResponseEntity getTask(@NotNull ApiRequest request) {
-        return new RestTemplate().getForEntity(request.getUrl(), request.getClazz());
+        HttpEntity requestEntity = new HttpEntity(request.getHeaders());
+        return new RestTemplate().exchange(request.getUrl(), HttpMethod.GET, requestEntity, request.getClazz());
     }
 
     /**

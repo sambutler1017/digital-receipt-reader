@@ -1,5 +1,7 @@
 package com.ridge.digitalreceiptreader.app.email.client;
 
+import android.app.Activity;
+
 import com.ridge.digitalreceiptreader.app.email.service.EmailService;
 import com.ridge.digitalreceiptreader.app.user.domain.User;
 
@@ -11,8 +13,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class EmailClient {
     private EmailService emailService;
 
-    public EmailClient() {
-        emailService = new EmailService();
+    public EmailClient(Activity act) {
+        emailService = new EmailService(act);
     }
 
     /**
