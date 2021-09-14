@@ -7,7 +7,7 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ridge.digitalreceiptreader.service.NfcService;
+import com.ridge.digitalreceiptreader.ui.service.NfcService;
 
 /**
  * Activity that is meant to be extended from so the child activity can
@@ -43,6 +43,6 @@ public class NFCEnabledActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         NdefMessage[] messages = nfcService.readTag(intent);
-        Log.i("Nfc Tag", nfcService.buildTagView(messages[0]));
+        Log.i("Nfc Tag", "Receipt Id: " + nfcService.parseMessage(messages[0]).getTransmittedId());
     }
 }

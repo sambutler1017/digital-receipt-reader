@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.service;
+package com.ridge.digitalreceiptreader.ui.service;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import com.ridge.digitalreceiptreader.MainActivity;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
+import com.ridge.digitalreceiptreader.service.JwtHolder;
+import com.ridge.digitalreceiptreader.service.LocalStorageService;
+import com.ridge.digitalreceiptreader.service.ToastService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +28,7 @@ public class LoginService {
     private final Activity currentActivity;
     private ToastService toastService;
     private LocalStorageService localStorage;
+    private JwtHolder jwtHolder;
 
     private AuthClient authClient;
 
@@ -40,7 +44,7 @@ public class LoginService {
      */
     public LoginService(Activity a) {
         currentActivity = a;
-
+        jwtHolder = new JwtHolder(a);
         initElements();
         initServices();
         initClients();

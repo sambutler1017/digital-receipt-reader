@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.ridge.digitalreceiptreader.service.LoginService;
+import com.ridge.digitalreceiptreader.ui.service.LoginService;
 
 /**
  * Login Activity class for handling functionality with the login screen.
