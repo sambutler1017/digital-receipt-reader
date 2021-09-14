@@ -27,7 +27,7 @@ public class NfcService {
 
     private NfcAdapter adapter = null;
 
-    private JwtHolder jwtHolder;
+    private final JwtHolder jwtHolder;
 
     /**
      * Sets default values for the class.

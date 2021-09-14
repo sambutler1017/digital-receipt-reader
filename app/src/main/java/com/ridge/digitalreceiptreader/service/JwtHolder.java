@@ -13,7 +13,7 @@ import java.util.Base64;
  * @since September 14, 2021
  */
 public class JwtHolder {
-    private LocalStorageService localStorage;
+    private final LocalStorageService localStorage;
 
     public JwtHolder(Activity act) {
         localStorage = new LocalStorageService(act);
