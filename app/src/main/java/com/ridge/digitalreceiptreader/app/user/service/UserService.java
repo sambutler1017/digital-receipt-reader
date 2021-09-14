@@ -30,4 +30,6 @@ public class UserService {
     public ResponseEntity<User> getCurrentUser() {
         return apiClient.get(String.format("%s/current-user", BASE_PATH), User.class);
     }
+
+    // (Class<List<User>>)(Object)List.class
 }
