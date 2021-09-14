@@ -41,7 +41,7 @@ public class UserService {
      * @param request to filter on
      * @return list of user objects
      */
-    public ResponseEntity<List<User>> getUsers(UserGetRequest request) {
-        return apiClient.get(String.format("%s%s", BASE_PATH, request.getUrlParamPath()), (Class<List<User>>)(Object)List.class);
+    public ResponseEntity<User[]> getUsers(UserGetRequest request) {
+        return apiClient.get(String.format("%s%s", BASE_PATH, request.getUrlParamPath()), User[].class);
     }
 }

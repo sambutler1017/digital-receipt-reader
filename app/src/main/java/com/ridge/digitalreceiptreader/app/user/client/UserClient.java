@@ -43,8 +43,8 @@ public class UserClient {
      * @param request to filter on
      * @return list of user objects
      */
-    public Single<ResponseEntity<List<User>>> getUsers(UserGetRequest request) {
-        Single<ResponseEntity<List<User>>> observable = Single
+    public Single<ResponseEntity<User[]>> getUsers(UserGetRequest request) {
+        Single<ResponseEntity<User[]>> observable = Single
                 .create(s -> s.onSuccess(userService.getUsers(request)));
         return observable.subscribeOn(Schedulers.newThread());
     }

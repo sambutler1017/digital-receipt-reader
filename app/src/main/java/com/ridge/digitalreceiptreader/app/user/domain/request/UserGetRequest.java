@@ -76,6 +76,6 @@ public class UserGetRequest {
         String endpointParams = Arrays.asList(idString, emailString, firstNameString, lastNameString).stream()
                 .filter(v -> v != "").collect(Collectors.joining("&"));
 
-        return endpointParams;
+        return endpointParams.trim() != "" ? "?" + endpointParams : "";
     }
 }

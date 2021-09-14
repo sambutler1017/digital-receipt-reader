@@ -109,6 +109,7 @@ public class LoginService {
             hideLoading();
             Intent intent = new Intent(currentActivity, MainActivity.class);
             currentActivity.startActivity(intent);
+
         } else {
             toastService.showError("Invalid Credentials!");
             hideLoading();
