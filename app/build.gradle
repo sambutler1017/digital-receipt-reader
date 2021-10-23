@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.ridge.digitalreceiptreader"
-        minSdkVersion 30
+        minSdkVersion 28
         targetSdkVersion 30
         versionCode 3
         versionName "1.3"
