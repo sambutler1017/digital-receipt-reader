@@ -1,5 +1,7 @@
 package com.ridge.digitalreceiptreader.app.email.service;
 
+import android.app.Activity;
+
 import com.ridge.digitalreceiptreader.app.user.domain.User;
 import com.ridge.digitalreceiptreader.common.api.ApiClient;
 
@@ -15,8 +17,8 @@ import org.springframework.http.ResponseEntity;
 public class EmailService {
     private ApiClient apiClient;
 
-    public EmailService() {
-        apiClient = new ApiClient();
+    public EmailService(Activity act) {
+        apiClient = new ApiClient(act);
     }
 
     /**

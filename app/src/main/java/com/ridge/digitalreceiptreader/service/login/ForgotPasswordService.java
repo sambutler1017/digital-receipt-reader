@@ -48,7 +48,7 @@ public class ForgotPasswordService {
      * Initializes any clients to be used for api calls.
      */
     private void initClients() {
-        emailClient = new EmailClient();
+        emailClient = new EmailClient(currentActivity);
     }
 
     /**

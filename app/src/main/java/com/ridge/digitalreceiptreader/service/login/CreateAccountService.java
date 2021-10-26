@@ -49,7 +49,7 @@ public class CreateAccountService {
      * Initializes any clients to be used for api calls.
      */
     private void initClients() {
-        authClient = new AuthClient();
+        authClient = new AuthClient(currentActivity);
     }
 
     /**

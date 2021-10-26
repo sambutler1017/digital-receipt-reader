@@ -55,7 +55,7 @@ public class LoginService {
      * Initializes any clients to be used for api calls.
      */
     private void initClients() {
-        authClient = new AuthClient();
+        authClient = new AuthClient(currentActivity);
     }
 
     /**
@@ -115,8 +115,10 @@ public class LoginService {
         if (authToken.getStatusCode().equals(HttpStatus.OK)) {
             toastService.showSuccess("Logged in Successfully!");
             localStorage.setToken(authToken.getBody().getToken());
+            hideLoading();
             Intent intent = new Intent(currentActivity, MainActivity.class);
             currentActivity.startActivity(intent);
+
         } else {
             toastService.showError("Invalid Credentials!");
             hideLoading();

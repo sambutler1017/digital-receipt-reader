@@ -1,5 +1,7 @@
 package com.ridge.digitalreceiptreader.app.auth.client;
 
+import android.app.Activity;
+
 import com.ridge.digitalreceiptreader.app.auth.domain.AuthenticationRequest;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
 import com.ridge.digitalreceiptreader.app.auth.service.AuthService;
@@ -18,8 +20,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class AuthClient {
     private AuthService authService;
 
-    public AuthClient() {
-        authService = new AuthService();
+    public AuthClient(Activity act) {
+        authService = new AuthService(act);
     }
 
     /**

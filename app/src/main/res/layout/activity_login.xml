@@ -27,15 +27,13 @@
         android:id="@+id/email_textbox__login"
         android:layout_width="307dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="300dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.832" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/password_textbox__login"
@@ -63,10 +61,10 @@
         app:cornerRadius="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.793"
+        app:layout_constraintHorizontal_bias="0.789"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_textbox__login"
-        app:layout_constraintVertical_bias="0.233" />
+        app:layout_constraintTop_toBottomOf="@+id/forgot_password_textView__login"
+        app:layout_constraintVertical_bias="0.136" />
 
     <TextView
         android:id="@+id/app_header_textView__login"
@@ -87,8 +85,8 @@
 
     <TextView
         android:id="@+id/forgot_password_textView__login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="119dp"
+        android:layout_height="27dp"
         android:clickable="true"
         android:linksClickable="true"
         android:minHeight="48dp"
@@ -97,10 +95,11 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.825"
+        app:layout_constraintHorizontal_bias="0.835"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_textbox__login"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <ProgressBar
         android:id="@+id/loading_indicator__login"
@@ -113,8 +112,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_textbox__login"
-        app:layout_constraintVertical_bias="0.24" />
+        app:layout_constraintTop_toBottomOf="@+id/forgot_password_textView__login"
+        app:layout_constraintVertical_bias="0.136" />
 
     <TextView
         android:id="@+id/textView"
@@ -144,4 +143,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

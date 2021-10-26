@@ -46,6 +46,6 @@ public class NFCEnabledActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         NdefMessage[] messages = nfcService.readTag(intent);
-        Log.i("Nfc Tag", nfcService.buildTagView(messages[0]));
+        Log.i("Nfc Tag", "Receipt Id: " + nfcService.parseMessage(messages[0]).getTransmittedId());
     }
 }

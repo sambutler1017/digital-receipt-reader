@@ -1,5 +1,7 @@
 package com.ridge.digitalreceiptreader.app.auth.service;
 
+import android.app.Activity;
+
 import com.ridge.digitalreceiptreader.app.auth.domain.AuthenticationRequest;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
 import com.ridge.digitalreceiptreader.common.api.ApiClient;
@@ -16,8 +18,8 @@ import org.springframework.http.ResponseEntity;
 public class AuthService {
     private ApiClient apiClient;
 
-    public AuthService() {
-        apiClient = new ApiClient();
+    public AuthService(Activity act) {
+        apiClient = new ApiClient(act);
     }
 
     /**
