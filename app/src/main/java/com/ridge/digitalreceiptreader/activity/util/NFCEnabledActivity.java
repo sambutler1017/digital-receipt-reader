@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader;
+package com.ridge.digitalreceiptreader.activity.util;
 
 import android.content.Intent;
 import android.nfc.NdefMessage;
@@ -7,14 +7,15 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ridge.digitalreceiptreader.service.NfcService;
+import com.ridge.digitalreceiptreader.service.util.NfcService;
 
 /**
  * Activity that is meant to be extended from so the child activity can
  * have NFC capabilities enabled.
  *
  * @author Sam Butler
- * @since September 13, 2021
+ * @author Luke Lengel
+ * @since October 18, 2021
  */
 public class NFCEnabledActivity extends AppCompatActivity {
     private NfcService nfcService;
@@ -22,9 +23,11 @@ public class NFCEnabledActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        nfcService = new NfcService(this);
-        nfcService.initAdapter();
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override

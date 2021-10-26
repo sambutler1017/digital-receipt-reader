@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ridge.digitalreceiptreader">
+    package="com.ridge.digitalreceiptreader" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.NFC" />
-    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -12,18 +15,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/receipt_icon_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="${usesCleartextTraffic}"
-        android:theme="@style/Theme.DigitalReceiptReader">
-
-        <activity android:name=".LoginActivity">
+        android:theme="@style/Theme.DigitalReceiptReader"
+        android:usesCleartextTraffic="${usesCleartextTraffic}" >
+        <activity android:name=".activity.login.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.login.ForgotPasswordActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activity.login.CreateAccountActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activity.home.MainActivity"
             android:label="@string/app_name" />
     </application>
 

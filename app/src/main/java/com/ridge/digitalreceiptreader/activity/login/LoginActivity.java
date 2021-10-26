@@ -1,23 +1,27 @@
-package com.ridge.digitalreceiptreader;
+package com.ridge.digitalreceiptreader.activity.login;
 
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.ridge.digitalreceiptreader.service.LoginService;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.ridge.digitalreceiptreader.activity.util.NFCEnabledActivity;
+import com.ridge.digitalreceiptreader.R;
+import com.ridge.digitalreceiptreader.service.login.LoginService;
 
 /**
  * Login Activity class for handling functionality with the login screen.
  *
  * @author Sam Butler
- * @since July 28, 2021
+ * @author Luke Lengel
+ * @since October 18, 2021
  */
-public class LoginActivity extends NFCEnabledActivity {
+public class LoginActivity extends AppCompatActivity {
     private LoginService loginService;
-
     private Button loginButton;
-
     private TextView forgotPassword;
+    private TextView createUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class LoginActivity extends NFCEnabledActivity {
      */
     private void initElements() {
         forgotPassword = findViewById(R.id.forgot_password_textView__login);
+        createUser = findViewById(R.id.create_account_textView__login);
         loginButton = findViewById(R.id.login_button__login);
     }
 
@@ -49,6 +54,7 @@ public class LoginActivity extends NFCEnabledActivity {
      */
     private void initListeners() {
         forgotPassword.setOnClickListener(v -> loginService.onForgotPassword());
+        createUser.setOnClickListener(v -> loginService.onCreateUser());
         loginButton.setOnClickListener(v -> loginService.onLogin());
     }
 
