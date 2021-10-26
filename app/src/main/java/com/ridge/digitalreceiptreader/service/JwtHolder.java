@@ -3,6 +3,7 @@ package com.ridge.digitalreceiptreader.service;
 import android.app.Activity;
 
 import com.ridge.digitalreceiptreader.common.enums.WebRole;
+import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
 
 import java.util.Base64;
 

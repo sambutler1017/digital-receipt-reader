@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.ui.service;
+package com.ridge.digitalreceiptreader.service.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,7 +13,6 @@ import android.util.Log;
 
 import com.ridge.digitalreceiptreader.common.domain.NfcData;
 import com.ridge.digitalreceiptreader.service.JwtHolder;
-import com.ridge.digitalreceiptreader.service.LocalStorageService;
 
 import java.util.Date;
 
@@ -21,14 +20,14 @@ import java.util.Date;
  * Class for dealing with all initializations and readings from NFC.
  *
  * @author Sam Butler
- * @since September 10, 2021
+ * @author Luke Lengel
+ * @since October 18, 2021
  */
 public class NfcService {
     private final Activity currentActivity;
 
-    private LocalStorageService storage;
-
     private NfcAdapter adapter = null;
+    private LocalStorageService localStorage;
 
     private final JwtHolder jwtHolder;
 
@@ -40,7 +39,7 @@ public class NfcService {
     public NfcService(Activity a) {
         currentActivity = a;
         jwtHolder = new JwtHolder(a);
-        storage = new LocalStorageService(a);
+        localStorage = new LocalStorageService(currentActivity);
     }
 
     /**
@@ -51,7 +50,8 @@ public class NfcService {
     public void initAdapter() {
         NfcManager nfcManager = (NfcManager)currentActivity.getSystemService(Context.NFC_SERVICE);
         adapter = nfcManager.getDefaultAdapter();
-        if(adapter == null && !storage.getBoolean("seenWarningMessage")) {
+        if(adapter == null && !localStorage.getBoolean("nfcEnableFlag")) {
+            localStorage.setBoolean("nfcEnableFlag", true);
             AlertDialog.Builder alert = new AlertDialog.Builder(currentActivity);
             alert.setTitle("Warning!");
             alert.setMessage("This device does not support NFC. You will not be able to scan in receipts. Do you want to continue?");
@@ -59,7 +59,6 @@ public class NfcService {
             alert.setNegativeButton("Close", (dialog, id) -> currentActivity.finish());
             alert.setCancelable(false);
             alert.create().show();
-            storage.setBoolean("seenWarningMessage", true);
         }
     }
 

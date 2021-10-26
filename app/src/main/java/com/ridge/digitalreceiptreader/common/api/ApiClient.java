@@ -3,10 +3,8 @@ package com.ridge.digitalreceiptreader.common.api;
 import android.app.Activity;
 import android.util.Log;
 
-import com.ridge.digitalreceiptreader.MainActivity;
-import com.ridge.digitalreceiptreader.service.LocalStorageService;
+import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
 
-import org.springframework.http.HttpAuthentication;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
