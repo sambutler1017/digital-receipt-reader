@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.service;
+package com.ridge.digitalreceiptreader.service.login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,11 +7,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.ridge.digitalreceiptreader.MainActivity;
+import com.ridge.digitalreceiptreader.activity.login.CreateAccountActivity;
+import com.ridge.digitalreceiptreader.activity.login.ForgotPasswordActivity;
+import com.ridge.digitalreceiptreader.activity.home.MainActivity;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
-import com.ridge.digitalreceiptreader.app.email.client.EmailClient;
+import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
+import com.ridge.digitalreceiptreader.service.util.ToastService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +23,8 @@ import org.springframework.http.ResponseEntity;
  * Login service class to centralize methods being using in login activity.
  *
  * @author Sam Butler
- * @since July 28, 2021
+ * @author Luke Lengel
+ * @since October 23, 2021
  */
 public class LoginService {
     private final Activity currentActivity;
@@ -28,7 +32,6 @@ public class LoginService {
     private LocalStorageService localStorage;
 
     private AuthClient authClient;
-    private EmailClient emailClient;
 
     private EditText emailInput;
     private EditText passwordInput;
@@ -53,7 +56,6 @@ public class LoginService {
      */
     private void initClients() {
         authClient = new AuthClient();
-        emailClient = new EmailClient();
     }
 
     /**
@@ -87,18 +89,19 @@ public class LoginService {
     }
 
     /**
-     * Method for handling when the forgot password link is clicked.
+     * Method for handling when the create user link is clicked from login page.
+     */
+    public void onCreateUser() {
+        Intent intent = new Intent(currentActivity, CreateAccountActivity.class);
+        currentActivity.startActivity(intent);
+    }
+
+    /**
+     * Method for handling when the forgot password link is clicked (from the login page).
      */
     public void onForgotPassword() {
-        showLoading();
-        emailClient.forgotPassword(emailInput.getText().toString()).subscribe(res -> currentActivity.runOnUiThread(() -> {
-            if (res.getStatusCode().equals(HttpStatus.OK)) {
-                toastService.showSuccess("Forgot Password email sent!");
-            } else {
-                toastService.showError("User does not exist for that email!");
-            }
-            hideLoading();
-        }));
+        Intent intent = new Intent(currentActivity, ForgotPasswordActivity.class);
+        currentActivity.startActivity(intent);
     }
 
     /**

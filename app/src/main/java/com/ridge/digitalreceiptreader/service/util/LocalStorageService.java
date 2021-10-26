@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.service;
+package com.ridge.digitalreceiptreader.service.util;
 
 import android.app.Activity;
 import android.content.Context;

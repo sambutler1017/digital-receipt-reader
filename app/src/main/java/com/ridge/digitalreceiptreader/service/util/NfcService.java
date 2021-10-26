@@ -1,15 +1,16 @@
-package com.ridge.digitalreceiptreader.service;
+package com.ridge.digitalreceiptreader.service.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
@@ -18,12 +19,13 @@ import java.io.UnsupportedEncodingException;
  * Class for dealing with all initializations and readings from NFC.
  *
  * @author Sam Butler
- * @since September 10, 2021
+ * @author Luke Lengel
+ * @since October 18, 2021
  */
 public class NfcService {
     private final Activity currentActivity;
-
     private NfcAdapter adapter = null;
+    private LocalStorageService localStorage;
 
     /**
      * Sets default values for the class.
@@ -32,6 +34,7 @@ public class NfcService {
      */
     public NfcService(Activity a) {
         currentActivity = a;
+        localStorage = new LocalStorageService(currentActivity);
     }
 
     /**
@@ -42,7 +45,8 @@ public class NfcService {
     public void initAdapter() {
         NfcManager nfcManager = (NfcManager)currentActivity.getSystemService(Context.NFC_SERVICE);
         adapter = nfcManager.getDefaultAdapter();
-        if(adapter == null) {
+        if(adapter == null && !localStorage.getBoolean("nfcEnableFlag")) {
+            localStorage.setBoolean("nfcEnableFlag", false);
             AlertDialog.Builder alert = new AlertDialog.Builder(currentActivity);
             alert.setTitle("Warning!");
             alert.setMessage("This device does not support NFC. You will not be able to scan in receipts. Do you want to continue?");
