@@ -45,6 +45,7 @@ public class LoginService {
     public LoginService(Activity a) {
         currentActivity = a;
         jwtHolder = new JwtHolder(a);
+
         initElements();
         initServices();
         initClients();

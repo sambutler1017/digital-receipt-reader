@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.ridge.digitalreceiptreader.common.domain.NfcData;
 import com.ridge.digitalreceiptreader.service.JwtHolder;
+import com.ridge.digitalreceiptreader.service.LocalStorageService;
 
 import java.util.Date;
 
@@ -24,6 +25,8 @@ import java.util.Date;
  */
 public class NfcService {
     private final Activity currentActivity;
+
+    private LocalStorageService storage;
 
     private NfcAdapter adapter = null;
 
@@ -37,6 +40,7 @@ public class NfcService {
     public NfcService(Activity a) {
         currentActivity = a;
         jwtHolder = new JwtHolder(a);
+        storage = new LocalStorageService(a);
     }
 
     /**
@@ -47,7 +51,7 @@ public class NfcService {
     public void initAdapter() {
         NfcManager nfcManager = (NfcManager)currentActivity.getSystemService(Context.NFC_SERVICE);
         adapter = nfcManager.getDefaultAdapter();
-        if(adapter == null) {
+        if(adapter == null && !storage.getBoolean("seenWarningMessage")) {
             AlertDialog.Builder alert = new AlertDialog.Builder(currentActivity);
             alert.setTitle("Warning!");
             alert.setMessage("This device does not support NFC. You will not be able to scan in receipts. Do you want to continue?");
@@ -55,6 +59,7 @@ public class NfcService {
             alert.setNegativeButton("Close", (dialog, id) -> currentActivity.finish());
             alert.setCancelable(false);
             alert.create().show();
+            storage.setBoolean("seenWarningMessage", true);
         }
     }
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.ridge.digitalreceiptreader.service.LocalStorageService;
 import com.ridge.digitalreceiptreader.ui.service.LoginService;
 
 /**
