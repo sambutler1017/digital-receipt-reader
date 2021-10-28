@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.service;
+package com.ridge.digitalreceiptreader.service.jwt;
 
 import android.app.Activity;
 
@@ -21,9 +21,9 @@ public class JwtHolder {
     }
 
     /**
-     * Get the current userId from the request headers token
+     * Get the current userId from the request headers token.
      *
-     * @return int of the userId from the current token
+     * @return {@link Integer} of the userId from the current token.
      */
     public int getRequiredUserId() {
         try {
@@ -34,9 +34,9 @@ public class JwtHolder {
     }
 
     /**
-     * Get the current email from the request headers token
+     * Get the current email from the request headers token.
      *
-     * @return String of the email from the current token
+     * @return String of the email from the current token.
      */
     public String getRequiredEmail() {
         try {
@@ -47,9 +47,9 @@ public class JwtHolder {
     }
 
     /**
-     * Get the current webRole from the request headers token
+     * Get the current webRole from the request headers token.
      *
-     * @return String of the webRole from the current token
+     * @return String of the webRole from the current token.
      */
     public WebRole getWebRole() {
         try {

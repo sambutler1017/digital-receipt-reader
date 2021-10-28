@@ -8,8 +8,6 @@ import com.ridge.digitalreceiptreader.common.api.ApiClient;
 
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-
 /**
  * User Service which will be the middle tier between
  * the application and the api.
@@ -43,5 +41,16 @@ public class UserService {
      */
     public ResponseEntity<User[]> getUsers(UserGetRequest request) {
         return apiClient.get(String.format("%s%s", BASE_PATH, request.getUrlParamPath()), User[].class);
+    }
+
+    /**
+     * This will update the given users information. User's can only
+     * update their own information.
+     *
+     * @param user The user object to update too.
+     * @return {@link ResponseEntity<User>} of the updated user.
+     */
+    public ResponseEntity<User> updateUser(User user) {
+        return apiClient.put(BASE_PATH, user, User.class);
     }
 }

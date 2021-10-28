@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.service.login;
+package com.ridge.digitalreceiptreader.activity.login.module;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,12 +14,12 @@ import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 
 /**
- * Service class to centralize methods being using in the CreateAccountActivity.
+ * Module class to centralize methods being using in the CreateAccountActivity.
  *
  * @author Luke Lengel
  * @since October 23, 2021
  */
-public class CreateAccountService {
+public class CreateAccountModule {
     private final Activity currentActivity;
     private ToastService toastService;
 
@@ -37,7 +37,7 @@ public class CreateAccountService {
      *
      * @param a current activity.
      */
-    public CreateAccountService(Activity a) {
+    public CreateAccountModule(Activity a) {
         currentActivity = a;
 
         initElements();

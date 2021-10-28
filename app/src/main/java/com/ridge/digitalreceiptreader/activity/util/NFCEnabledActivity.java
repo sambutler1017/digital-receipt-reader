@@ -7,7 +7,7 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ridge.digitalreceiptreader.service.util.NfcService;
+import com.ridge.digitalreceiptreader.activity.util.module.NfcModule;
 
 /**
  * Activity that is meant to be extended from so the child activity can
@@ -17,8 +17,8 @@ import com.ridge.digitalreceiptreader.service.util.NfcService;
  * @author Luke Lengel
  * @since October 18, 2021
  */
-public class NFCEnabledActivity extends AppCompatActivity {
-    private NfcService nfcService;
+public abstract class NFCEnabledActivity extends AppCompatActivity {
+    private NfcModule nfcModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +33,19 @@ public class NFCEnabledActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        nfcService.enableNfcForegroundDispatch();
+        nfcModule.enableNfcForegroundDispatch();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        nfcService.disableNfcForegroundDispatch();
+        nfcModule.disableNfcForegroundDispatch();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        NdefMessage[] messages = nfcService.readTag(intent);
-        Log.i("Nfc Tag", "Receipt Id: " + nfcService.parseMessage(messages[0]).getTransmittedId());
+        NdefMessage[] messages = nfcModule.readTag(intent);
+        Log.i("Nfc Tag", "Receipt Id: " + nfcModule.parseMessage(messages[0]).getTransmittedId());
     }
 }

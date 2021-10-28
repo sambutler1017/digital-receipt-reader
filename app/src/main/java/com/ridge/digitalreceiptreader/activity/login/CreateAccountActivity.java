@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.ridge.digitalreceiptreader.R;
-import com.ridge.digitalreceiptreader.service.login.CreateAccountService;
+import com.ridge.digitalreceiptreader.activity.login.module.CreateAccountModule;
 
 /**
  * Service for handling functionality with the CreateUserActivity.
@@ -15,7 +15,7 @@ import com.ridge.digitalreceiptreader.service.login.CreateAccountService;
  * @since October 18, 2021
  */
 public class CreateAccountActivity extends AppCompatActivity {
-    private CreateAccountService createAccountService;
+    private CreateAccountModule createAccountModule;
     private Button createAccountButton;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +45,13 @@ public class CreateAccountActivity extends AppCompatActivity {
      * Initializes any listeners that are being used in the activity.
      */
     private void initListeners() {
-        createAccountButton.setOnClickListener(v -> createAccountService.onCreateAccount());
+        createAccountButton.setOnClickListener(v -> createAccountModule.onCreateAccount());
     }
 
     /**
      * Initializes any services being used by the activity.
      */
     private void initServices() {
-        createAccountService = new CreateAccountService(this);
+        createAccountModule = new CreateAccountModule(this);
     }
 }

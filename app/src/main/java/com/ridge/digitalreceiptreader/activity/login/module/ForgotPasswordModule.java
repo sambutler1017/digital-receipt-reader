@@ -1,31 +1,24 @@
-package com.ridge.digitalreceiptreader.service.login;
+package com.ridge.digitalreceiptreader.activity.login.module;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.ridge.digitalreceiptreader.activity.login.LoginActivity;
 import com.ridge.digitalreceiptreader.R;
-import com.ridge.digitalreceiptreader.app.email.client.EmailClient;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 
-import org.springframework.http.HttpStatus;
-
 /**
- * Service class to centralize methods being using in the ForgotPasswordActivity.
+ * Module class to centralize methods being using in the ForgotPasswordActivity.
  *
  * @author Luke Lengel
  * @since October 23, 2021
  */
-public class ForgotPasswordService {
+public class ForgotPasswordModule {
     private final Activity currentActivity;
     private ToastService toastService;
-
-    private EmailClient emailClient;
 
     private EditText emailInput;
     private Button sendButton;
@@ -36,7 +29,7 @@ public class ForgotPasswordService {
      *
      * @param a current activity.
      */
-    public ForgotPasswordService(Activity a) {
+    public ForgotPasswordModule(Activity a) {
         currentActivity = a;
 
         initElements();
@@ -48,7 +41,6 @@ public class ForgotPasswordService {
      * Initializes any clients to be used for api calls.
      */
     private void initClients() {
-        emailClient = new EmailClient(currentActivity);
     }
 
     /**
@@ -69,7 +61,8 @@ public class ForgotPasswordService {
     }
 
     /**
-     * Handles email validation.
+     * This method will handle the email validation. If all email validation passes then it will 
+     * send a forgot email message to that email so that the user can recover their account.
      */
     public void forgotPassword() {
         // Get user input
@@ -83,12 +76,13 @@ public class ForgotPasswordService {
             toastService.showError("Invalid email address");
         }
         else {
-            emailClient.forgotPassword(emailInput.getText().toString()).subscribe(res -> currentActivity.runOnUiThread(() -> {
-                hideLoading();
-                toastService.showSuccess("Forgot Password email sent");
-                Intent intent = new Intent(currentActivity, LoginActivity.class);
-                currentActivity.startActivity(intent);
-            }));
+            // TODO: update endpoint to use the forgot password method in the {@link UserClient}
+//            emailClient.forgotPassword(emailInput.getText().toString()).subscribe(res -> currentActivity.runOnUiThread(() -> {
+//                hideLoading();
+//                toastService.showSuccess("Forgot Password email sent");
+//                Intent intent = new Intent(currentActivity, LoginActivity.class);
+//                currentActivity.startActivity(intent);
+//            }));
         }
     }
 
@@ -110,9 +104,8 @@ public class ForgotPasswordService {
 
     /**
      * Validates email address.
-     * NOTE: Taken from
-     *       https://stackoverflow.com/questions/1819142/how-should-i-validate-an-e-mail-address
      *
+     * @see <a href="https://stackoverflow.com/questions/1819142/how-should-i-validate-an-e-mail-address">Email Validation</a>
      * @param target email address
      * @return if email address is valid or not
      */

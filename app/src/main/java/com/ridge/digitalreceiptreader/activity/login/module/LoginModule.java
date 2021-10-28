@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.service.login;
+package com.ridge.digitalreceiptreader.activity.login.module;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,13 +20,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 /**
- * Login service class to centralize methods being using in login activity.
+ * Login Module class to centralize methods being using in login activity.
  *
- * @author Sam Butler
- * @author Luke Lengel
+ * @author Sam Butler & Luke Lengel
  * @since October 23, 2021
  */
-public class LoginService {
+public class LoginModule {
     private final Activity currentActivity;
     private ToastService toastService;
     private LocalStorageService localStorage;
@@ -43,7 +42,7 @@ public class LoginService {
      *
      * @param a current activity.
      */
-    public LoginService(Activity a) {
+    public LoginModule(Activity a) {
         currentActivity = a;
 
         initElements();
