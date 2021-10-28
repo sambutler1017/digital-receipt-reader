@@ -48,4 +48,17 @@ public class UserClient {
                 .create(s -> s.onSuccess(userService.getUsers(request)));
         return observable.subscribeOn(Schedulers.newThread());
     }
+
+    /**
+     * This will update the given users information. User's can only
+     * update their own information.
+     *
+     * @param user The user object to update too.
+     * @return {@link ResponseEntity<User>} of the updated user.
+     */
+    public Single<ResponseEntity<User>> updateUser(User user) {
+        Single<ResponseEntity<User>> observable = Single
+                .create(s -> s.onSuccess(userService.updateUser(user)));
+        return observable.subscribeOn(Schedulers.newThread());
+    }
 }

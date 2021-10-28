@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.service.util;
+package com.ridge.digitalreceiptreader.activity.util.module;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,7 +12,8 @@ import android.os.Parcelable;
 import android.util.Log;
 
 import com.ridge.digitalreceiptreader.common.domain.NfcData;
-import com.ridge.digitalreceiptreader.service.JwtHolder;
+import com.ridge.digitalreceiptreader.service.jwt.JwtHolder;
+import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
 
 import java.util.Date;
 
@@ -23,7 +24,7 @@ import java.util.Date;
  * @author Luke Lengel
  * @since October 18, 2021
  */
-public class NfcService {
+public class NfcModule {
     private final Activity currentActivity;
 
     private NfcAdapter adapter = null;
@@ -36,7 +37,7 @@ public class NfcService {
      *
      * @param a current activity.
      */
-    public NfcService(Activity a) {
+    public NfcModule(Activity a) {
         currentActivity = a;
         jwtHolder = new JwtHolder(a);
         localStorage = new LocalStorageService(currentActivity);

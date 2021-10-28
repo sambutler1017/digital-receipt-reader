@@ -1,16 +1,16 @@
-package com.ridge.digitalreceiptreader.ui.dashboard;
+package com.ridge.digitalreceiptreader.ui.nfc;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class NFCViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public NFCViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("NFC Scanner Fragment");
     }
 
     public LiveData<String> getText() {

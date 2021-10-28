@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.ridge.digitalreceiptreader.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_nfc"
+        android:name="com.ridge.digitalreceiptreader.ui.nfc.NFCFragment"
+        android:label="@string/title_nfc"
+        tools:layout="@layout/fragment_nfc" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.ridge.digitalreceiptreader.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_settings"
+        android:name="com.ridge.digitalreceiptreader.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.ridge.digitalreceiptreader.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

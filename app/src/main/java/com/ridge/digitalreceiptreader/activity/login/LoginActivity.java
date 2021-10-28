@@ -6,19 +6,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ridge.digitalreceiptreader.activity.util.NFCEnabledActivity;
 import com.ridge.digitalreceiptreader.R;
-import com.ridge.digitalreceiptreader.service.login.LoginService;
+import com.ridge.digitalreceiptreader.activity.login.module.LoginModule;
 
 /**
  * Login Activity class for handling functionality with the login screen.
  *
- * @author Sam Butler
- * @author Luke Lengel
+ * @author Sam Butler & Luke Lengel
  * @since October 18, 2021
  */
 public class LoginActivity extends AppCompatActivity {
-    private LoginService loginService;
+    private LoginModule loginModule;
     private Button loginButton;
     private TextView forgotPassword;
     private TextView createUser;
@@ -53,15 +51,15 @@ public class LoginActivity extends AppCompatActivity {
      * Initializes any listeners that are being used in the activity.
      */
     private void initListeners() {
-        forgotPassword.setOnClickListener(v -> loginService.onForgotPassword());
-        createUser.setOnClickListener(v -> loginService.onCreateUser());
-        loginButton.setOnClickListener(v -> loginService.onLogin());
+        forgotPassword.setOnClickListener(v -> loginModule.onForgotPassword());
+        createUser.setOnClickListener(v -> loginModule.onCreateUser());
+        loginButton.setOnClickListener(v -> loginModule.onLogin());
     }
 
     /**
      * Initializes any services being used by the activity.
      */
     private void initServices() {
-        loginService = new LoginService(this);
+        loginModule = new LoginModule(this);
     }
 }
