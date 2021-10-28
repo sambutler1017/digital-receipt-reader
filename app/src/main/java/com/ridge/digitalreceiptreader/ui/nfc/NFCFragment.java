@@ -1,4 +1,4 @@
-package com.ridge.digitalreceiptreader.ui.home;
+package com.ridge.digitalreceiptreader.ui.nfc;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.ridge.digitalreceiptreader.R;
 
-public class HomeFragment extends Fragment {
+public class NFCFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private NFCViewModel NFCViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), s -> textView.setText(s));
+        NFCViewModel =
+                new ViewModelProvider(this).get(NFCViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_nfc, container, false);
+        final TextView textView = root.findViewById(R.id.text_nfc);
+        NFCViewModel.getText().observe(getViewLifecycleOwner(), s -> textView.setText(s));
         return root;
     }
 }
