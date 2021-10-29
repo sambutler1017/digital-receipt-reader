@@ -2,6 +2,7 @@ package com.ridge.digitalreceiptreader.activity.login.module;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,6 +72,7 @@ public class LoginModule {
     private void initElements() {
         emailInput = currentActivity.findViewById(R.id.email_textbox__login);
         passwordInput = currentActivity.findViewById(R.id.password_textbox__login);
+        passwordInput.setTransformationMethod(new PasswordTransformationMethod());
         loginButton = currentActivity.findViewById(R.id.login_button__login);
         loadingIndicator = currentActivity.findViewById(R.id.loading_indicator__login);
         loadingIndicator.setVisibility(View.GONE);
