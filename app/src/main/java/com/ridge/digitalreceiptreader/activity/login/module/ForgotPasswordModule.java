@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.ridge.digitalreceiptreader.R;
+import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 
 /**
@@ -16,8 +17,7 @@ import com.ridge.digitalreceiptreader.service.util.ToastService;
  * @author Luke Lengel
  * @since October 23, 2021
  */
-public class ForgotPasswordModule {
-    private final Activity currentActivity;
+public class ForgotPasswordModule extends BaseModule {
     private ToastService toastService;
 
     private EditText emailInput;
@@ -25,35 +25,25 @@ public class ForgotPasswordModule {
     private ProgressBar loadingIndicator;
 
     /**
-     * Sets default values for the class.
+     * Base constructor to setting up the activity module.
      *
-     * @param a current activity.
+     * @param a The activity to pull and modify data from.
      */
     public ForgotPasswordModule(Activity a) {
-        currentActivity = a;
-
-        initElements();
-        initServices();
-        initClients();
-    }
-
-    /**
-     * Initializes any clients to be used for api calls.
-     */
-    private void initClients() {
+        super(a);
     }
 
     /**
      * Initializes any service classes being used in the activity.
      */
-    private void initServices() {
+    public void initServices() {
         toastService = new ToastService(currentActivity);
     }
 
     /**
      * Initializes any elements that are being used in the activity.
      */
-    private void initElements() {
+    public void initElements() {
         emailInput = currentActivity.findViewById(R.id.email_textbox__forgot_password);
         sendButton = currentActivity.findViewById(R.id.send_button__forgot_password);
         loadingIndicator = currentActivity.findViewById(R.id.loading_indicator__forgot_password);
@@ -77,29 +67,7 @@ public class ForgotPasswordModule {
         }
         else {
             // TODO: update endpoint to use the forgot password method in the {@link UserClient}
-//            emailClient.forgotPassword(emailInput.getText().toString()).subscribe(res -> currentActivity.runOnUiThread(() -> {
-//                hideLoading();
-//                toastService.showSuccess("Forgot Password email sent");
-//                Intent intent = new Intent(currentActivity, LoginActivity.class);
-//                currentActivity.startActivity(intent);
-//            }));
         }
-    }
-
-    /**
-     * Hides the create account button and shows the loading indicator.
-     */
-    private void showLoading() {
-        loadingIndicator.setVisibility(View.VISIBLE);
-        sendButton.setVisibility(View.GONE);
-    }
-
-    /**
-     * Shows the create account button and hides the loading indicator.
-     */
-    private void hideLoading() {
-        loadingIndicator.setVisibility(View.GONE);
-        sendButton.setVisibility(View.VISIBLE);
     }
 
     /**

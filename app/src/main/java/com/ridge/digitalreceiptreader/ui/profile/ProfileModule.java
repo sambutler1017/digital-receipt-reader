@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ridge.digitalreceiptreader.R;
+import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 
 /**
@@ -14,9 +15,7 @@ import com.ridge.digitalreceiptreader.service.util.ToastService;
  * @author Sam Butler
  * @since October 29, 2021
  */
-public class ProfileModule {
-    private final View currentView;
-
+public class ProfileModule extends BaseModule {
     private ToastService toastService;
 
     private TextView currentPassword;
@@ -29,30 +28,20 @@ public class ProfileModule {
      * @param v current view.
      */
     public ProfileModule(View v) {
-        currentView = v;
-
-        initElements();
-        initServices();
-        initClients();
-    }
-
-    /**
-     * Initializes any clients to be used for api calls.
-     */
-    private void initClients() {
+        super(v);
     }
 
     /**
      * Initializes any service classes being used in the activity.
      */
-    private void initServices() {
+    public void initServices() {
         toastService = new ToastService(currentView.getContext());
     }
 
     /**
      * Initializes any elements that are being used in the activity.
      */
-    private void initElements() {
+    public void initElements() {
         currentPassword = currentView.findViewById(R.id.profile__currentPassword__textView);
         currentPassword.setTransformationMethod(new PasswordTransformationMethod());
         newPassword = currentView.findViewById(R.id.profile__newPassword__textView);

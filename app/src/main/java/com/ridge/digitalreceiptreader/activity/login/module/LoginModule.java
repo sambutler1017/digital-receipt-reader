@@ -14,6 +14,7 @@ import com.ridge.digitalreceiptreader.activity.home.MainActivity;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
+import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
 import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 
@@ -26,8 +27,7 @@ import org.springframework.http.ResponseEntity;
  * @author Sam Butler & Luke Lengel
  * @since October 23, 2021
  */
-public class LoginModule {
-    private final Activity currentActivity;
+public class LoginModule extends BaseModule {
     private ToastService toastService;
     private LocalStorageService localStorage;
 
@@ -44,24 +44,20 @@ public class LoginModule {
      * @param a current activity.
      */
     public LoginModule(Activity a) {
-        currentActivity = a;
-
-        initElements();
-        initServices();
-        initClients();
+        super(a);
     }
 
     /**
      * Initializes any clients to be used for api calls.
      */
-    private void initClients() {
+    public void initClients() {
         authClient = new AuthClient(currentActivity);
     }
 
     /**
      * Initializes any service classes being used in the activity.
      */
-    private void initServices() {
+    public void initServices() {
         localStorage = new LocalStorageService(currentActivity);
         toastService = new ToastService(currentActivity);
     }
@@ -69,7 +65,7 @@ public class LoginModule {
     /**
      * Initializes any elements that are being used in the activity.
      */
-    private void initElements() {
+    public void initElements() {
         emailInput = currentActivity.findViewById(R.id.email_textbox__login);
         passwordInput = currentActivity.findViewById(R.id.password_textbox__login);
         passwordInput.setTransformationMethod(new PasswordTransformationMethod());
@@ -85,7 +81,8 @@ public class LoginModule {
         String email = emailInput.getText().toString().trim().equals("") ? " " : emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim().equals("") ? " " : passwordInput.getText().toString().trim();
 
-        showLoading();
+        show(loadingIndicator);
+        hide(loginButton);
         authClient.authenticate(email, password).subscribe(res -> currentActivity.runOnUiThread(() -> validateToken(res)));
     }
 
@@ -116,29 +113,15 @@ public class LoginModule {
         if (authToken.getStatusCode().equals(HttpStatus.OK)) {
             toastService.showSuccess("Logged in Successfully!");
             localStorage.setToken(authToken.getBody().getToken());
-            hideLoading();
+            hide(loadingIndicator);
+            show(loginButton);
             Intent intent = new Intent(currentActivity, MainActivity.class);
             currentActivity.startActivity(intent);
 
         } else {
             toastService.showError("Invalid Credentials!");
-            hideLoading();
+            hide(loadingIndicator);
+            show(loginButton);
         }
-    }
-
-    /**
-     * Hides the login button and shows the loading indicator.
-     */
-    private void showLoading() {
-        loadingIndicator.setVisibility(View.VISIBLE);
-        loginButton.setVisibility(View.GONE);
-    }
-
-    /**
-     * Shows the login buttons and hides the loading indicator.
-     */
-    private void hideLoading() {
-        loadingIndicator.setVisibility(View.GONE);
-        loginButton.setVisibility(View.VISIBLE);
     }
 }

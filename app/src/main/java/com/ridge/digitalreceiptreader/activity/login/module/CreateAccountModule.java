@@ -11,6 +11,8 @@ import android.widget.ProgressBar;
 import com.ridge.digitalreceiptreader.activity.home.MainActivity;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
+import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
+import com.ridge.digitalreceiptreader.common.utils.CommonUtils;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 
 /**
@@ -19,8 +21,7 @@ import com.ridge.digitalreceiptreader.service.util.ToastService;
  * @author Luke Lengel
  * @since October 23, 2021
  */
-public class CreateAccountModule {
-    private final Activity currentActivity;
+public class CreateAccountModule extends BaseModule {
     private ToastService toastService;
 
     private AuthClient authClient;
@@ -38,31 +39,27 @@ public class CreateAccountModule {
      * @param a current activity.
      */
     public CreateAccountModule(Activity a) {
-        currentActivity = a;
-
-        initElements();
-        initServices();
-        initClients();
+        super(a);
     }
 
     /**
      * Initializes any clients to be used for api calls.
      */
-    private void initClients() {
+    public void initClients() {
         authClient = new AuthClient(currentActivity);
     }
 
     /**
      * Initializes any service classes being used in the activity.
      */
-    private void initServices() {
+    public void initServices() {
         toastService = new ToastService(currentActivity);
     }
 
     /**
      * Initializes any elements that are being used in the activity.
      */
-    private void initElements() {
+    public void initElements() {
         nameInput = currentActivity.findViewById(R.id.name_textbox__create_account);
         emailInput = currentActivity.findViewById(R.id.email_textbox__create_account);
         passwordInput = currentActivity.findViewById(R.id.password_textbox__create_account);
@@ -76,7 +73,8 @@ public class CreateAccountModule {
      * Method for handling when the user creates their account.
      */
     public void onCreateAccount() {
-        showLoading();
+        show(loadingIndicator);
+        hide(createAccountButton);
 
         // Get user input
         String name = nameInput.getText().toString().trim();
@@ -94,7 +92,7 @@ public class CreateAccountModule {
             toastService.showError("Please fill in all fields");
         }
         // Validates email field
-        else if (!isValidEmail(email)) {
+        else if (!CommonUtils.isValidEmail(email)) {
             toastService.showError("Invalid email address");
         }
         // Validates password fields
@@ -107,34 +105,7 @@ public class CreateAccountModule {
             Intent intent = new Intent(currentActivity, MainActivity.class);
             currentActivity.startActivity(intent);
         }
-        hideLoading();
-    }
-
-    /**
-     * Hides the create account button and shows the loading indicator.
-     */
-    private void showLoading() {
-        loadingIndicator.setVisibility(View.VISIBLE);
-        createAccountButton.setVisibility(View.GONE);
-    }
-
-    /**
-     * Shows the create account button and hides the loading indicator.
-     */
-    private void hideLoading() {
-        loadingIndicator.setVisibility(View.GONE);
-        createAccountButton.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * Validates email address.
-     * NOTE: Taken from
-     *       https://stackoverflow.com/questions/1819142/how-should-i-validate-an-e-mail-address
-     *
-     * @param target email address
-     * @return if email address is valid or not
-     */
-    private final static boolean isValidEmail(CharSequence target) {
-        return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        hide(loadingIndicator);
+        show(createAccountButton);
     }
 }

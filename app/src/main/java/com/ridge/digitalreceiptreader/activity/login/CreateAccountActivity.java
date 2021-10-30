@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.login.module.CreateAccountModule;
+import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
 
 /**
  * Service for handling functionality with the CreateUserActivity.
@@ -14,7 +15,7 @@ import com.ridge.digitalreceiptreader.activity.login.module.CreateAccountModule;
  * @author Luke Lengel
  * @since October 18, 2021
  */
-public class CreateAccountActivity extends AppCompatActivity {
+public class CreateAccountActivity extends BaseActivity {
     private CreateAccountModule createAccountModule;
     private Button createAccountButton;
 
@@ -26,32 +27,23 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     /**
-     * Starting initialization of the activity.
-     */
-    private void initialization() {
-        initElements();
-        initListeners();
-        initServices();
-    }
-
-    /**
      * Initializes any elements that are being used in the activity.
      */
-    private void initElements() {
+    public void initElements() {
         createAccountButton = findViewById(R.id.create_account_button__create_account);
     }
 
     /**
      * Initializes any listeners that are being used in the activity.
      */
-    private void initListeners() {
+    public void initListeners() {
         createAccountButton.setOnClickListener(v -> createAccountModule.onCreateAccount());
     }
 
     /**
      * Initializes any services being used by the activity.
      */
-    private void initServices() {
+    public void initServices() {
         createAccountModule = new CreateAccountModule(this);
     }
 }
