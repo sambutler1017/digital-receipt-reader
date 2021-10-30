@@ -4,10 +4,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.login.module.LoginModule;
+import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
 
 /**
  * Login Activity class for handling functionality with the login screen.
@@ -15,7 +14,7 @@ import com.ridge.digitalreceiptreader.activity.login.module.LoginModule;
  * @author Sam Butler & Luke Lengel
  * @since October 18, 2021
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private LoginModule loginModule;
     private Button loginButton;
     private TextView forgotPassword;
@@ -30,18 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Starting initialization of the activity.
-     */
-    private void initialization() {
-        initElements();
-        initListeners();
-        initServices();
-    }
-
-    /**
      * Initializes any elements that are being used in the activity.
      */
-    private void initElements() {
+    public void initElements() {
         forgotPassword = findViewById(R.id.forgot_password_textView__login);
         createUser = findViewById(R.id.create_account_textView__login);
         loginButton = findViewById(R.id.login_button__login);
@@ -50,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Initializes any listeners that are being used in the activity.
      */
-    private void initListeners() {
+    public void initListeners() {
         forgotPassword.setOnClickListener(v -> loginModule.onForgotPassword());
         createUser.setOnClickListener(v -> loginModule.onCreateUser());
         loginButton.setOnClickListener(v -> loginModule.onLogin());
@@ -59,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Initializes any services being used by the activity.
      */
-    private void initServices() {
+    public void initServices() {
         loginModule = new LoginModule(this);
     }
 }

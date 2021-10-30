@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.login.module.ForgotPasswordModule;
+import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
 
 /**
  * Forgot Password Activity class for handling functionality with the Forgot Password screen.
@@ -14,7 +15,7 @@ import com.ridge.digitalreceiptreader.activity.login.module.ForgotPasswordModule
  * @author Luke Lengel
  * @since October 18, 2021
  */
-public class ForgotPasswordActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends BaseActivity {
     private ForgotPasswordModule forgotPasswordModule;
     private Button sendButton;
 
@@ -27,32 +28,23 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     /**
-     * Starting initialization of the activity.
-     */
-    private void initialization() {
-        initElements();
-        initListeners();
-        initServices();
-    }
-
-    /**
      * Initializes any elements that are being used in the activity.
      */
-    private void initElements() {
+    public void initElements() {
         sendButton = findViewById(R.id.send_button__forgot_password);
     }
 
     /**
      * Initializes any listeners that are being used in the activity.
      */
-    private void initListeners() {
+    public void initListeners() {
         sendButton.setOnClickListener(v -> forgotPasswordModule.forgotPassword());
     }
 
     /**
      * Initializes any services being used by the activity.
      */
-    private void initServices() {
+    public void initServices() {
         forgotPasswordModule = new ForgotPasswordModule(this);
     }
 }
