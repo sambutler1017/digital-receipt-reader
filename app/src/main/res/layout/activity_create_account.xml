@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.189"
         app:layout_constraintStart_toEndOf="@+id/password_label__create_account"
         app:layout_constraintTop_toBottomOf="@+id/app_header__create_account"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintVertical_bias="0.48" />
 
     <TextView
         android:id="@+id/confirm_password_label__create_account"
@@ -30,7 +30,7 @@
         app:layout_constraintHorizontal_bias="0.070"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_header__create_account"
-        app:layout_constraintVertical_bias="0.529" />
+        app:layout_constraintVertical_bias="0.617" />
 
     <Button
         android:id="@+id/create_account_button__create_account"
@@ -44,10 +44,10 @@
         app:cornerRadius="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirm_password_textbox__create_account"
-        app:layout_constraintVertical_bias="0.278" />
+        app:layout_constraintVertical_bias="0.359" />
 
     <EditText
         android:id="@+id/confirm_password_textbox__create_account"
@@ -58,10 +58,10 @@
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintHorizontal_bias="0.189"
         app:layout_constraintStart_toEndOf="@+id/confirm_password_label__create_account"
         app:layout_constraintTop_toBottomOf="@+id/app_header__create_account"
-        app:layout_constraintVertical_bias="0.521"
+        app:layout_constraintVertical_bias="0.612"
         app:passwordToggleEnabled="true" />
 
     <TextView
@@ -74,7 +74,7 @@
         app:layout_constraintHorizontal_bias="0.070"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_header__create_account"
-        app:layout_constraintVertical_bias="0.264" />
+        app:layout_constraintVertical_bias="0.36" />
 
     <TextView
         android:id="@+id/password_label__create_account"
@@ -86,7 +86,7 @@
         app:layout_constraintHorizontal_bias="0.070"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_header__create_account"
-        app:layout_constraintVertical_bias="0.397" />
+        app:layout_constraintVertical_bias="0.481" />
 
     <EditText
         android:id="@+id/email_textbox__create_account"
@@ -97,10 +97,10 @@
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.335"
+        app:layout_constraintHorizontal_bias="0.358"
         app:layout_constraintStart_toEndOf="@+id/email_label__create_account"
         app:layout_constraintTop_toBottomOf="@+id/app_header__create_account"
-        app:layout_constraintVertical_bias="0.252" />
+        app:layout_constraintVertical_bias="0.355" />
 
     <TextView
         android:id="@+id/background__create_account"
@@ -134,10 +134,10 @@
         app:layout_constraintVertical_bias="0.157" />
 
     <TextView
-        android:id="@+id/name_label__create_account"
+        android:id="@+id/first_name_label__create_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name:"
+        android:text="First Name:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.070"
@@ -145,19 +145,49 @@
         app:layout_constraintTop_toBottomOf="@+id/app_header__create_account"
         app:layout_constraintVertical_bias="0.130" />
 
-    <EditText
-        android:id="@+id/name_textbox__create_account"
+    <TextView
+        android:id="@+id/last_name_label__create_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Last Name:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.070"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_header__create_account"
+        app:layout_constraintVertical_bias="0.247" />
+
+    <EditText
+        android:id="@+id/first_name_textbox__create_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="88dp"
+        android:layout_marginRight="88dp"
         android:ems="10"
         android:hint="First Name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
-        app:layout_constraintStart_toEndOf="@+id/name_label__create_account"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/first_name_label__create_account"
         app:layout_constraintTop_toBottomOf="@+id/app_header__create_account"
-        app:layout_constraintVertical_bias="0.115" />
+        app:layout_constraintVertical_bias="0.107" />
+
+    <EditText
+        android:id="@+id/last_name_textbox__create_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="68dp"
+        android:layout_marginRight="68dp"
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toEndOf="@+id/last_name_label__create_account"
+        app:layout_constraintTop_toBottomOf="@+id/app_header__create_account"
+        app:layout_constraintVertical_bias="0.23" />
 
     <ProgressBar
         android:id="@+id/loading_indicator__create_account"
@@ -171,6 +201,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.802" />
+        app:layout_constraintVertical_bias="0.863" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

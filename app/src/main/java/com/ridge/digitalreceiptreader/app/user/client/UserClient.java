@@ -61,4 +61,16 @@ public class UserClient {
                 .create(s -> s.onSuccess(userService.updateUser(user)));
         return observable.subscribeOn(Schedulers.newThread());
     }
+
+    /**
+     * This will create a new user.
+     *
+     * @param user The user object to create.
+     * @return {@link ResponseEntity<User>} of the new user.
+     */
+    public Single<ResponseEntity<User>> createUser(User user) {
+        Single<ResponseEntity<User>> observable = Single
+                .create(s -> s.onSuccess(userService.createUser(user)));
+        return observable.subscribeOn(Schedulers.newThread());
+    }
 }

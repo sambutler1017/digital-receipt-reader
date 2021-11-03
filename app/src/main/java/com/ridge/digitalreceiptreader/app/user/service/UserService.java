@@ -53,4 +53,14 @@ public class UserService {
     public ResponseEntity<User> updateUser(User user) {
         return apiClient.put(BASE_PATH, user, User.class);
     }
+
+    /**
+     * This will create a new user.
+     *
+     * @param user The user object to create.
+     * @return {@link ResponseEntity<User>} of the new user.
+     */
+    public ResponseEntity<User> createUser(User user) {
+        return apiClient.put(BASE_PATH, user, User.class);
+    }
 }

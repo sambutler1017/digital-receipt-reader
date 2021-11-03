@@ -11,6 +11,8 @@ import android.widget.ProgressBar;
 import com.ridge.digitalreceiptreader.activity.home.MainActivity;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
+import com.ridge.digitalreceiptreader.app.user.client.UserClient;
+import com.ridge.digitalreceiptreader.app.user.domain.User;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
 import com.ridge.digitalreceiptreader.common.utils.CommonUtils;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
@@ -25,8 +27,10 @@ public class CreateAccountModule extends BaseModule {
     private ToastService toastService;
 
     private AuthClient authClient;
+    private UserClient userClient;
 
-    private EditText nameInput;
+    private EditText firstNameInput;
+    private EditText lastNameInput;
     private EditText emailInput;
     private EditText passwordInput;
     private EditText confirmPasswordInput;
@@ -47,6 +51,7 @@ public class CreateAccountModule extends BaseModule {
      */
     public void initClients() {
         authClient = new AuthClient(currentActivity);
+        userClient = new UserClient(currentActivity);
     }
 
     /**
@@ -60,7 +65,8 @@ public class CreateAccountModule extends BaseModule {
      * Initializes any elements that are being used in the activity.
      */
     public void initElements() {
-        nameInput = currentActivity.findViewById(R.id.name_textbox__create_account);
+        firstNameInput = currentActivity.findViewById(R.id.first_name_textbox__create_account);
+        lastNameInput = currentActivity.findViewById(R.id.last_name_textbox__create_account);
         emailInput = currentActivity.findViewById(R.id.email_textbox__create_account);
         passwordInput = currentActivity.findViewById(R.id.password_textbox__create_account);
         confirmPasswordInput = currentActivity.findViewById(R.id.confirm_password_textbox__create_account);
@@ -77,7 +83,8 @@ public class CreateAccountModule extends BaseModule {
         hide(createAccountButton);
 
         // Get user input
-        String name = nameInput.getText().toString().trim();
+        String firstName = firstNameInput.getText().toString().trim();
+        String lastName = lastNameInput.getText().toString().trim();
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
         String confirmPassword = confirmPasswordInput.getText().toString().trim();
@@ -85,7 +92,8 @@ public class CreateAccountModule extends BaseModule {
 
 
         // Checks if fields are populated
-        if (name.length()            == 0 ||
+        if (firstName.length()       == 0 ||
+            lastName.length()        == 0 ||
             email.length()           == 0 ||
             password.length()        == 0 ||
             confirmPassword.length() == 0) {
@@ -101,7 +109,7 @@ public class CreateAccountModule extends BaseModule {
         }
         // Writes account info to database and logs user in
         else {
-            // TODO: Write account info to backend
+            userClient.createUser(new User(firstName,lastName,email,password));
             Intent intent = new Intent(currentActivity, MainActivity.class);
             currentActivity.startActivity(intent);
         }
