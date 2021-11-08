@@ -2,22 +2,32 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.nfc.NFCFragment">
 
-    <TextView
-        android:id="@+id/text_nfc"
+    <com.skyfishjy.library.RippleBackground
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="NFC Fragment"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:layout_height="416dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.461"
+        ripple:rb_color="#349BD7"
+        ripple:rb_duration="3500"
+        ripple:rb_radius="32dp"
+        ripple:rb_rippleAmount="3"
+        ripple:rb_scale="6">
+
+        <ImageView
+            android:id="@+id/centerImage"
+            android:layout_width="76dp"
+            android:layout_height="78dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/phone_nfc" />
+    </com.skyfishjy.library.RippleBackground>
 </androidx.constraintlayout.widget.ConstraintLayout>

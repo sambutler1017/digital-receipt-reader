@@ -4,13 +4,14 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ridge.digitalreceiptreader.R;
+import com.ridge.digitalreceiptreader.activity.util.NFCEnabledActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends NFCEnabledActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

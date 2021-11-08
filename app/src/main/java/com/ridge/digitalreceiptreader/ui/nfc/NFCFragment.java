@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
 import com.ridge.digitalreceiptreader.ui.profile.ProfileModule;
+import com.skyfishjy.library.RippleBackground;
 
 /**
  * NFC fragment used to display the NFC page in the main
@@ -47,5 +48,13 @@ public class NFCFragment extends BaseFragment {
      */
     public void initServices() {
         nfcModule = new NFCModule(view);
+    }
+
+    /**
+     * Initializes any elements being used by the activity.
+     */
+    public void initElements() {
+        final RippleBackground rippleBackground = view.findViewById(R.id.content);
+        rippleBackground.startRippleAnimation();
     }
 }
