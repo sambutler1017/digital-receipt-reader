@@ -112,16 +112,13 @@ public class LoginModule extends BaseModule {
     private void validateToken(ResponseEntity<DigitalReceiptToken> authToken) {
         if (authToken.getStatusCode().equals(HttpStatus.OK)) {
             toastService.showSuccess("Logged in Successfully!");
-            localStorage.setToken(authToken.getBody().getToken());
-            hide(loadingIndicator);
-            show(loginButton);
             Intent intent = new Intent(currentActivity, MainActivity.class);
             currentActivity.startActivity(intent);
-
+            localStorage.setToken(authToken.getBody().getToken());
         } else {
             toastService.showError("Invalid Credentials!");
-            hide(loadingIndicator);
-            show(loginButton);
         }
+        hide(loadingIndicator);
+        show(loginButton);
     }
 }

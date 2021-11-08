@@ -24,6 +24,7 @@ import com.ridge.digitalreceiptreader.ui.nfc.NFCModule;
  */
 public class SettingsFragment extends BaseFragment {
     private SettingsModule settingsModule;
+    private TextView logOut;
 
     /**
      * This will create the view for the fragment from the given layout and the
@@ -37,6 +38,20 @@ public class SettingsFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater i, ViewGroup c, Bundle sI) {
         initialization(i, c, R.layout.fragment_settings);
         return view;
+    }
+
+    /**
+     * Initializes any elements being used by the activity.
+     */
+    public void initElements() {
+        logOut = view.findViewById(R.id.settings__logOutButton__label);
+    }
+
+    /**
+     * Initializes any listeners being used by the activity.
+     */
+    public void initListeners() {
+        logOut.setOnClickListener(v -> settingsModule.onLogOutClick());
     }
 
     /**
