@@ -53,7 +53,6 @@ public abstract class NFCEnabledActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Fragment f = getSupportFragmentManager().findFragmentById(R.id.navigation_nfc);
         if(getVisibleFragment() instanceof NFCFragment) {
             NdefMessage[] messages = nfcService.readTag(intent);
             Log.i("Nfc Tag", "Receipt Id: " + nfcService.parseMessage(messages[0]).getTransmittedId());
@@ -66,14 +65,7 @@ public abstract class NFCEnabledActivity extends AppCompatActivity {
      * @return {@link Fragment} of the one being displayed.
      */
     private Fragment getVisibleFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        List<Fragment> fragments = fragmentManager.getFragments();
-        if(fragments != null){
-            for(Fragment fragment : fragments){
-                if(fragment != null && fragment.isVisible())
-                    return fragment;
-            }
-        }
-        return null;
+        Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        return navHostFragment.getChildFragmentManager().getFragments().get(0);
     }
 }
