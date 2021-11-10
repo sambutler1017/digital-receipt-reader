@@ -1,5 +1,6 @@
 package com.ridge.digitalreceiptreader.ui.profile;
 
+import android.app.Activity;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
@@ -27,26 +28,26 @@ public class ProfileModule extends BaseModule {
      *
      * @param v current view.
      */
-    public ProfileModule(View v) {
-        super(v);
+    public ProfileModule(View v, Activity a) {
+        super(v,a);
     }
 
     /**
      * Initializes any service classes being used in the activity.
      */
     public void initServices() {
-        toastService = new ToastService(currentView.getContext());
+        toastService = new ToastService(view.getContext());
     }
 
     /**
      * Initializes any elements that are being used in the activity.
      */
     public void initElements() {
-        currentPassword = currentView.findViewById(R.id.profile__currentPassword__textView);
+        currentPassword = view.findViewById(R.id.profile__currentPassword__textView);
         currentPassword.setTransformationMethod(new PasswordTransformationMethod());
-        newPassword = currentView.findViewById(R.id.profile__newPassword__textView);
+        newPassword = view.findViewById(R.id.profile__newPassword__textView);
         newPassword.setTransformationMethod(new PasswordTransformationMethod());
-        saveButton = currentView.findViewById(R.id.profile__save__button);
+        saveButton = view.findViewById(R.id.profile__save__button);
     }
 
     public void saveProfile() {

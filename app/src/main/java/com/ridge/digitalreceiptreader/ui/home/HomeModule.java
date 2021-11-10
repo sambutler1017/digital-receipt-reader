@@ -1,5 +1,6 @@
 package com.ridge.digitalreceiptreader.ui.home;
 
+import android.app.Activity;
 import android.view.View;
 
 import androidx.lifecycle.LiveData;
@@ -21,7 +22,7 @@ public class HomeModule extends BaseModule {
      *
      * @param v current view.
      */
-    public HomeModule(View v) {
-        super(v);
+    public HomeModule(View v, Activity a) {
+        super(v,a);
     }
 }

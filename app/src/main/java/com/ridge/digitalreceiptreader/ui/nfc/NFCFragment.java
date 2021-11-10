@@ -47,7 +47,7 @@ public class NFCFragment extends BaseFragment {
      * Initializes any services being used by the activity.
      */
     public void initServices() {
-        nfcModule = new NFCModule(view);
+        nfcModule = new NFCModule(view, getActivity());
     }
 
     /**

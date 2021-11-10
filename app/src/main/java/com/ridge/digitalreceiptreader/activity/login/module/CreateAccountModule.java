@@ -46,26 +46,26 @@ public class CreateAccountModule extends BaseModule {
      * Initializes any clients to be used for api calls.
      */
     public void initClients() {
-        authClient = new AuthClient(currentActivity);
+        authClient = new AuthClient(activity);
     }
 
     /**
      * Initializes any service classes being used in the activity.
      */
     public void initServices() {
-        toastService = new ToastService(currentActivity);
+        toastService = new ToastService(activity);
     }
 
     /**
      * Initializes any elements that are being used in the activity.
      */
     public void initElements() {
-        nameInput = currentActivity.findViewById(R.id.name_textbox__create_account);
-        emailInput = currentActivity.findViewById(R.id.email_textbox__create_account);
-        passwordInput = currentActivity.findViewById(R.id.password_textbox__create_account);
-        confirmPasswordInput = currentActivity.findViewById(R.id.confirm_password_textbox__create_account);
-        createAccountButton = currentActivity.findViewById(R.id.create_account_button__create_account);
-        loadingIndicator = currentActivity.findViewById(R.id.loading_indicator__create_account);
+        nameInput = activity.findViewById(R.id.name_textbox__create_account);
+        emailInput = activity.findViewById(R.id.email_textbox__create_account);
+        passwordInput = activity.findViewById(R.id.password_textbox__create_account);
+        confirmPasswordInput = activity.findViewById(R.id.confirm_password_textbox__create_account);
+        createAccountButton = activity.findViewById(R.id.create_account_button__create_account);
+        loadingIndicator = activity.findViewById(R.id.loading_indicator__create_account);
         loadingIndicator.setVisibility(View.GONE);
     }
 
@@ -102,8 +102,8 @@ public class CreateAccountModule extends BaseModule {
         // Writes account info to database and logs user in
         else {
             // TODO: Write account info to backend
-            Intent intent = new Intent(currentActivity, MainActivity.class);
-            currentActivity.startActivity(intent);
+            Intent intent = new Intent(activity, MainActivity.class);
+            activity.startActivity(intent);
         }
         hide(loadingIndicator);
         show(createAccountButton);

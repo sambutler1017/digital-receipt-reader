@@ -14,8 +14,8 @@ import com.ridge.digitalreceiptreader.common.interfaces.ModuleInterface;
  */
 public abstract class BaseModule implements ModuleInterface {
 
-    protected View currentView;
-    protected Activity currentActivity;
+    protected View view;
+    protected Activity activity;
 
     /**
      * Called when an activity is being used to manage the UI.
@@ -23,31 +23,21 @@ public abstract class BaseModule implements ModuleInterface {
      * @param a The reference to the activity.
      */
     public BaseModule(Activity a) {
-        currentActivity = a;
-        currentView = null;
+        activity = a;
+        view = null;
         init();
     }
 
     /**
-     * Called when a view is being used to manage the UI.
-     *
-     * @param v The view being used in the UI.
-     */
-    public BaseModule(View v) {
-        currentView = v;
-        currentActivity = null;
-        init();
-    }
-
-    /**
-     * Called when a view or activity is being used to manage the UI.
+     * Called when a view or activity is being used to manage the UI. The view will be used to access
+     * the elements but the activity will be used to initialize services and clients.
      *
      * @param v The view being used in the UI.
      * @param a The reference to the activity.
      */
     public BaseModule(View v, Activity a) {
-        currentView = v;
-        currentActivity = a;
+        view = v;
+        activity = a;
         init();
     }
 

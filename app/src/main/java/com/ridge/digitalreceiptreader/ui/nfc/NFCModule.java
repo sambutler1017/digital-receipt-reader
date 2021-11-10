@@ -1,5 +1,6 @@
 package com.ridge.digitalreceiptreader.ui.nfc;
 
+import android.app.Activity;
 import android.view.View;
 
 import androidx.lifecycle.LiveData;
@@ -21,7 +22,7 @@ public class NFCModule extends BaseModule {
      *
      * @param v current view.
      */
-    public NFCModule(View v) {
-        super(v);
+    public NFCModule(View v, Activity a) {
+        super(v,a);
     }
 }
