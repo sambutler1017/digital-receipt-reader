@@ -36,9 +36,9 @@ public abstract class BaseFragment extends Fragment implements ActivityInterface
     public void initialization(LayoutInflater i, ViewGroup c, int l) {
         view = i.inflate(l, c, false);
 
+        initServices();
         initElements();
         initListeners();
-        initServices();
     }
 
     /**

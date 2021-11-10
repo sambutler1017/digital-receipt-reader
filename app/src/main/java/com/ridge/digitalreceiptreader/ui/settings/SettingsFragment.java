@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ridge.digitalreceiptreader.R;
+import com.ridge.digitalreceiptreader.activity.login.LoginActivity;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
+import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
 import com.ridge.digitalreceiptreader.ui.nfc.NFCModule;
 
 /**
@@ -24,6 +26,9 @@ import com.ridge.digitalreceiptreader.ui.nfc.NFCModule;
  */
 public class SettingsFragment extends BaseFragment {
     private SettingsModule settingsModule;
+
+    private TextView logOut;
+    private TextView deleteAccount;
 
     /**
      * This will create the view for the fragment from the given layout and the
@@ -40,9 +45,26 @@ public class SettingsFragment extends BaseFragment {
     }
 
     /**
+     * Initializes any elements being used by the activity.
+     */
+    public void initElements() {
+        logOut = view.findViewById(R.id.settings__logOutButton__label);
+        deleteAccount = view.findViewById(R.id.settings__deleteAccountContent_link__label);
+    }
+
+    /**
+     * Initializes any listeners being used by the activity.
+     */
+    public void initListeners() {
+        logOut.setOnClickListener(v -> settingsModule.onLogOutClick());
+        deleteAccount.setOnClickListener(v -> settingsModule.onDeleteAccount());
+    }
+
+    /**
      * Initializes any services being used by the activity.
      */
     public void initServices() {
-        settingsModule = new SettingsModule(view);
+        settingsModule = new SettingsModule(view, getActivity());
+        settingsModule.populateAccountInfo();
     }
 }

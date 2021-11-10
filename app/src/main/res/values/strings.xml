@@ -12,4 +12,5 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="deleteAccountBody">Any scanned and stored receipts made through your account will be deleted. All personal information stored will be removed from your account. Are you sure you want to delete your account?</string>
 </resources>

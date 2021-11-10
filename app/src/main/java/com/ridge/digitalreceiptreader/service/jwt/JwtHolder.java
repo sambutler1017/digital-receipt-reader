@@ -6,6 +6,8 @@ import com.ridge.digitalreceiptreader.common.enums.WebRole;
 import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
 
 import java.util.Base64;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * JwtHolder class to get common information from token.
@@ -60,6 +62,30 @@ public class JwtHolder {
     }
 
     /**
+     * Get the given string from the jwt token. If the string does not exist it will
+     * return nothing.
+     *
+     * @param p The value to parse from the token.
+     * @return {@link String} of the passed in string.
+     */
+    public String get(String p) {
+        try {
+            return getParamFromToken(p);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    /**
+     * Checks to see if the user that opened the app already has a token.
+     *
+     * @return {@link Boolean} of the token status.
+     */
+    public boolean hasToken() {
+        return localStorage.getToken().trim() != "";
+    }
+
+    /**
      * Parses the token and finds the param tag in the given token to get.
      *
      * @param param The param value to look for.
@@ -70,7 +96,8 @@ public class JwtHolder {
         Base64.Decoder decoder = Base64.getDecoder();
         String payload = new String(decoder.decode(chunks[1]));
 
-        String startOfParam = payload.substring(payload.indexOf(param));
-        return startOfParam.substring(startOfParam.indexOf("\":"), startOfParam.indexOf(",")).replace("\":", "");
+        Matcher m = Pattern.compile(String.format("(?<=\\\"%s\\\":).*?(?=[,}])", param)).matcher(payload);
+
+        return m.find() ? m.group(0).replace("\"", "") : "";
     }
 }

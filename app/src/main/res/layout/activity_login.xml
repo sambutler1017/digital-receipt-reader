@@ -106,7 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/signInToContinue"
-        android:textColor="@color/gray_100"
+        android:textColor="@color/gray_300"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/email_textbox__login"

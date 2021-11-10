@@ -100,6 +100,22 @@ public class LocalStorageService {
     }
 
     /**
+     * This will remove the given string key from the local storage if it exists.
+     *
+     * @param s The key to find and remove.
+     */
+    public void remove(String s) {
+        getEditor().remove(s).commit();
+    }
+
+    /**
+     * Removes the token from the local storage.
+     */
+    public void removeToken() {
+        remove("AUTH_TOKEN");
+    }
+
+    /**
      * Gets the preference editor of the application.
      *
      * @return {@link SharedPreferences.Editor} object the current activity.

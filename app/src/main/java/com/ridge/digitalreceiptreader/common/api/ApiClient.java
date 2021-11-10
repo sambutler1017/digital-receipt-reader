@@ -177,7 +177,6 @@ public class ApiClient {
     private HttpHeaders getHeadersWithToken(String... tokenOverride) {
         HttpHeaders headersWithToken = getHeaders();
         headersWithToken.set("Authorization", "Bearer: " + (tokenOverride.length > 0 ? tokenOverride[0] : localStorage.getToken()));
-        System.out.println(headersWithToken.get("Authorization"));
         return headersWithToken;
     }
 }

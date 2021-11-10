@@ -40,6 +40,18 @@ public abstract class BaseModule implements ModuleInterface {
     }
 
     /**
+     * Called when a view or activity is being used to manage the UI.
+     *
+     * @param v The view being used in the UI.
+     * @param a The reference to the activity.
+     */
+    public BaseModule(View v, Activity a) {
+        currentView = v;
+        currentActivity = a;
+        init();
+    }
+
+    /**
      * Methods that are called when the module is being initialized. The 3 init methods are
      * are to be implemented in the child classes.
      */

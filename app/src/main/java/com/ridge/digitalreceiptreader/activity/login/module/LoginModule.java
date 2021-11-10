@@ -15,6 +15,7 @@ import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
+import com.ridge.digitalreceiptreader.service.jwt.JwtHolder;
 import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 
@@ -30,6 +31,7 @@ import org.springframework.http.ResponseEntity;
 public class LoginModule extends BaseModule {
     private ToastService toastService;
     private LocalStorageService localStorage;
+    private JwtHolder jwtHolder;
 
     private AuthClient authClient;
 
@@ -45,6 +47,9 @@ public class LoginModule extends BaseModule {
      */
     public LoginModule(Activity a) {
         super(a);
+        if(jwtHolder.hasToken()) {
+            routeToHome();
+        }
     }
 
     /**
@@ -60,6 +65,7 @@ public class LoginModule extends BaseModule {
     public void initServices() {
         localStorage = new LocalStorageService(currentActivity);
         toastService = new ToastService(currentActivity);
+        jwtHolder = new JwtHolder(currentActivity);
     }
 
     /**
@@ -112,16 +118,21 @@ public class LoginModule extends BaseModule {
     private void validateToken(ResponseEntity<DigitalReceiptToken> authToken) {
         if (authToken.getStatusCode().equals(HttpStatus.OK)) {
             toastService.showSuccess("Logged in Successfully!");
+            routeToHome();
             localStorage.setToken(authToken.getBody().getToken());
-            hide(loadingIndicator);
-            show(loginButton);
-            Intent intent = new Intent(currentActivity, MainActivity.class);
-            currentActivity.startActivity(intent);
-
         } else {
             toastService.showError("Invalid Credentials!");
-            hide(loadingIndicator);
-            show(loginButton);
         }
+        hide(loadingIndicator);
+        show(loginButton);
+    }
+
+    /**
+     * Route to the home page. This will be used mainly if the user already has a token and
+     * they do not need to login.
+     */
+    private void routeToHome() {
+        Intent intent = new Intent(currentActivity, MainActivity.class);
+        currentActivity.startActivity(intent);
     }
 }
