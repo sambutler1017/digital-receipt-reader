@@ -37,16 +37,16 @@ public class ForgotPasswordModule extends BaseModule {
      * Initializes any service classes being used in the activity.
      */
     public void initServices() {
-        toastService = new ToastService(currentActivity);
+        toastService = new ToastService(activity);
     }
 
     /**
      * Initializes any elements that are being used in the activity.
      */
     public void initElements() {
-        emailInput = currentActivity.findViewById(R.id.email_textbox__forgot_password);
-        sendButton = currentActivity.findViewById(R.id.send_button__forgot_password);
-        loadingIndicator = currentActivity.findViewById(R.id.loading_indicator__forgot_password);
+        emailInput = activity.findViewById(R.id.email_textbox__forgot_password);
+        sendButton = activity.findViewById(R.id.send_button__forgot_password);
+        loadingIndicator = activity.findViewById(R.id.loading_indicator__forgot_password);
         loadingIndicator.setVisibility(View.GONE);
     }
 

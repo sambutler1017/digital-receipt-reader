@@ -5,16 +5,12 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import com.ridge.digitalreceiptreader.R;
-import com.ridge.digitalreceiptreader.activity.login.CreateAccountActivity;
 import com.ridge.digitalreceiptreader.activity.login.LoginActivity;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
 import com.ridge.digitalreceiptreader.service.jwt.JwtHolder;
 import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
+import com.ridge.digitalreceiptreader.service.util.RouterService;
 
 /**
  * Settings Module class to centralize methods being using in Settings fragment.
@@ -25,6 +21,7 @@ import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
 public class SettingsModule extends BaseModule {
     private JwtHolder jwtHolder;
     private LocalStorageService localStorage;
+    private RouterService router;
 
     private TextView name;
     private TextView accountNumber;
@@ -44,18 +41,19 @@ public class SettingsModule extends BaseModule {
      * Initialization the services being used.
      */
     public void initServices() {
-        jwtHolder = new JwtHolder(currentActivity);
-        localStorage = new LocalStorageService(currentActivity);
+        jwtHolder = new JwtHolder(activity);
+        localStorage = new LocalStorageService(activity);
+        router = new RouterService(activity);
     }
 
     /**
      * Initialization the elements being used.
      */
     public void initElements() {
-        name = currentView.findViewById(R.id.settings__accountInfoContent_name__text);
-        email = currentView.findViewById(R.id.settings__accountInfoContent_email__text);
-        accountNumber = currentView.findViewById(R.id.settings__accountInfoContent_accountNumber__text);
-        webRole = currentView.findViewById(R.id.settings__accountInfoContent_webRole_text);
+        name = view.findViewById(R.id.settings__accountInfoContent_name__text);
+        email = view.findViewById(R.id.settings__accountInfoContent_email__text);
+        accountNumber = view.findViewById(R.id.settings__accountInfoContent_accountNumber__text);
+        webRole = view.findViewById(R.id.settings__accountInfoContent_webRole_text);
     }
 
     /**
@@ -64,8 +62,9 @@ public class SettingsModule extends BaseModule {
      */
     public void onLogOutClick() {
         localStorage.removeToken();
-        Intent intent = new Intent(currentActivity, LoginActivity.class);
-        currentActivity.startActivity(intent);
+        Intent intent = new Intent(activity, LoginActivity.class);
+        activity.startActivity(intent);
+        router.navigate(LoginActivity.class);
     }
 
     /**

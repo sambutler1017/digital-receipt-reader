@@ -44,6 +44,6 @@ public class HomeFragment extends BaseFragment {
      * Initializes any services being used by the activity.
      */
     public void initServices() {
-        homeModule = new HomeModule(view);
+        homeModule = new HomeModule(view, getActivity());
     }
 }

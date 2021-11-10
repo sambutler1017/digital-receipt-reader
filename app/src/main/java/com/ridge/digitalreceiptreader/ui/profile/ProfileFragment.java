@@ -64,6 +64,6 @@ public class ProfileFragment extends BaseFragment {
      * Initializes any services being used by the activity.
      */
     public void initServices() {
-        profileModule = new ProfileModule(view);
+        profileModule = new ProfileModule(view, getActivity());
     }
 }

@@ -17,6 +17,7 @@ import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
 import com.ridge.digitalreceiptreader.service.jwt.JwtHolder;
 import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
+import com.ridge.digitalreceiptreader.service.util.RouterService;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,7 @@ public class LoginModule extends BaseModule {
     private ToastService toastService;
     private LocalStorageService localStorage;
     private JwtHolder jwtHolder;
+    private RouterService router;
 
     private AuthClient authClient;
 
@@ -48,7 +50,7 @@ public class LoginModule extends BaseModule {
     public LoginModule(Activity a) {
         super(a);
         if(jwtHolder.hasToken()) {
-            routeToHome();
+            router.navigateHome();
         }
     }
 
@@ -56,27 +58,28 @@ public class LoginModule extends BaseModule {
      * Initializes any clients to be used for api calls.
      */
     public void initClients() {
-        authClient = new AuthClient(currentActivity);
+        authClient = new AuthClient(activity);
     }
 
     /**
      * Initializes any service classes being used in the activity.
      */
     public void initServices() {
-        localStorage = new LocalStorageService(currentActivity);
-        toastService = new ToastService(currentActivity);
-        jwtHolder = new JwtHolder(currentActivity);
+        localStorage = new LocalStorageService(activity);
+        toastService = new ToastService(activity);
+        jwtHolder = new JwtHolder(activity);
+        router = new RouterService(activity);
     }
 
     /**
      * Initializes any elements that are being used in the activity.
      */
     public void initElements() {
-        emailInput = currentActivity.findViewById(R.id.email_textbox__login);
-        passwordInput = currentActivity.findViewById(R.id.password_textbox__login);
+        emailInput = activity.findViewById(R.id.email_textbox__login);
+        passwordInput = activity.findViewById(R.id.password_textbox__login);
         passwordInput.setTransformationMethod(new PasswordTransformationMethod());
-        loginButton = currentActivity.findViewById(R.id.login_button__login);
-        loadingIndicator = currentActivity.findViewById(R.id.loading_indicator__login);
+        loginButton = activity.findViewById(R.id.login_button__login);
+        loadingIndicator = activity.findViewById(R.id.loading_indicator__login);
         loadingIndicator.setVisibility(View.GONE);
     }
 
@@ -89,23 +92,21 @@ public class LoginModule extends BaseModule {
 
         show(loadingIndicator);
         hide(loginButton);
-        authClient.authenticate(email, password).subscribe(res -> currentActivity.runOnUiThread(() -> validateToken(res)));
+        authClient.authenticate(email, password).subscribe(res -> activity.runOnUiThread(() -> validateToken(res)));
     }
 
     /**
      * Method for handling when the create user link is clicked from login page.
      */
     public void onCreateUser() {
-        Intent intent = new Intent(currentActivity, CreateAccountActivity.class);
-        currentActivity.startActivity(intent);
+        router.navigate(CreateAccountActivity.class);
     }
 
     /**
      * Method for handling when the forgot password link is clicked (from the login page).
      */
     public void onForgotPassword() {
-        Intent intent = new Intent(currentActivity, ForgotPasswordActivity.class);
-        currentActivity.startActivity(intent);
+        router.navigate(ForgotPasswordActivity.class);
     }
 
     /**
@@ -118,21 +119,12 @@ public class LoginModule extends BaseModule {
     private void validateToken(ResponseEntity<DigitalReceiptToken> authToken) {
         if (authToken.getStatusCode().equals(HttpStatus.OK)) {
             toastService.showSuccess("Logged in Successfully!");
-            routeToHome();
+            router.navigateHome();
             localStorage.setToken(authToken.getBody().getToken());
         } else {
             toastService.showError("Invalid Credentials!");
         }
         hide(loadingIndicator);
         show(loginButton);
-    }
-
-    /**
-     * Route to the home page. This will be used mainly if the user already has a token and
-     * they do not need to login.
-     */
-    private void routeToHome() {
-        Intent intent = new Intent(currentActivity, MainActivity.class);
-        currentActivity.startActivity(intent);
     }
 }
