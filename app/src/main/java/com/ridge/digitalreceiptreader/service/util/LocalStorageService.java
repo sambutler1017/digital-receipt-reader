@@ -105,7 +105,7 @@ public class LocalStorageService {
      * @param s The key to find and remove.
      */
     public void remove(String s) {
-        getEditor().remove(s);
+        getEditor().remove(s).commit();
     }
 
     /**
