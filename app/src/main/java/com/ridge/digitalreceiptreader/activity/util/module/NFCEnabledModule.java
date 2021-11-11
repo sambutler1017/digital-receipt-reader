@@ -24,7 +24,7 @@ import java.util.Date;
  * @author Luke Lengel
  * @since October 18, 2021
  */
-public class NFCService {
+public class NFCEnabledModule {
     private final Activity currentActivity;
 
     private NfcAdapter adapter = null;
@@ -37,7 +37,7 @@ public class NFCService {
      *
      * @param a current activity.
      */
-    public NFCService(Activity a) {
+    public NFCEnabledModule(Activity a) {
         currentActivity = a;
         jwtHolder = new JwtHolder(a);
         localStorage = new LocalStorageService(currentActivity);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.ridge.digitalreceiptreader.activity.home.MainActivity;
+import com.ridge.digitalreceiptreader.activity.login.LoginActivity;
 
 /**
  * Router class that will be used to route to different activities and
@@ -41,5 +42,12 @@ public class RouterService {
      */
     public void navigateHome() {
         navigate(MainActivity.class);
+    }
+
+    /**
+     * This will route to the login page of the application.
+     */
+    public void navigateLogin() {
+        navigate(LoginActivity.class);
     }
 }

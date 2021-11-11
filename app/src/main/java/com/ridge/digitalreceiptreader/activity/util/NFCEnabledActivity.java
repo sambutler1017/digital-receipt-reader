@@ -7,30 +7,26 @@ import android.util.Log;
 import com.ridge.digitalreceiptreader.R;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import com.ridge.digitalreceiptreader.activity.util.module.NFCService;
+import com.ridge.digitalreceiptreader.activity.util.module.NFCEnabledModule;
 import com.ridge.digitalreceiptreader.ui.nfc.NFCFragment;
-
-import java.util.List;
 
 /**
  * Activity that is meant to be extended from so the child activity can
  * have NFC capabilities enabled.
  *
  * @author Sam Butler
- * @author Luke Lengel
  * @since October 18, 2021
  */
 public abstract class NFCEnabledActivity extends AppCompatActivity {
-    private NFCService nfcService;
+    private NFCEnabledModule nfcEnabledModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        nfcService = new NFCService(this);
-        nfcService.initAdapter();
+        nfcEnabledModule = new NFCEnabledModule(this);
+        nfcEnabledModule.initAdapter();
     }
 
     @Override
@@ -41,21 +37,21 @@ public abstract class NFCEnabledActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        nfcService.enableNfcForegroundDispatch();
+        nfcEnabledModule.enableNfcForegroundDispatch();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        nfcService.disableNfcForegroundDispatch();
+        nfcEnabledModule.disableNfcForegroundDispatch();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if(getVisibleFragment() instanceof NFCFragment) {
-            NdefMessage[] messages = nfcService.readTag(intent);
-            Log.i("Nfc Tag", "Receipt Id: " + nfcService.parseMessage(messages[0]).getTransmittedId());
+            NdefMessage[] messages = nfcEnabledModule.readTag(intent);
+            Log.i("Nfc Tag", "Receipt Id: " + nfcEnabledModule.parseMessage(messages[0]).getTransmittedId());
         }
     }
 

@@ -10,7 +10,7 @@
             <padding android:bottom="1dp"/>
         </shape>
     </item>
-    <item android:left="-180dp" android:top="100dp" android:bottom="-80dp" android:right="20dp">
+    <item android:left="-240dp" android:top="90dp" android:bottom="-80dp" android:right="20dp">
         <rotate
             android:fromDegrees="-30"
             android:pivotX="50%"
@@ -22,7 +22,7 @@
             </shape>
         </rotate>
     </item>
-    <item android:left="120dp" android:top="120dp" android:bottom="-100dp" android:right="-160dp">
+    <item android:left="120dp" android:top="110dp" android:bottom="-100dp" android:right="-160dp">
         <shape
             android:shape="oval">
             <solid android:color="@color/white" />
