@@ -1,7 +1,5 @@
 package com.ridge.digitalreceiptreader.common.abstracts;
 
-import android.view.View;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ridge.digitalreceiptreader.common.interfaces.ActivityInterface;

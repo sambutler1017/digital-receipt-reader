@@ -3,8 +3,6 @@ package com.ridge.digitalreceiptreader.common.api;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
-
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;

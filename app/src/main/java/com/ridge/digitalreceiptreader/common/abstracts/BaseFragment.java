@@ -1,21 +1,12 @@
 package com.ridge.digitalreceiptreader.common.abstracts;
 
-import android.os.Bundle;
-import android.text.Layout;
-import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.common.interfaces.ActivityInterface;
-import com.ridge.digitalreceiptreader.common.interfaces.ModuleInterface;
-import com.ridge.digitalreceiptreader.ui.profile.ProfileModule;
-
-import org.xmlpull.v1.XmlPullParser;
 
 /**
  * Base fragment class to implement common methods to be used.

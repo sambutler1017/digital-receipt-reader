@@ -1,17 +1,15 @@
 package com.ridge.digitalreceiptreader.activity.login.module;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.login.CreateAccountActivity;
 import com.ridge.digitalreceiptreader.activity.login.ForgotPasswordActivity;
-import com.ridge.digitalreceiptreader.activity.home.MainActivity;
-import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;

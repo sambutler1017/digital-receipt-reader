@@ -1,22 +1,14 @@
 package com.ridge.digitalreceiptreader.ui.nfc;
 
 import android.os.Bundle;
-import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
-import com.ridge.digitalreceiptreader.ui.profile.ProfileModule;
 import com.skyfishjy.library.RippleBackground;
 
 /**

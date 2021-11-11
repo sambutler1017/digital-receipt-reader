@@ -1,21 +1,15 @@
 package com.ridge.digitalreceiptreader.ui.settings;
 
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.ridge.digitalreceiptreader.R;
-import com.ridge.digitalreceiptreader.activity.login.LoginActivity;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
-import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
-import com.ridge.digitalreceiptreader.ui.nfc.NFCModule;
 
 /**
  * Settings fragment used to display the Settings page in the main

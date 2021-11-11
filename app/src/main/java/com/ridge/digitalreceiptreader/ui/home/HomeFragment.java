@@ -4,17 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
-import com.ridge.digitalreceiptreader.ui.nfc.NFCModule;
 
 /**
  * Home fragment used to display the home page in the main

@@ -2,7 +2,6 @@ package com.ridge.digitalreceiptreader.common.abstracts;
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.ridge.digitalreceiptreader.common.interfaces.ModuleInterface;
 
