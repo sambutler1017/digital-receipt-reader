@@ -49,7 +49,7 @@ public class LoginModule extends BaseModule {
      */
     public LoginModule(Activity a) {
         super(a);
-        if(jwtHolder.hasToken()) {
+        if (jwtHolder.hasToken()) {
             router.navigateHome();
         }
     }

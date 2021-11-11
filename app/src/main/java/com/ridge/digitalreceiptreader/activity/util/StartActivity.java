@@ -1,9 +1,6 @@
 package com.ridge.digitalreceiptreader.activity.util;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.util.module.StartModule;
