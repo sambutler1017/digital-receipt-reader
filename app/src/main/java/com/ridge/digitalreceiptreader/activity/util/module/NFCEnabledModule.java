@@ -11,9 +11,14 @@ import android.nfc.NfcManager;
 import android.os.Parcelable;
 import android.util.Log;
 
+import androidx.fragment.app.Fragment;
+
+import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
 import com.ridge.digitalreceiptreader.common.domain.NfcData;
 import com.ridge.digitalreceiptreader.service.jwt.JwtHolder;
 import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
+import com.ridge.digitalreceiptreader.service.util.ToastService;
+import com.ridge.digitalreceiptreader.ui.nfc.NFCFragment;
 
 import java.util.Date;
 
@@ -24,13 +29,13 @@ import java.util.Date;
  * @author Luke Lengel
  * @since October 18, 2021
  */
-public class NFCEnabledModule {
-    private final Activity currentActivity;
+public class NFCEnabledModule extends BaseModule {
+    private boolean NFC_ENABLED = true;
 
     private NfcAdapter adapter = null;
     private LocalStorageService localStorage;
-
-    private final JwtHolder jwtHolder;
+    private ToastService toastService;
+    private  JwtHolder jwtHolder;
 
     /**
      * Sets default values for the class.
@@ -38,9 +43,16 @@ public class NFCEnabledModule {
      * @param a current activity.
      */
     public NFCEnabledModule(Activity a) {
-        currentActivity = a;
-        jwtHolder = new JwtHolder(a);
-        localStorage = new LocalStorageService(currentActivity);
+        super(a);
+    }
+
+    /**
+     * Initializes any services being used by the activity.
+     */
+    public void initServices() {
+        jwtHolder = new JwtHolder(activity);
+        localStorage = new LocalStorageService(activity);
+        toastService = new ToastService(activity);
     }
 
     /**
@@ -49,15 +61,15 @@ public class NFCEnabledModule {
      * top of the phone.
      */
     public void initAdapter() {
-        NfcManager nfcManager = (NfcManager)currentActivity.getSystemService(Context.NFC_SERVICE);
+        NfcManager nfcManager = (NfcManager)activity.getSystemService(Context.NFC_SERVICE);
         adapter = nfcManager.getDefaultAdapter();
-        if(adapter == null && !localStorage.getBoolean("nfcEnableFlag")) {
-            localStorage.setBoolean("nfcEnableFlag", true);
-            AlertDialog.Builder alert = new AlertDialog.Builder(currentActivity);
+        if(adapter == null && !localStorage.getBoolean("nfcNotSupportedFlag")) {
+            localStorage.setBoolean("nfcNotSupportedFlag", true);
+            AlertDialog.Builder alert = new AlertDialog.Builder(activity);
             alert.setTitle("Warning!");
             alert.setMessage("This device does not support NFC. You will not be able to scan in receipts. Do you want to continue?");
             alert.setPositiveButton("Continue", null);
-            alert.setNegativeButton("Close", (dialog, id) -> currentActivity.finish());
+            alert.setNegativeButton("Close", (dialog, id) -> activity.finish());
             alert.setCancelable(false);
             alert.create().show();
         }
@@ -73,9 +85,9 @@ public class NFCEnabledModule {
         }
 
         try {
-            Intent intent = new Intent(currentActivity, currentActivity.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            PendingIntent nfcPendingIntent = PendingIntent.getActivity(currentActivity, 0, intent, 0);
-            adapter.enableForegroundDispatch(currentActivity, nfcPendingIntent, null, null);
+            Intent intent = new Intent(activity, activity.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent nfcPendingIntent = PendingIntent.getActivity(activity, 0, intent, 0);
+            adapter.enableForegroundDispatch(activity, nfcPendingIntent, null, null);
         } catch (IllegalStateException ex) {
             Log.e("NFC", "Error enabling NFC foreground dispatch");
         }
@@ -91,9 +103,35 @@ public class NFCEnabledModule {
         }
 
         try {
-            adapter.disableForegroundDispatch(currentActivity);
+            adapter.disableForegroundDispatch(activity);
         } catch (IllegalStateException ex) {
             Log.e("NFC", "Error disabling NFC foreground dispatch");
+        }
+    }
+
+    /**
+     * Method for when a tag is detected. If NFC is enabled then it will not run this method or if
+     * the fragment is not of type {@link NFCFragment}. If the other two conditions hold then it
+     * pop a dialog to associate the receipt to the user if the user wishes too.
+     *
+     * @param f The fragment currently visible to the user.
+     * @param i The intent the tag created.
+     */
+    public void tagDetected(Fragment f, Intent i) {
+        if(localStorage.getBoolean("nfcNotSupportedFlag")) {
+            disableNFC((NFCFragment) f);
+            toastService.showError("NFC not Supported!");
+            return;
+        }
+
+        if(NFC_ENABLED && f instanceof NFCFragment) {
+            disableNFC((NFCFragment) f);
+            NdefMessage[] messages = readTag(i);
+
+            Log.i("Nfc Tag", "Receipt Id: " + parseMessage(messages[0]).getTransmittedId());
+
+            toastService.showSuccess("Receipt Scanned Successfully!");
+            enableNFC((NFCFragment) f);
         }
     }
 
@@ -104,7 +142,7 @@ public class NFCEnabledModule {
      * @param intent The intent the tag was triggered on.
      * @return {@link NdefMessage} of the data read from the tag.
      */
-    public NdefMessage[] readTag(Intent intent) {
+    private NdefMessage[] readTag(Intent intent) {
         if(adapter == null) {
             return null;
         }
@@ -128,7 +166,7 @@ public class NFCEnabledModule {
      * @param msg The message to get data from.
      * @return {@link Integer} of the data in the message.
      */
-    public NfcData parseMessage(NdefMessage msg) {
+    private NfcData parseMessage(NdefMessage msg) {
         if(adapter == null) {
             return null;
         }
@@ -141,5 +179,21 @@ public class NFCEnabledModule {
         int byte4 = payload[3] & 0x000000FF;
 
         return  new NfcData(byte1 | byte2 | byte3 | byte4, jwtHolder.getRequiredUserId(), new Date());
+    }
+
+    /**
+     * Disable the NFC so no tags can be read.
+     */
+    private void disableNFC(NFCFragment f) {
+        NFC_ENABLED = false;
+        f.stopScan();
+    }
+
+    /**
+     * Enable the NFC so tags can be read.
+     */
+    private void enableNFC(NFCFragment f) {
+        NFC_ENABLED = true;
+        f.startScan();
     }
 }
