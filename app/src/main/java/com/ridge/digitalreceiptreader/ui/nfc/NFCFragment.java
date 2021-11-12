@@ -20,6 +20,7 @@ import com.skyfishjy.library.RippleBackground;
  */
 public class NFCFragment extends BaseFragment {
     private NFCModule nfcModule;
+    private RippleBackground rippleBackground;
 
     /**
      * This will create the view for the fragment from the given layout and the
@@ -46,7 +47,21 @@ public class NFCFragment extends BaseFragment {
      * Initializes any elements being used by the activity.
      */
     public void initElements() {
-        final RippleBackground rippleBackground = view.findViewById(R.id.content);
+        rippleBackground = view.findViewById(R.id.content);
+        rippleBackground.startRippleAnimation();
+    }
+
+    /**
+     * stop the scan animation
+     */
+    public void stopScan() {
+        rippleBackground.stopRippleAnimation();
+    }
+
+    /**
+     * start the scan animation
+     */
+    public void startScan() {
         rippleBackground.startRippleAnimation();
     }
 }

@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.ridge.digitalreceiptreader.activity.util.module.NFCEnabledModule;
+import com.ridge.digitalreceiptreader.activity.util.module.StartModule;
+import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
+import com.ridge.digitalreceiptreader.service.util.ToastService;
 import com.ridge.digitalreceiptreader.ui.nfc.NFCFragment;
 
 /**
@@ -18,15 +21,25 @@ import com.ridge.digitalreceiptreader.ui.nfc.NFCFragment;
  * @author Sam Butler
  * @since October 18, 2021
  */
-public abstract class NFCEnabledActivity extends AppCompatActivity {
+public abstract class NFCEnabledActivity extends BaseActivity {
     private NFCEnabledModule nfcEnabledModule;
+    private ToastService toastService;
+    private boolean NFC_ENABLED = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        nfcEnabledModule = new NFCEnabledModule(this);
+        initialization();
         nfcEnabledModule.initAdapter();
+    }
+
+    /**
+     * Initializes any services being used by the activity.
+     */
+    public void initServices() {
+        nfcEnabledModule = new NFCEnabledModule(this);
+        toastService = new ToastService(this);
     }
 
     @Override
@@ -49,9 +62,13 @@ public abstract class NFCEnabledActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if(getVisibleFragment() instanceof NFCFragment) {
+        Fragment f = getVisibleFragment();
+        if(NFC_ENABLED && f instanceof NFCFragment) {
+            disableNFC((NFCFragment) f);
             NdefMessage[] messages = nfcEnabledModule.readTag(intent);
             Log.i("Nfc Tag", "Receipt Id: " + nfcEnabledModule.parseMessage(messages[0]).getTransmittedId());
+            toastService.showSuccess("Receipt Scanned Successfully!");
+            enableNFC((NFCFragment) f);
         }
     }
 
@@ -63,5 +80,21 @@ public abstract class NFCEnabledActivity extends AppCompatActivity {
     private Fragment getVisibleFragment() {
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         return navHostFragment.getChildFragmentManager().getFragments().get(0);
+    }
+
+    /**
+     * Disable the NFC so no tags can be read.
+     */
+    private void disableNFC(NFCFragment f) {
+        NFC_ENABLED = false;
+        f.stopScan();
+    }
+
+    /**
+     * Enable the NFC so tags can be read.
+     */
+    private void enableNFC(NFCFragment f) {
+        NFC_ENABLED = true;
+        f.startScan();
     }
 }
