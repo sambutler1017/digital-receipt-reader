@@ -19,7 +19,7 @@ import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
  * @since October 30, 2021
  */
 public class SettingsFragment extends BaseFragment {
-    private SettingsModule settingsModule;
+    private SettingsFragmentModule settingsFragmentModule;
 
     private TextView logOut;
     private TextView deleteAccount;
@@ -50,15 +50,15 @@ public class SettingsFragment extends BaseFragment {
      * Initializes any listeners being used by the activity.
      */
     public void initListeners() {
-        logOut.setOnClickListener(v -> settingsModule.onLogOutClick());
-        deleteAccount.setOnClickListener(v -> settingsModule.onDeleteAccount());
+        logOut.setOnClickListener(v -> settingsFragmentModule.onLogOutClick());
+        deleteAccount.setOnClickListener(v -> settingsFragmentModule.onDeleteAccount());
     }
 
     /**
      * Initializes any services being used by the activity.
      */
     public void initServices() {
-        settingsModule = new SettingsModule(view, getActivity());
-        settingsModule.populateAccountInfo();
+        settingsFragmentModule = new SettingsFragmentModule(this, view);
+        settingsFragmentModule.populateAccountInfo();
     }
 }

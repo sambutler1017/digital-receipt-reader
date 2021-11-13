@@ -1,9 +1,9 @@
 package com.ridge.digitalreceiptreader.activity.util.module;
 
-import android.app.Activity;
 import android.os.Handler;
 
-import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
+import com.ridge.digitalreceiptreader.activity.util.StartActivity;
+import com.ridge.digitalreceiptreader.common.abstracts.ActivityModule;
 import com.ridge.digitalreceiptreader.service.jwt.JwtHolder;
 import com.ridge.digitalreceiptreader.service.util.RouterService;
 
@@ -13,7 +13,7 @@ import com.ridge.digitalreceiptreader.service.util.RouterService;
  * @author Sam Butler & Luke Lengel
  * @since October 23, 2021
  */
-public class StartModule extends BaseModule  {
+public class StartActivityModule extends ActivityModule<StartActivity> {
     private JwtHolder jwtHolder;
     private RouterService router;
 
@@ -22,7 +22,7 @@ public class StartModule extends BaseModule  {
      *
      * @param a current activity.
      */
-    public StartModule(Activity a) {
+    public StartActivityModule(StartActivity a) {
         super(a);
         delayRoute();
     }
@@ -31,8 +31,8 @@ public class StartModule extends BaseModule  {
      * Initializes any service classes being used in the activity.
      */
     public void initServices() {
-        jwtHolder = new JwtHolder(activity);
-        router = new RouterService(activity);
+        jwtHolder = new JwtHolder(appContext);
+        router = new RouterService(appContext);
     }
 
     /**

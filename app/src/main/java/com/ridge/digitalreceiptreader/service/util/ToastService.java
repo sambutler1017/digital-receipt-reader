@@ -1,5 +1,6 @@
 package com.ridge.digitalreceiptreader.service.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -26,7 +27,7 @@ public class ToastService {
      *
      * @param context Current context of the Activity
      */
-    public ToastService(Context context) {
+    public ToastService(Activity context) {
         currentContext = context;
     }
 
@@ -66,7 +67,7 @@ public class ToastService {
      */
     private Toast getToastMessage(String bgColor, String msg) {
         Toast toast = new Toast(currentContext);
-        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(getDefaultLayout(bgColor, msg));
         toast.setGravity(Gravity.TOP, 0, 10);
 

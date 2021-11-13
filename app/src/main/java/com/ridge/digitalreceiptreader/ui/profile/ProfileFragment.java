@@ -22,7 +22,7 @@ import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
  * @since October 30, 2021
  */
 public class ProfileFragment extends BaseFragment {
-    private ProfileModule profileModule;
+    private ProfileFragmentModule profileFragmentModule;
 
     private TextView currentPassword;
     private TextView newPassword;
@@ -57,13 +57,13 @@ public class ProfileFragment extends BaseFragment {
      * Initializes any listeners that are being used in the activity.
      */
     public void initListeners() {
-        saveButton.setOnClickListener(v -> profileModule.saveProfile());
+        saveButton.setOnClickListener(v -> profileFragmentModule.saveProfile());
     }
 
     /**
      * Initializes any services being used by the activity.
      */
     public void initServices() {
-        profileModule = new ProfileModule(view, getActivity());
+        profileFragmentModule = new ProfileFragmentModule(this, view);
     }
 }

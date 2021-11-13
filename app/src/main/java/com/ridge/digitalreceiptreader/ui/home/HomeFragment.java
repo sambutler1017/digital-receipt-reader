@@ -18,7 +18,7 @@ import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
  * @since October 30, 2021
  */
 public class HomeFragment extends BaseFragment {
-    private HomeModule homeModule;
+    private HomeFragmentModule homeFragmentModule;
 
     /**
      * This will create the view for the fragment from the given layout and the
@@ -38,6 +38,6 @@ public class HomeFragment extends BaseFragment {
      * Initializes any services being used by the activity.
      */
     public void initServices() {
-        homeModule = new HomeModule(view, getActivity());
+        homeFragmentModule = new HomeFragmentModule(this, view);
     }
 }

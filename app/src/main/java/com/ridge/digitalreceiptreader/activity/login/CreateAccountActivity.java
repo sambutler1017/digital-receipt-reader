@@ -1,12 +1,10 @@
 package com.ridge.digitalreceiptreader.activity.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Button;
 
 import com.ridge.digitalreceiptreader.R;
-import com.ridge.digitalreceiptreader.activity.login.module.CreateAccountModule;
+import com.ridge.digitalreceiptreader.activity.login.module.CreateAccountActivityModule;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
 
 /**
@@ -16,7 +14,7 @@ import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
  * @since October 18, 2021
  */
 public class CreateAccountActivity extends BaseActivity {
-    private CreateAccountModule createAccountModule;
+    private CreateAccountActivityModule createAccountActivityModule;
     private Button createAccountButton;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +35,13 @@ public class CreateAccountActivity extends BaseActivity {
      * Initializes any listeners that are being used in the activity.
      */
     public void initListeners() {
-        createAccountButton.setOnClickListener(v -> createAccountModule.onCreateAccount());
+        createAccountButton.setOnClickListener(v -> createAccountActivityModule.onCreateAccount());
     }
 
     /**
      * Initializes any services being used by the activity.
      */
     public void initServices() {
-        createAccountModule = new CreateAccountModule(this);
+        createAccountActivityModule = new CreateAccountActivityModule(this);
     }
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.ridge.digitalreceiptreader.R;
+import com.ridge.digitalreceiptreader.activity.util.module.NFCEnabledActivityModule;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
 import com.skyfishjy.library.RippleBackground;
 
@@ -19,7 +20,7 @@ import com.skyfishjy.library.RippleBackground;
  * @since October 30, 2021
  */
 public class NFCFragment extends BaseFragment {
-    private NFCModule nfcModule;
+    private NFCFragmentModule nfcFragmentModule;
     private RippleBackground rippleBackground;
 
     /**
@@ -33,6 +34,7 @@ public class NFCFragment extends BaseFragment {
      */
     public View onCreateView(@NonNull LayoutInflater i, ViewGroup c, Bundle sI) {
         initialization(i, c, R.layout.fragment_nfc);
+        nfcFragmentModule.hasNFCSupport(this);
         return view;
     }
 
@@ -40,7 +42,7 @@ public class NFCFragment extends BaseFragment {
      * Initializes any services being used by the activity.
      */
     public void initServices() {
-        nfcModule = new NFCModule(view, getActivity());
+        nfcFragmentModule = new NFCFragmentModule(this, view);
     }
 
     /**
@@ -63,5 +65,12 @@ public class NFCFragment extends BaseFragment {
      */
     public void startScan() {
         rippleBackground.startRippleAnimation();
+    }
+
+    /**
+     * Shows the save receipt modal to the user.
+     */
+    public void showSaveReceiptModal(NFCEnabledActivityModule m) {
+        nfcFragmentModule.showDialog(m);
     }
 }

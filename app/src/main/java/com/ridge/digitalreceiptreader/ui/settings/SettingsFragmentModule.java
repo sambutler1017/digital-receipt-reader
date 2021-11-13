@@ -1,13 +1,12 @@
 package com.ridge.digitalreceiptreader.ui.settings;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.login.LoginActivity;
-import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
+import com.ridge.digitalreceiptreader.common.abstracts.FragmentModule;
 import com.ridge.digitalreceiptreader.service.jwt.JwtHolder;
 import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
 import com.ridge.digitalreceiptreader.service.util.RouterService;
@@ -18,7 +17,7 @@ import com.ridge.digitalreceiptreader.service.util.RouterService;
  * @author Sam Butler
  * @since October 30, 2021
  */
-public class SettingsModule extends BaseModule {
+public class SettingsFragmentModule extends FragmentModule<SettingsFragment> {
     private JwtHolder jwtHolder;
     private LocalStorageService localStorage;
     private RouterService router;
@@ -31,10 +30,10 @@ public class SettingsModule extends BaseModule {
     /**
      * Sets default values for the class.
      *
-     * @param v current view.
+     * @param f current fragment.
      */
-    public SettingsModule(View v, Activity a) {
-        super(v, a);
+    public SettingsFragmentModule(SettingsFragment f, View v) {
+        super(f,v);
     }
 
     /**

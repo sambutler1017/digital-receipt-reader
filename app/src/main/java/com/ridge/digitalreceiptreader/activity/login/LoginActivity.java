@@ -5,7 +5,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ridge.digitalreceiptreader.R;
-import com.ridge.digitalreceiptreader.activity.login.module.LoginModule;
+import com.ridge.digitalreceiptreader.activity.login.module.LoginActivityModule;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
 
 /**
@@ -15,7 +15,7 @@ import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
  * @since October 18, 2021
  */
 public class LoginActivity extends BaseActivity {
-    private LoginModule loginModule;
+    private LoginActivityModule loginActivityModule;
     private Button loginButton;
     private TextView forgotPassword;
     private TextView createUser;
@@ -41,15 +41,15 @@ public class LoginActivity extends BaseActivity {
      * Initializes any listeners that are being used in the activity.
      */
     public void initListeners() {
-        forgotPassword.setOnClickListener(v -> loginModule.onForgotPassword());
-        createUser.setOnClickListener(v -> loginModule.onCreateUser());
-        loginButton.setOnClickListener(v -> loginModule.onLogin());
+        forgotPassword.setOnClickListener(v -> loginActivityModule.onForgotPassword());
+        createUser.setOnClickListener(v -> loginActivityModule.onCreateUser());
+        loginButton.setOnClickListener(v -> loginActivityModule.onLogin());
     }
 
     /**
      * Initializes any services being used by the activity.
      */
     public void initServices() {
-        loginModule = new LoginModule(this);
+        loginActivityModule = new LoginActivityModule(this);
     }
 }
