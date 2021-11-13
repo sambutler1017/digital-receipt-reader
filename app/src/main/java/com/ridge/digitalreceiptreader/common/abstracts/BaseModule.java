@@ -3,6 +3,8 @@ package com.ridge.digitalreceiptreader.common.abstracts;
 import android.app.Activity;
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
+
 import com.ridge.digitalreceiptreader.common.interfaces.ModuleInterface;
 
 /**
@@ -11,40 +13,23 @@ import com.ridge.digitalreceiptreader.common.interfaces.ModuleInterface;
  * @author Sam Butler
  * @since October 29, 2021
  */
-public abstract class BaseModule implements ModuleInterface {
-
-    protected View view;
-    protected Activity activity;
-
+public abstract class BaseModule<T> implements ModuleInterface {
+    protected T appContext;
     /**
-     * Called when an activity is being used to manage the UI.
+     * Common constructor use to set the appView. Which can be
+     * either a {@link Fragment} or {@link Activity}
      *
-     * @param a The reference to the activity.
+     * @param a The reference to the appView.
      */
-    public BaseModule(Activity a) {
-        activity = a;
-        view = null;
-        init();
-    }
-
-    /**
-     * Called when a view or activity is being used to manage the UI. The view will be used to access
-     * the elements but the activity will be used to initialize services and clients.
-     *
-     * @param v The view being used in the UI.
-     * @param a The reference to the activity.
-     */
-    public BaseModule(View v, Activity a) {
-        view = v;
-        activity = a;
-        init();
+    public BaseModule(T a) {
+        appContext = a;
     }
 
     /**
      * Methods that are called when the module is being initialized. The 3 init methods are
      * are to be implemented in the child classes.
      */
-    private void init() {
+    protected void init() {
         initElements();
         initServices();
         initClients();

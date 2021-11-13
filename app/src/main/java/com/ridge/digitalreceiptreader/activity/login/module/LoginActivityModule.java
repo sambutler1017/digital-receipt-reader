@@ -1,6 +1,5 @@
 package com.ridge.digitalreceiptreader.activity.login.module;
 
-import android.app.Activity;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
@@ -10,9 +9,10 @@ import android.widget.ProgressBar;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.login.CreateAccountActivity;
 import com.ridge.digitalreceiptreader.activity.login.ForgotPasswordActivity;
+import com.ridge.digitalreceiptreader.activity.login.LoginActivity;
 import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.app.auth.domain.DigitalReceiptToken;
-import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
+import com.ridge.digitalreceiptreader.common.abstracts.ActivityModule;
 import com.ridge.digitalreceiptreader.service.jwt.JwtHolder;
 import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
 import com.ridge.digitalreceiptreader.service.util.RouterService;
@@ -27,7 +27,7 @@ import org.springframework.http.ResponseEntity;
  * @author Sam Butler & Luke Lengel
  * @since October 23, 2021
  */
-public class LoginModule extends BaseModule {
+public class LoginActivityModule extends ActivityModule<LoginActivity> {
     private ToastService toastService;
     private LocalStorageService localStorage;
     private JwtHolder jwtHolder;
@@ -45,7 +45,7 @@ public class LoginModule extends BaseModule {
      *
      * @param a current activity.
      */
-    public LoginModule(Activity a) {
+    public LoginActivityModule(LoginActivity a) {
         super(a);
         if (jwtHolder.hasToken()) {
             router.navigateHome();
@@ -56,28 +56,28 @@ public class LoginModule extends BaseModule {
      * Initializes any clients to be used for api calls.
      */
     public void initClients() {
-        authClient = new AuthClient(activity);
+        authClient = new AuthClient(appContext);
     }
 
     /**
      * Initializes any service classes being used in the activity.
      */
     public void initServices() {
-        localStorage = new LocalStorageService(activity);
-        toastService = new ToastService(activity);
-        jwtHolder = new JwtHolder(activity);
-        router = new RouterService(activity);
+        localStorage = new LocalStorageService(appContext);
+        toastService = new ToastService(appContext);
+        jwtHolder = new JwtHolder(appContext);
+        router = new RouterService(appContext);
     }
 
     /**
      * Initializes any elements that are being used in the activity.
      */
     public void initElements() {
-        emailInput = activity.findViewById(R.id.email_textbox__login);
-        passwordInput = activity.findViewById(R.id.password_textbox__login);
+        emailInput = appContext.findViewById(R.id.email_textbox__login);
+        passwordInput = appContext.findViewById(R.id.password_textbox__login);
         passwordInput.setTransformationMethod(new PasswordTransformationMethod());
-        loginButton = activity.findViewById(R.id.login_button__login);
-        loadingIndicator = activity.findViewById(R.id.loading_indicator__login);
+        loginButton = appContext.findViewById(R.id.login_button__login);
+        loadingIndicator = appContext.findViewById(R.id.loading_indicator__login);
         loadingIndicator.setVisibility(View.GONE);
     }
 
@@ -90,7 +90,7 @@ public class LoginModule extends BaseModule {
 
         show(loadingIndicator);
         hide(loginButton);
-        authClient.authenticate(email, password).subscribe(res -> activity.runOnUiThread(() -> validateToken(res)));
+        authClient.authenticate(email, password).subscribe(res -> appContext.runOnUiThread(() -> validateToken(res)));
     }
 
     /**

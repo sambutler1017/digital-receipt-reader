@@ -1,6 +1,5 @@
 package com.ridge.digitalreceiptreader.activity.login.module;
 
-import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +7,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.ridge.digitalreceiptreader.R;
-import com.ridge.digitalreceiptreader.common.abstracts.BaseModule;
+import com.ridge.digitalreceiptreader.activity.login.ForgotPasswordActivity;
+import com.ridge.digitalreceiptreader.common.abstracts.ActivityModule;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 
 /**
@@ -17,7 +17,7 @@ import com.ridge.digitalreceiptreader.service.util.ToastService;
  * @author Luke Lengel
  * @since October 23, 2021
  */
-public class ForgotPasswordModule extends BaseModule {
+public class ForgotPasswordActivityModule extends ActivityModule<ForgotPasswordActivity> {
     private ToastService toastService;
 
     private EditText emailInput;
@@ -29,7 +29,7 @@ public class ForgotPasswordModule extends BaseModule {
      *
      * @param a The activity to pull and modify data from.
      */
-    public ForgotPasswordModule(Activity a) {
+    public ForgotPasswordActivityModule(ForgotPasswordActivity a) {
         super(a);
     }
 
@@ -37,16 +37,16 @@ public class ForgotPasswordModule extends BaseModule {
      * Initializes any service classes being used in the activity.
      */
     public void initServices() {
-        toastService = new ToastService(activity);
+        toastService = new ToastService(appContext);
     }
 
     /**
      * Initializes any elements that are being used in the activity.
      */
     public void initElements() {
-        emailInput = activity.findViewById(R.id.email_textbox__forgot_password);
-        sendButton = activity.findViewById(R.id.send_button__forgot_password);
-        loadingIndicator = activity.findViewById(R.id.loading_indicator__forgot_password);
+        emailInput = appContext.findViewById(R.id.email_textbox__forgot_password);
+        sendButton = appContext.findViewById(R.id.send_button__forgot_password);
+        loadingIndicator = appContext.findViewById(R.id.loading_indicator__forgot_password);
         loadingIndicator.setVisibility(View.GONE);
     }
 

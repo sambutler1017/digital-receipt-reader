@@ -1,19 +1,12 @@
 package com.ridge.digitalreceiptreader.activity.util;
 
 import android.content.Intent;
-import android.nfc.NdefMessage;
 import android.os.Bundle;
-import android.util.Log;
-import com.ridge.digitalreceiptreader.R;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+
 import androidx.fragment.app.FragmentManager;
 
-import com.ridge.digitalreceiptreader.activity.util.module.NFCEnabledModule;
-import com.ridge.digitalreceiptreader.activity.util.module.StartModule;
+import com.ridge.digitalreceiptreader.activity.util.module.NFCEnabledActivityModule;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
-import com.ridge.digitalreceiptreader.service.util.ToastService;
-import com.ridge.digitalreceiptreader.ui.nfc.NFCFragment;
 
 /**
  * Activity that is meant to be extended from so the child activity can
@@ -23,7 +16,7 @@ import com.ridge.digitalreceiptreader.ui.nfc.NFCFragment;
  * @since October 18, 2021
  */
 public abstract class NFCEnabledActivity extends BaseActivity {
-    private NFCEnabledModule nfcEnabledModule;
+    private NFCEnabledActivityModule nfcEnabledActivityModule;
 
 
     @Override
@@ -31,14 +24,14 @@ public abstract class NFCEnabledActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         initialization();
-        nfcEnabledModule.initAdapter();
+        nfcEnabledActivityModule.initAdapter();
     }
 
     /**
      * Initializes any services being used by the activity.
      */
     public void initServices() {
-        nfcEnabledModule = new NFCEnabledModule(this);
+        nfcEnabledActivityModule = new NFCEnabledActivityModule(this);
     }
 
     @Override
@@ -49,19 +42,19 @@ public abstract class NFCEnabledActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        nfcEnabledModule.enableNfcForegroundDispatch();
+        nfcEnabledActivityModule.enableNfcForegroundDispatch();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        nfcEnabledModule.disableNfcForegroundDispatch();
+        nfcEnabledActivityModule.disableNfcForegroundDispatch();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         FragmentManager fm = getSupportFragmentManager();
-        nfcEnabledModule.tagDetected(getVisibleFragment(), intent);
+        nfcEnabledActivityModule.tagDetected(getVisibleFragment(), intent);
     }
 }
