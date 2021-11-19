@@ -8,7 +8,8 @@ import com.ridge.digitalreceiptreader.activity.login.module.ForgotPasswordActivi
 import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
 
 /**
- * Forgot Password Activity class for handling functionality with the Forgot Password screen.
+ * Forgot Password Activity class for handling functionality with the Forgot
+ * Password screen.
  *
  * @author Luke Lengel
  * @since October 18, 2021

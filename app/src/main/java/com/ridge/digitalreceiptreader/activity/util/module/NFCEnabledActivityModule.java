@@ -13,6 +13,7 @@ import android.util.Log;
 import androidx.fragment.app.Fragment;
 
 import com.ridge.digitalreceiptreader.activity.util.NFCEnabledActivity;
+import com.ridge.digitalreceiptreader.app.receipt.client.ReceiptClient;
 import com.ridge.digitalreceiptreader.common.abstracts.ActivityModule;
 import com.ridge.digitalreceiptreader.common.domain.NfcData;
 import com.ridge.digitalreceiptreader.service.jwt.JwtHolder;
@@ -35,7 +36,8 @@ public class NFCEnabledActivityModule extends ActivityModule<NFCEnabledActivity>
     private NfcAdapter adapter = null;
     private LocalStorageService localStorage;
     private ToastService toastService;
-    private  JwtHolder jwtHolder;
+    private JwtHolder jwtHolder;
+    private ReceiptClient receiptClient;
 
     /**
      * Sets default values for the class.
@@ -55,19 +57,24 @@ public class NFCEnabledActivityModule extends ActivityModule<NFCEnabledActivity>
         toastService = new ToastService(appContext);
     }
 
+    public void initClients() {
+        receiptClient = new ReceiptClient(appContext);
+    }
+
     /**
-     * This will initialize the nfc adapter in order to intercept any NFC tags being tapped to the phone.
-     * If the adapter is null then the phone does not support nfc and a warning will display at the
-     * top of the phone.
+     * This will initialize the nfc adapter in order to intercept any NFC tags being
+     * tapped to the phone. If the adapter is null then the phone does not support
+     * nfc and a warning will display at the top of the phone.
      */
     public void initAdapter() {
-        NfcManager nfcManager = (NfcManager)appContext.getSystemService(Context.NFC_SERVICE);
+        NfcManager nfcManager = (NfcManager) appContext.getSystemService(Context.NFC_SERVICE);
         adapter = nfcManager.getDefaultAdapter();
-        if(adapter == null && !localStorage.getBoolean("nfcNotSupportedFlag")) {
+        if (adapter == null && !localStorage.getBoolean("nfcNotSupportedFlag")) {
             localStorage.setBoolean("nfcNotSupportedFlag", true);
             AlertDialog.Builder alert = new AlertDialog.Builder(appContext);
             alert.setTitle("Warning!");
-            alert.setMessage("This device does not support NFC. You will not be able to scan in receipts. Do you want to continue?");
+            alert.setMessage(
+                    "This device does not support NFC. You will not be able to scan in receipts. Do you want to continue?");
             alert.setPositiveButton("Continue", null);
             alert.setNegativeButton("Close", (dialog, id) -> appContext.finish());
             alert.setCancelable(false);
@@ -76,11 +83,12 @@ public class NFCEnabledActivityModule extends ActivityModule<NFCEnabledActivity>
     }
 
     /**
-     * When the application starts and the processes are in the foreground. This will enable the dispatch
-     * of the NFC adapter so it can pick up the information from the tag.
+     * When the application starts and the processes are in the foreground. This
+     * will enable the dispatch of the NFC adapter so it can pick up the information
+     * from the tag.
      */
     public void enableNfcForegroundDispatch() {
-        if(adapter == null) {
+        if (adapter == null) {
             return;
         }
 
@@ -94,11 +102,11 @@ public class NFCEnabledActivityModule extends ActivityModule<NFCEnabledActivity>
     }
 
     /**
-     * When the application is closed or closing or we don't want to read NFC tags at this time then
-     * we need to disable the adapter.
+     * When the application is closed or closing or we don't want to read NFC tags
+     * at this time then we need to disable the adapter.
      */
     public void disableNfcForegroundDispatch() {
-        if(adapter == null) {
+        if (adapter == null) {
             return;
         }
 
@@ -110,21 +118,22 @@ public class NFCEnabledActivityModule extends ActivityModule<NFCEnabledActivity>
     }
 
     /**
-     * Method for when a tag is detected. If NFC is enabled then it will not run this method or if
-     * the fragment is not of type {@link NFCFragment}. If the other two conditions hold then it
-     * pop a dialog to associate the receipt to the user if the user wishes too.
+     * Method for when a tag is detected. If NFC is enabled then it will not run
+     * this method or if the fragment is not of type {@link NFCFragment}. If the
+     * other two conditions hold then it pop a dialog to associate the receipt to
+     * the user if the user wishes too.
      *
      * @param f The fragment currently visible to the user.
      * @param i The intent the tag created.
      */
     public void tagDetected(Fragment f, Intent i) {
-        if(NFC_ENABLED && f instanceof NFCFragment) {
+        if (NFC_ENABLED && f instanceof NFCFragment) {
             NFCFragment NFCFrag = (NFCFragment) f;
             disableNFC(NFCFrag);
             NdefMessage[] messages = readTag(i);
-
-            Log.i("Nfc Tag", "Receipt Id: " + parseMessage(messages[0]).getTransmittedId());
-            NFCFrag.showSaveReceiptModal(this);
+            parseMessage(messages[0]);
+            receiptClient.associateUserToReceipt(parseMessage(messages[0]).getTransmittedId()).subscribe(
+                    res -> appContext.runOnUiThread(() -> NFCFrag.routeToReceiptDetails(this, res.getBody())));
         }
     }
 
@@ -145,14 +154,15 @@ public class NFCEnabledActivityModule extends ActivityModule<NFCEnabledActivity>
     }
 
     /**
-     * This will read the data from the tag and store it in an {@link NdefMessage} array
-     * object. If nothing can be pulled from the tag, then the method will return null.
+     * This will read the data from the tag and store it in an {@link NdefMessage}
+     * array object. If nothing can be pulled from the tag, then the method will
+     * return null.
      *
      * @param intent The intent the tag was triggered on.
      * @return {@link NdefMessage} of the data read from the tag.
      */
     private NdefMessage[] readTag(Intent intent) {
-        if(adapter == null) {
+        if (adapter == null) {
             return null;
         }
 
@@ -176,10 +186,11 @@ public class NFCEnabledActivityModule extends ActivityModule<NFCEnabledActivity>
      * @return {@link Integer} of the data in the message.
      */
     private NfcData parseMessage(NdefMessage msg) {
-        if(adapter == null) {
+        if (adapter == null) {
             return null;
         }
-        if (msg == null) return null;
+        if (msg == null)
+            return null;
 
         byte[] payload = msg.getRecords()[0].getPayload();
         int byte1 = (payload[0] << 24) & 0xFF000000;
@@ -187,6 +198,6 @@ public class NFCEnabledActivityModule extends ActivityModule<NFCEnabledActivity>
         int byte3 = (payload[2] << 8) & 0x0000FF00;
         int byte4 = payload[3] & 0x000000FF;
 
-        return  new NfcData(byte1 | byte2 | byte3 | byte4, jwtHolder.getRequiredUserId(), new Date());
+        return new NfcData(byte1 | byte2 | byte3 | byte4, jwtHolder.getRequiredUserId(), new Date());
     }
 }

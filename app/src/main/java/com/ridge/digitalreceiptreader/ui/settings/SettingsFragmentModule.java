@@ -33,7 +33,7 @@ public class SettingsFragmentModule extends FragmentModule<SettingsFragment> {
      * @param f current fragment.
      */
     public SettingsFragmentModule(SettingsFragment f, View v) {
-        super(f,v);
+        super(f, v);
     }
 
     /**
@@ -74,8 +74,7 @@ public class SettingsFragmentModule extends FragmentModule<SettingsFragment> {
     }
 
     /**
-     * This will populate the account information for the settings
-     * page.
+     * This will populate the account information for the settings page.
      */
     public void populateAccountInfo() {
         name.setText(jwtHolder.get("firstName") + " " + jwtHolder.get("lastName"));

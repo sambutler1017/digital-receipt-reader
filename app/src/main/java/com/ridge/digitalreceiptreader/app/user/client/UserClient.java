@@ -8,8 +8,6 @@ import com.ridge.digitalreceiptreader.app.user.service.UserService;
 
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -32,9 +30,8 @@ public class UserClient {
      * @return {@link User} of the current user object.
      */
     public Single<ResponseEntity<User>> getCurrentUser() {
-        Single<ResponseEntity<User>> observable = Single
-                .create(s -> s.onSuccess(userService.getCurrentUser()));
-        return observable.subscribeOn(Schedulers.newThread());
+        Single<ResponseEntity<User>> observable = Single.create(s -> s.onSuccess(userService.getCurrentUser()));
+        return observable.subscribeOn(Schedulers.io());
     }
 
     /**
@@ -44,21 +41,19 @@ public class UserClient {
      * @return list of user objects
      */
     public Single<ResponseEntity<User[]>> getUsers(UserGetRequest request) {
-        Single<ResponseEntity<User[]>> observable = Single
-                .create(s -> s.onSuccess(userService.getUsers(request)));
-        return observable.subscribeOn(Schedulers.newThread());
+        Single<ResponseEntity<User[]>> observable = Single.create(s -> s.onSuccess(userService.getUsers(request)));
+        return observable.subscribeOn(Schedulers.io());
     }
 
     /**
-     * This will update the given users information. User's can only
-     * update their own information.
+     * This will update the given users information. User's can only update their
+     * own information.
      *
      * @param user The user object to update too.
      * @return {@link ResponseEntity<User>} of the updated user.
      */
     public Single<ResponseEntity<User>> updateUser(User user) {
-        Single<ResponseEntity<User>> observable = Single
-                .create(s -> s.onSuccess(userService.updateUser(user)));
-        return observable.subscribeOn(Schedulers.newThread());
+        Single<ResponseEntity<User>> observable = Single.create(s -> s.onSuccess(userService.updateUser(user)));
+        return observable.subscribeOn(Schedulers.io());
     }
 }

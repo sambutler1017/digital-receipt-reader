@@ -26,7 +26,7 @@ public class LocalStorageService {
     /**
      * Sets the given {@link String} value with the given key in the preferences.
      *
-     * @param key The key to store in the value under.
+     * @param key   The key to store in the value under.
      * @param value The value to be stored.
      */
     public void setString(String key, String value) {
@@ -46,7 +46,7 @@ public class LocalStorageService {
     /**
      * Sets the given {@link Integer} value with the given key in the preferences.
      *
-     * @param key The key to store in the value under.
+     * @param key   The key to store in the value under.
      * @param value The value to be stored.
      */
     public void setInteger(String key, int value) {
@@ -66,7 +66,7 @@ public class LocalStorageService {
     /**
      * Sets the given {@link Boolean} value with the given key in the preferences.
      *
-     * @param key The key to store in the value under.
+     * @param key   The key to store in the value under.
      * @param value The value to be stored.
      */
     public void setBoolean(String key, boolean value) {

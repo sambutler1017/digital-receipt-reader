@@ -86,7 +86,8 @@ public class LoginActivityModule extends ActivityModule<LoginActivity> {
      */
     public void onLogin() {
         String email = emailInput.getText().toString().trim().equals("") ? " " : emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim().equals("") ? " " : passwordInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim().equals("") ? " "
+                : passwordInput.getText().toString().trim();
 
         show(loadingIndicator);
         hide(loginButton);
@@ -101,7 +102,8 @@ public class LoginActivityModule extends ActivityModule<LoginActivity> {
     }
 
     /**
-     * Method for handling when the forgot password link is clicked (from the login page).
+     * Method for handling when the forgot password link is clicked (from the login
+     * page).
      */
     public void onForgotPassword() {
         router.navigate(ForgotPasswordActivity.class);

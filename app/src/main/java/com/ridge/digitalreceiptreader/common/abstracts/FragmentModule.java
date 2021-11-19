@@ -6,8 +6,8 @@ import android.view.View;
 import androidx.fragment.app.Fragment;
 
 /**
- * Common Fragment module class to extend from to use common methods
- * across the application
+ * Common Fragment module class to extend from to use common methods across the
+ * application
  *
  * @author Sam Butler
  * @since November 13, 2021
@@ -20,7 +20,7 @@ public class FragmentModule<T extends Fragment> extends BaseModule<T> {
      * Base constructor for setting the appView to be the fragment being used.
      *
      * @param fragment The fragment to set the current appView too.
-     * @param v The view of the fragment since all fragments have one.
+     * @param v        The view of the fragment since all fragments have one.
      */
     public FragmentModule(T fragment, View v) {
         super(fragment);

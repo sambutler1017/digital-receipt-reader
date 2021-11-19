@@ -43,8 +43,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
     }
 
     /**
-     * This will get the current displaying fragment in the activity. If the activity does not
-     * contain any fragments then this will retunr null.
+     * This will get the current displaying fragment in the activity. If the
+     * activity does not contain any fragments then this will retunr null.
      *
      * @return {@link Fragment} of the one being displayed.
      */

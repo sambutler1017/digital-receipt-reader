@@ -9,8 +9,8 @@ import com.ridge.digitalreceiptreader.common.api.ApiClient;
 import org.springframework.http.ResponseEntity;
 
 /**
- * Authentication Service which will be the middle tier between
- * the application and the api.
+ * Authentication Service which will be the middle tier between the application
+ * and the api.
  *
  * @author Sam Butler,
  * @since July 31, 2021
@@ -30,6 +30,6 @@ public class AuthService {
      * @return Auth token if the user credentials are correct.
      */
     public ResponseEntity<DigitalReceiptToken> authenticate(String username, String password) {
-        return apiClient.post("authenticate", new AuthenticationRequest(username, password), DigitalReceiptToken.class);
+        return apiClient.post("/authenticate", new AuthenticationRequest(username, password), DigitalReceiptToken.class);
     }
 }

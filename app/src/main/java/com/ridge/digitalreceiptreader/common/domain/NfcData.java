@@ -9,25 +9,26 @@ import java.util.Date;
  * @since September 14, 2021
  */
 public class NfcData {
-    private long transmittedId;
+    private int transmittedId;
 
     private int associatedUserId;
 
     private Date dateRead;
 
-    public NfcData() {}
+    public NfcData() {
+    }
 
-    public NfcData(long transmittedId, int userId, Date dateRead) {
+    public NfcData(int transmittedId, int userId, Date dateRead) {
         this.transmittedId = transmittedId;
         this.associatedUserId = userId;
         this.dateRead = dateRead;
     }
 
-    public long getTransmittedId() {
+    public int getTransmittedId() {
         return transmittedId;
     }
 
-    public void setTransmittedId(long transmittedId) {
+    public void setTransmittedId(int transmittedId) {
         this.transmittedId = transmittedId;
     }
 

@@ -15,9 +15,10 @@ import com.ridge.digitalreceiptreader.common.interfaces.ModuleInterface;
  */
 public abstract class BaseModule<T> implements ModuleInterface {
     protected T appContext;
+
     /**
-     * Common constructor use to set the appView. Which can be
-     * either a {@link Fragment} or {@link Activity}
+     * Common constructor use to set the appView. Which can be either a
+     * {@link Fragment} or {@link Activity}
      *
      * @param a The reference to the appView.
      */
@@ -26,8 +27,8 @@ public abstract class BaseModule<T> implements ModuleInterface {
     }
 
     /**
-     * Methods that are called when the module is being initialized. The 3 init methods are
-     * are to be implemented in the child classes.
+     * Methods that are called when the module is being initialized. The 3 init
+     * methods are are to be implemented in the child classes.
      */
     protected void init() {
         initElements();
