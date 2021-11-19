@@ -23,9 +23,22 @@ public class ApiClient {
 
     /**
      * Default constructor to set active url.
+     *
+     * @param act The activity to execute the threads on.
      */
     public ApiClient(Activity act) {
         ACTIVE_URL = "https://digital-receipt-production.herokuapp.com";
+        localStorage = new LocalStorageService(act);
+    }
+
+    /**
+     * Default constructor to set active url.
+     *
+     * @param act The activity to execute the threads on.
+     * @param basePath The base path to append to the host url.
+     */
+    public ApiClient(Activity act, String basePath) {
+        ACTIVE_URL = "https://digital-receipt-production.herokuapp.com" + basePath;
         localStorage = new LocalStorageService(act);
     }
 

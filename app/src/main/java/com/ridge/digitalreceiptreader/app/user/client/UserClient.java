@@ -8,8 +8,6 @@ import com.ridge.digitalreceiptreader.app.user.service.UserService;
 
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -34,7 +32,7 @@ public class UserClient {
     public Single<ResponseEntity<User>> getCurrentUser() {
         Single<ResponseEntity<User>> observable = Single
                 .create(s -> s.onSuccess(userService.getCurrentUser()));
-        return observable.subscribeOn(Schedulers.newThread());
+        return observable.subscribeOn(Schedulers.io());
     }
 
     /**
@@ -46,7 +44,7 @@ public class UserClient {
     public Single<ResponseEntity<User[]>> getUsers(UserGetRequest request) {
         Single<ResponseEntity<User[]>> observable = Single
                 .create(s -> s.onSuccess(userService.getUsers(request)));
-        return observable.subscribeOn(Schedulers.newThread());
+        return observable.subscribeOn(Schedulers.io());
     }
 
     /**
@@ -59,6 +57,6 @@ public class UserClient {
     public Single<ResponseEntity<User>> updateUser(User user) {
         Single<ResponseEntity<User>> observable = Single
                 .create(s -> s.onSuccess(userService.updateUser(user)));
-        return observable.subscribeOn(Schedulers.newThread());
+        return observable.subscribeOn(Schedulers.io());
     }
 }

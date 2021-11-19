@@ -16,11 +16,10 @@ import org.springframework.http.ResponseEntity;
  * @since July 31, 2021
  */
 public class UserService {
-    private final String BASE_PATH = "api/user-app/users";
     private final ApiClient apiClient;
 
     public UserService(Activity act) {
-        apiClient = new ApiClient(act);
+        apiClient = new ApiClient(act, "/api/user-app/users");
     }
 
     /**
@@ -29,7 +28,7 @@ public class UserService {
      * @return {@link User} of the current user object.
      */
     public ResponseEntity<User> getCurrentUser() {
-        return apiClient.get(String.format("%s/current-user", BASE_PATH), User.class);
+        return apiClient.get("/current-user", User.class);
     }
 
 
@@ -40,7 +39,7 @@ public class UserService {
      * @return list of user objects
      */
     public ResponseEntity<User[]> getUsers(UserGetRequest request) {
-        return apiClient.get(String.format("%s%s", BASE_PATH, request.getUrlParamPath()), User[].class);
+        return apiClient.get(request.getUrlParamPath(), User[].class);
     }
 
     /**
@@ -51,6 +50,6 @@ public class UserService {
      * @return {@link ResponseEntity<User>} of the updated user.
      */
     public ResponseEntity<User> updateUser(User user) {
-        return apiClient.put(BASE_PATH, user, User.class);
+        return apiClient.put("", user, User.class);
     }
 }

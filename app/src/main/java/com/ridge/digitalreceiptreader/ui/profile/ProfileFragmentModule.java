@@ -50,6 +50,5 @@ public class ProfileFragmentModule extends FragmentModule<ProfileFragment> {
     }
 
     public void saveProfile() {
-        System.out.println(currentPassword.getText());
     }
 }

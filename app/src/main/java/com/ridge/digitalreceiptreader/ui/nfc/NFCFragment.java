@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.util.module.NFCEnabledActivityModule;
+import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
 import com.skyfishjy.library.RippleBackground;
 
@@ -70,7 +71,7 @@ public class NFCFragment extends BaseFragment {
     /**
      * Shows the save receipt modal to the user.
      */
-    public void showSaveReceiptModal(NFCEnabledActivityModule m) {
-        nfcFragmentModule.showDialog(m);
+    public void routeToReceiptDetails(NFCEnabledActivityModule m, Receipt r) {
+        nfcFragmentModule.routeToReceiptDetails(m, r);
     }
 }
