@@ -6,8 +6,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ridge.digitalreceiptreader.R;
+import com.ridge.digitalreceiptreader.app.receipt.client.ReceiptClient;
+import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
 import com.ridge.digitalreceiptreader.common.abstracts.FragmentModule;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
+
+import org.springframework.http.ResponseEntity;
 
 /**
  * Profile Module class to centralize methods being using in login activity.
@@ -28,7 +32,7 @@ public class ProfileFragmentModule extends FragmentModule<ProfileFragment> {
      * @param f current fragment.
      */
     public ProfileFragmentModule(ProfileFragment f, View v) {
-        super(f,v);
+        super(f, v);
     }
 
     /**
@@ -50,5 +54,11 @@ public class ProfileFragmentModule extends FragmentModule<ProfileFragment> {
     }
 
     public void saveProfile() {
+        ReceiptClient rClient = new ReceiptClient(activity);
+        rClient.updateUserReceipt(new Receipt(14, "Marc's", "Food")).subscribe(res -> testMethod(res));
+    }
+
+    public void testMethod(ResponseEntity<Receipt> res) {
+        int test = 1;
     }
 }

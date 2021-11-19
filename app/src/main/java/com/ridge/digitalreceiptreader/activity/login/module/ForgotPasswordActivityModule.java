@@ -51,8 +51,9 @@ public class ForgotPasswordActivityModule extends ActivityModule<ForgotPasswordA
     }
 
     /**
-     * This method will handle the email validation. If all email validation passes then it will 
-     * send a forgot email message to that email so that the user can recover their account.
+     * This method will handle the email validation. If all email validation passes
+     * then it will send a forgot email message to that email so that the user can
+     * recover their account.
      */
     public void forgotPassword() {
         // Get user input
@@ -64,16 +65,18 @@ public class ForgotPasswordActivityModule extends ActivityModule<ForgotPasswordA
         // Validates email field
         else if (!isValidEmail(email)) {
             toastService.showError("Invalid email address");
-        }
-        else {
-            // TODO: update endpoint to use the forgot password method in the {@link UserClient}
+        } else {
+            // TODO: update endpoint to use the forgot password method in the {@link
+            // UserClient}
         }
     }
 
     /**
      * Validates email address.
      *
-     * @see <a href="https://stackoverflow.com/questions/1819142/how-should-i-validate-an-e-mail-address">Email Validation</a>
+     * @see <a href=
+     *      "https://stackoverflow.com/questions/1819142/how-should-i-validate-an-e-mail-address">Email
+     *      Validation</a>
      * @param target email address
      * @return if email address is valid or not
      */

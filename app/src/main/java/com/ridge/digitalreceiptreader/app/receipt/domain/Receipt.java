@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import java.sql.Date;
 
-
 /**
  * Receipt object to map the receipt data to.
  *
@@ -31,15 +30,15 @@ public class Receipt {
     public Receipt() {
     }
 
-    public Receipt(String filePublicId, Date insertDate) {
-        this.filePublicId = filePublicId;
-        this.insertDate = insertDate;
+    public Receipt(String location, String label) {
+        this.location = location;
+        this.label = label;
     }
 
-    public Receipt(int id, String filePublicId, Date insertDate) {
-        this.id = id;
-        this.filePublicId = filePublicId;
-        this.insertDate = insertDate;
+    public Receipt(int receiptId, String location, String label) {
+        this.id = receiptId;
+        this.location = location;
+        this.label = label;
     }
 
     public int getId() {

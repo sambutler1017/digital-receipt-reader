@@ -28,7 +28,7 @@ public class ReceiptService {
      * @return {@link ResponseEntity} of the receipt.
      */
     public ResponseEntity<Receipt> getUserReceiptById(int id) {
-        return apiClient.get(String.format("current-user/%d", id), Receipt.class);
+        return apiClient.get(String.format("/current-user/%d", id), Receipt.class);
     }
 
     /**
@@ -39,7 +39,7 @@ public class ReceiptService {
      * @return {@link Receipt[]}
      */
     public ResponseEntity<Receipt[]> getUserReceipts() {
-        return apiClient.get("current-user", Receipt[].class);
+        return apiClient.get("/current-user", Receipt[].class);
     }
 
     /**
@@ -50,7 +50,7 @@ public class ReceiptService {
      * @return {@link String} path to receipt.
      */
     public ResponseEntity<String> getPublicIdUrlPath(String pid) {
-        return apiClient.get(String.format("url/%s", pid), String.class);
+        return apiClient.get(String.format("/url/%s", pid), String.class);
     }
 
     /**
@@ -60,6 +60,30 @@ public class ReceiptService {
      * @return {@link Receipt}
      */
     public ResponseEntity<Receipt> associateUserToReceipt(int receiptId) {
-        return apiClient.post(String.format("associate/%d", receiptId), null, Receipt.class);
+        return apiClient.post(String.format("/associate/%d", receiptId), null, Receipt.class);
+    }
+
+
+    /**
+     * This will update information for a users association for the given receipt id
+     * in in the request body.
+     *
+     * @param receipt The receipt to be updated.
+     * @return {@link Receipt} of the updated receipt.
+     */
+    public ResponseEntity<Receipt> updateUserReceipt(Receipt receipt) {
+        return apiClient.put("/associate", receipt, Receipt.class);
+    }
+
+    /**
+     * Delete the receipt for the given id. It will first check to make sure that
+     * the receipt belongs to that user. If it does not then it will throw an
+     * exception. Otherwise it will continue through the process of removing
+     * the receipt from the user and removing it from the S3 bucket.
+     *
+     * @param receiptId The id of the receipt that needs deleted.
+     */
+    public ResponseEntity deleteUserReceipt(int receiptId) {
+        return apiClient.delete(String.format("/current-user/%d", receiptId));
     }
 }

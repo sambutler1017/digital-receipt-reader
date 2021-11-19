@@ -36,12 +36,12 @@ public class StartActivityModule extends ActivityModule<StartActivity> {
     }
 
     /**
-     * This is just used to let the application start and buffer before routing to the
-     * login or home page.
+     * This is just used to let the application start and buffer before routing to
+     * the login or home page.
      */
     public void delayRoute() {
         new Handler().postDelayed(() -> {
-            if(jwtHolder.hasToken()) {
+            if (jwtHolder.hasToken()) {
                 router.navigateHome();
             } else {
                 router.navigateLogin();

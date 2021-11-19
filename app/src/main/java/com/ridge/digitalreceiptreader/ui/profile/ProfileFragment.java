@@ -8,15 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-
 import androidx.annotation.NonNull;
 
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
 
 /**
- * Profile fragment used to display the profile page in the main
- * activity.
+ * Profile fragment used to display the profile page in the main activity.
  *
  * @author Sam Butler
  * @since October 30, 2021
@@ -29,11 +27,11 @@ public class ProfileFragment extends BaseFragment {
     private Button saveButton;
 
     /**
-     * This will create the view for the fragment from the given layout and the
-     * view group.
+     * This will create the view for the fragment from the given layout and the view
+     * group.
      *
-     * @param i The layout to place the view.
-     * @param c The group the view is contained in
+     * @param i  The layout to place the view.
+     * @param c  The group the view is contained in
      * @param sI The bundle to use.
      * @return {@link View} data
      */

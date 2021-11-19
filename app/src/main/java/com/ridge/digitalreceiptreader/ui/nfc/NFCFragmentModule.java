@@ -17,7 +17,6 @@ import com.ridge.digitalreceiptreader.service.util.ToastService;
  */
 public class NFCFragmentModule extends FragmentModule<NFCFragment> {
 
-
     private LocalStorageService localStorage;
     private ToastService toastService;
 
@@ -27,7 +26,7 @@ public class NFCFragmentModule extends FragmentModule<NFCFragment> {
      * @param f current fragment.
      */
     public NFCFragmentModule(NFCFragment f, View v) {
-        super(f,v);
+        super(f, v);
     }
 
     /**
@@ -39,22 +38,22 @@ public class NFCFragmentModule extends FragmentModule<NFCFragment> {
     }
 
     /**
-     * This will check to see if the phone is able to read in NFC tags
-     * if not then it will disable the scan and show a toast message
-     * saying that NFC is not supported on this device.
+     * This will check to see if the phone is able to read in NFC tags if not then
+     * it will disable the scan and show a toast message saying that NFC is not
+     * supported on this device.
      *
      * @param f The NFC fragment.
      */
     public void hasNFCSupport(NFCFragment f) {
-        if(localStorage.getBoolean("nfcNotSupportedFlag")) {
+        if (localStorage.getBoolean("nfcNotSupportedFlag")) {
             f.stopScan();
             toastService.showError("NFC not Supported!");
         }
     }
 
     /**
-     * Shows the save receipt dialog so that a user is able to save the receipt in their
-     * account.
+     * Shows the save receipt dialog so that a user is able to save the receipt in
+     * their account.
      */
     public void routeToReceiptDetails(NFCEnabledActivityModule m, Receipt r) {
         Log.i("Receipt Saved", String.format("Receipt ID %d saved to User ID %d", r.getId(), r.getUserId()));

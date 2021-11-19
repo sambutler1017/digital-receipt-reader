@@ -9,15 +9,14 @@ import com.ridge.digitalreceiptreader.activity.util.module.NFCEnabledActivityMod
 import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
 
 /**
- * Activity that is meant to be extended from so the child activity can
- * have NFC capabilities enabled.
+ * Activity that is meant to be extended from so the child activity can have NFC
+ * capabilities enabled.
  *
  * @author Sam Butler
  * @since October 18, 2021
  */
 public abstract class NFCEnabledActivity extends BaseActivity {
     private NFCEnabledActivityModule nfcEnabledActivityModule;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

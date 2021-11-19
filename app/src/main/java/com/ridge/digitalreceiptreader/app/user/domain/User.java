@@ -36,7 +36,6 @@ public class User {
     @JsonProperty("insertDate")
     private Date insertDate;
 
-
     public int getId() {
         return id;
     }

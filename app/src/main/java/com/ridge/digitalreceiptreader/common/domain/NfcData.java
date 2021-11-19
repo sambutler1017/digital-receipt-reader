@@ -15,7 +15,8 @@ public class NfcData {
 
     private Date dateRead;
 
-    public NfcData() {}
+    public NfcData() {
+    }
 
     public NfcData(int transmittedId, int userId, Date dateRead) {
         this.transmittedId = transmittedId;

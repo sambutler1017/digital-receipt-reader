@@ -1,8 +1,7 @@
 package com.ridge.digitalreceiptreader.common.interfaces;
 
 /**
- * Fragment interface to know what methods that class would need to
- * implement.
+ * Fragment interface to know what methods that class would need to implement.
  *
  * @author Sam Butler
  * @since October 30, 2021

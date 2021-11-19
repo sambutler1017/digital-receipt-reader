@@ -9,8 +9,8 @@ import com.ridge.digitalreceiptreader.common.api.ApiClient;
 import org.springframework.http.ResponseEntity;
 
 /**
- * User Service which will be the middle tier between
- * the application and the api.
+ * User Service which will be the middle tier between the application and the
+ * api.
  *
  * @author Sam Butler,
  * @since July 31, 2021
@@ -31,7 +31,6 @@ public class UserService {
         return apiClient.get("/current-user", User.class);
     }
 
-
     /**
      * Gets a list of users based of the request filter.
      *
@@ -43,8 +42,8 @@ public class UserService {
     }
 
     /**
-     * This will update the given users information. User's can only
-     * update their own information.
+     * This will update the given users information. User's can only update their
+     * own information.
      *
      * @param user The user object to update too.
      * @return {@link ResponseEntity<User>} of the updated user.

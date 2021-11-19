@@ -14,8 +14,7 @@ import com.ridge.digitalreceiptreader.common.abstracts.BaseFragment;
 import com.skyfishjy.library.RippleBackground;
 
 /**
- * NFC fragment used to display the NFC page in the main
- * activity.
+ * NFC fragment used to display the NFC page in the main activity.
  *
  * @author Sam Butler
  * @since October 30, 2021
@@ -25,11 +24,11 @@ public class NFCFragment extends BaseFragment {
     private RippleBackground rippleBackground;
 
     /**
-     * This will create the view for the fragment from the given layout and the
-     * view group.
+     * This will create the view for the fragment from the given layout and the view
+     * group.
      *
-     * @param i The layout to place the view.
-     * @param c The group the view is contained in
+     * @param i  The layout to place the view.
+     * @param c  The group the view is contained in
      * @param sI The bundle to use.
      * @return {@link View} data
      */

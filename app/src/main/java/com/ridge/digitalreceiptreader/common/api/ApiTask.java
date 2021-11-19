@@ -39,6 +39,8 @@ public class ApiTask<T> extends AsyncTask<ApiRequest, Void, ResponseEntity<T>> {
                 return postTask(request);
             else if (requestMethod.equals(HttpMethod.PUT))
                 return putTask(request);
+            else if (requestMethod.equals(HttpMethod.DELETE))
+                return deleteTask(request);
             else
                 return invalidMethod(requestMethod);
         } catch (HttpServerErrorException errorException) {
@@ -77,6 +79,17 @@ public class ApiTask<T> extends AsyncTask<ApiRequest, Void, ResponseEntity<T>> {
     private ResponseEntity putTask(@NotNull ApiRequest request) {
         HttpEntity postRequestBody = new HttpEntity(request.getPostParams(), request.getHeaders());
         return new RestTemplate().exchange(request.getUrl(), HttpMethod.PUT, postRequestBody, request.getClazz());
+    }
+
+    /**
+     * The delete task for api request.
+     *
+     * @param request The request object to consume the endpoint with.
+     * @return Responses Entity object of the data.
+     */
+    private ResponseEntity deleteTask(@NotNull ApiRequest request) {
+        HttpEntity requestEntity = new HttpEntity(request.getHeaders());
+        return new RestTemplate().exchange(request.getUrl(), HttpMethod.DELETE, requestEntity, request.getClazz());
     }
 
     /**

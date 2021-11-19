@@ -26,11 +26,10 @@ public class RouterService {
     }
 
     /**
-     * This will navigate to the given class activity based on the passed
-     * in class.
+     * This will navigate to the given class activity based on the passed in class.
      *
      * @param clazz The class object of the activity to route too.
-     * @param <T> Object type of class.
+     * @param <T>   Object type of class.
      */
     public <T> void navigate(Class<T> clazz) {
         Intent intent = new Intent(currentActivity, clazz);

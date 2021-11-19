@@ -81,13 +81,8 @@ public class CreateAccountActivityModule extends ActivityModule<CreateAccountAct
         String password = passwordInput.getText().toString().trim();
         String confirmPassword = confirmPasswordInput.getText().toString().trim();
 
-
-
         // Checks if fields are populated
-        if (name.length()            == 0 ||
-            email.length()           == 0 ||
-            password.length()        == 0 ||
-            confirmPassword.length() == 0) {
+        if (name.length() == 0 || email.length() == 0 || password.length() == 0 || confirmPassword.length() == 0) {
             toastService.showError("Please fill in all fields");
         }
         // Validates email field
@@ -95,7 +90,7 @@ public class CreateAccountActivityModule extends ActivityModule<CreateAccountAct
             toastService.showError("Invalid email address");
         }
         // Validates password fields
-        else if(!password.equals(confirmPassword)) {
+        else if (!password.equals(confirmPassword)) {
             toastService.showError("Passwords do not match");
         }
         // Writes account info to database and logs user in
