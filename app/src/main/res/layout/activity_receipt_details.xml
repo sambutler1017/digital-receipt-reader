@@ -109,9 +109,11 @@
 
     <ImageView
         android:id="@+id/receiptDetails__receiptImage__imageView"
-        android:layout_width="328dp"
-        android:layout_height="260dp"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="48dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
