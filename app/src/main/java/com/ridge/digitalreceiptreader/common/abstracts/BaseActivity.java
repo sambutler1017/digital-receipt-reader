@@ -19,9 +19,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
      * Base initialization of the activity
      */
     public void initialization() {
+        initServices();
         initElements();
         initListeners();
-        initServices();
     }
 
     /**
