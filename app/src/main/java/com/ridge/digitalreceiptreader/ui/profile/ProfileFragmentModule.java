@@ -54,11 +54,5 @@ public class ProfileFragmentModule extends FragmentModule<ProfileFragment> {
     }
 
     public void saveProfile() {
-        ReceiptClient rClient = new ReceiptClient(activity);
-        rClient.updateUserReceipt(new Receipt(14, "Marc's", "Food")).subscribe(res -> testMethod(res));
-    }
-
-    public void testMethod(ResponseEntity<Receipt> res) {
-        int test = 1;
     }
 }

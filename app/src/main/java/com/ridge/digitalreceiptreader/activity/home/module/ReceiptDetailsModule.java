@@ -5,6 +5,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -14,7 +15,9 @@ import com.ridge.digitalreceiptreader.activity.home.ReceiptDetailsActivity;
 import com.ridge.digitalreceiptreader.app.receipt.client.ReceiptClient;
 import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
 import com.ridge.digitalreceiptreader.common.abstracts.ActivityModule;
+import com.ridge.digitalreceiptreader.common.utils.CommonUtils;
 import com.ridge.digitalreceiptreader.service.util.RouterService;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.springframework.http.ResponseEntity;
@@ -37,6 +40,10 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
     private TextView locationField;
     private TextView labelField;
     private TextView dateField;
+    private TextView notesField;
+    private TextView notesLabel;
+    private TextView detailsLabel;
+    private LinearLayout detailsLinearLayout;
     private ProgressBar loader;
 
     /**
@@ -56,6 +63,10 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
         locationField = appContext.findViewById(R.id.location__field__textView);
         labelField = appContext.findViewById(R.id.label__field__textView);
         dateField = appContext.findViewById(R.id.insertDate__field__textView);
+        notesField = appContext.findViewById(R.id.receiptDetails__notes__textView);
+        notesLabel = appContext.findViewById(R.id.receiptDetails__notesLabel__textView);
+        detailsLinearLayout = appContext.findViewById(R.id.receiptDetails__detailsCard__linearLayout);
+        detailsLabel = appContext.findViewById(R.id.receiptDetails__detailsLabel__textView);
         loader = appContext.findViewById(R.id.receiptDetails__loader__progressbar);
     }
 
@@ -114,10 +125,33 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
      * @param receipt The receipt information.
      */
     public void populateReceiptFields(Receipt receipt) {
-        Picasso.get().load(receipt.getUrl()).into(receiptImage);
-        locationField.setText(receipt.getLocation());
-        labelField.setText(receipt.getLabel());
-        dateField.setText(new SimpleDateFormat("MMMM dd, yyyy").format(receipt.getInsertDate()));
+        Picasso.get().load(receipt.getUrl()).into(receiptImage, new Callback() {
+            @Override
+            public void onSuccess() {
+                locationField.setText(receipt.getLocation());
+                labelField.setText(receipt.getLabel());
+                dateField.setText(CommonUtils.formatDate(receipt.getInsertDate()));
+                notesField.setText(receipt.getNotes());
+                showContent();
+            }
+
+            @Override
+            public void onError(Exception e) {
+                // Should never encounter an error
+            }
+        });
+
+    }
+
+    /**
+     * After everything is populated, show the data on the page.
+     */
+    public void showContent() {
+        show(receiptImage);
+        show(detailsLabel);
+        show(notesField);
+        show(notesLabel);
+        show(detailsLinearLayout);
         delayLoaderHide();
     }
 

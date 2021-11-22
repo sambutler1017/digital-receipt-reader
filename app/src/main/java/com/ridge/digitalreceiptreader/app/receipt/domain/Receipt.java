@@ -3,7 +3,8 @@ package com.ridge.digitalreceiptreader.app.receipt.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 /**
  * Receipt object to map the receipt data to.
@@ -21,6 +22,8 @@ public class Receipt {
 
     private String label;
 
+    private String notes;
+
     private String filePublicId;
 
     private String url;
@@ -35,10 +38,17 @@ public class Receipt {
         this.label = label;
     }
 
-    public Receipt(int receiptId, String location, String label) {
+    public Receipt(String location, String label, String notes) {
+        this.location = location;
+        this.label = label;
+        this.notes = notes;
+    }
+
+    public Receipt(int receiptId, String location, String label, String notes) {
         this.id = receiptId;
         this.location = location;
         this.label = label;
+        this.notes = notes;
     }
 
     public int getId() {
@@ -71,6 +81,14 @@ public class Receipt {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public String getFilePublicId() {
