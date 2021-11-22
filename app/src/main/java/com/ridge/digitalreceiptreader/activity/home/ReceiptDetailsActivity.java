@@ -28,7 +28,12 @@ public class ReceiptDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_receipt_details);
 
         initialization();
-        displayReceipt(getIntent().getExtras().getInt("receiptId"));
+
+        if(getIntent().getExtras() == null) {
+            module.displayErrorAndNavigateHome();
+        } else {
+            displayReceipt(getIntent().getExtras().getInt("receiptId"));
+        }
     }
 
     /**

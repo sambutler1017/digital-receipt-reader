@@ -17,6 +17,7 @@ import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
 import com.ridge.digitalreceiptreader.common.abstracts.ActivityModule;
 import com.ridge.digitalreceiptreader.common.utils.CommonUtils;
 import com.ridge.digitalreceiptreader.service.util.RouterService;
+import com.ridge.digitalreceiptreader.service.util.ToastService;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +36,7 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
 
     private ReceiptClient receiptClient;
     private RouterService router;
+    private ToastService toastService;
 
     private ImageView receiptImage;
     private TextView locationField;
@@ -82,6 +84,7 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
      */
     public void initServices() {
         router = new RouterService(appContext);
+        toastService = new ToastService(appContext);
     }
 
     /**
@@ -137,10 +140,15 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
 
             @Override
             public void onError(Exception e) {
-                // Should never encounter an error
+                displayErrorAndNavigateHome();
             }
         });
+    }
 
+    public void displayErrorAndNavigateHome() {
+        hide(loader);
+        toastService.showError("Could not load receipt. Try again later.");
+        navigateHome();
     }
 
     /**
