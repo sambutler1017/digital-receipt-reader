@@ -2,11 +2,18 @@ package com.ridge.digitalreceiptreader.ui.nfc;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.ridge.digitalreceiptreader.R;
+import com.ridge.digitalreceiptreader.activity.home.ReceiptDetailsActivity;
 import com.ridge.digitalreceiptreader.activity.util.module.NFCEnabledActivityModule;
 import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
 import com.ridge.digitalreceiptreader.common.abstracts.FragmentModule;
 import com.ridge.digitalreceiptreader.service.util.LocalStorageService;
+import com.ridge.digitalreceiptreader.service.util.RouterService;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 
 /**
@@ -19,6 +26,7 @@ public class NFCFragmentModule extends FragmentModule<NFCFragment> {
 
     private LocalStorageService localStorage;
     private ToastService toastService;
+    private RouterService router;
 
     /**
      * Sets default values for the class.
@@ -35,6 +43,7 @@ public class NFCFragmentModule extends FragmentModule<NFCFragment> {
     public void initServices() {
         localStorage = new LocalStorageService(activity);
         toastService = new ToastService(activity);
+        router = new RouterService(activity);
     }
 
     /**
@@ -56,15 +65,8 @@ public class NFCFragmentModule extends FragmentModule<NFCFragment> {
      * their account.
      */
     public void routeToReceiptDetails(NFCEnabledActivityModule m, Receipt r) {
-        Log.i("Receipt Saved", String.format("Receipt ID %d saved to User ID %d", r.getId(), r.getUserId()));
-        enableNFC(m);
-    }
-
-    /**
-     * Method that will go through the process of saving a receipt to a user.
-     */
-    public void enableNFC(NFCEnabledActivityModule m) {
-        m.enableNFC(appContext);
         toastService.showSuccess("Receipt Saved Successfully!");
+        router.navigate(ReceiptDetailsActivity.class, "receiptId", r.getId());
+        m.enableNFC(appContext);
     }
 }

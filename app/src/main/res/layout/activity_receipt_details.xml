@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_200">
+
+    <ProgressBar
+        android:id="@+id/receiptDetails__loader__progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/white"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/blue_300"
+        android:max="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/receiptDetails__title__textView" />
+
+    <TextView
+        android:id="@+id/receiptDetails__detailsLabel__textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="10dp"
+        android:text="Details"
+        android:textColor="@color/gray_400"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/receiptDetails__notes__textView" />
+
+    <TextView
+        android:id="@+id/receiptDetails__notesLabel__textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:text="Notes"
+        android:textColor="@color/gray_400"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/receiptDetails__receiptImage__imageView" />
+
+    <TextView
+        android:id="@+id/receiptDetails__notes__textView"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/receipt_details_card"
+        android:fontFamily="@font/roboto_bold"
+        android:lineSpacingExtra="2dp"
+        android:padding="8dp"
+        android:text="@string/notesExample"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/receiptDetails__notesLabel__textView" />
+
+    <TextView
+        android:id="@+id/receiptDetails__title__textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Receipt Details"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/receiptDetails__closeIcon__imageView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/receiptDetails__title__textView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_close_24" />
+
+    <ImageView
+        android:id="@+id/receiptDetails__editIcon__imageView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/receiptDetails__trashIcon__imageView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/receiptDetails__title__textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_edit_24" />
+
+    <ImageView
+        android:id="@+id/receiptDetails__trashIcon__imageView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_delete_24"
+        app:tint="#EE1D1D" />
+
+    <ImageView
+        android:id="@+id/receiptDetails__receiptImage__imageView"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/receiptDetails__title__textView"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:id="@+id/receiptDetails__detailsCard__linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/receipt_details_card"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/receiptDetails__detailsLabel__textView">
+
+        <LinearLayout
+            android:id="@+id/detailsCard__location__linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_border"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/location__label__textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/roboto_bold"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:text="Location"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/location__field__textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:textAlignment="textEnd"
+                android:textColor="@color/gray_400"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/detailsCard__label__linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bottom_border"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/label__label__textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_bold"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:text="Label"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/label__field__textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:textAlignment="textEnd"
+                android:textColor="@color/gray_400"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/detailsCard__insertDate__linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/insertDate__label__textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_bold"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:text="Created"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/insertDate__field__textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:textAlignment="textEnd"
+                android:textColor="@color/gray_400"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
