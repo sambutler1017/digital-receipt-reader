@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DigitalReceiptReader"
         android:usesCleartextTraffic="${usesCleartextTraffic}" >
-        <activity android:name=".activity.home.ReceiptDetailsActivity" >
+        <activity android:name=".activity.util.StartActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,6 +30,9 @@
             android:label="@string/app_name" />
         <activity
             android:name=".activity.login.LoginActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activity.home.ReceiptDetailsActivity"
             android:label="@string/app_name" />
     </application>
 

@@ -17,9 +17,9 @@ import com.squareup.picasso.Picasso;
  * @since November 20, 2021
  */
 public class ReceiptDetailsActivity extends BaseActivity {
-
     ReceiptDetailsModule module;
     ImageView receiptImage;
+    ImageView closeIcon;
     int imageBaseHeight;
 
     @Override
@@ -27,19 +27,17 @@ public class ReceiptDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt_details);
 
-        String imageUri = "https://docs.yithemes.com/yith-point-of-sale-for-woocommerce/wp-content/uploads/sites/129/2020/01/Receipt-sample.png";
-        ImageView ivBasicImage = (ImageView) findViewById(R.id.receiptDetails__receiptImage__imageView);
-        Picasso.get().load(imageUri).into(ivBasicImage);
-
         initialization();
+        displayReceipt(getIntent().getExtras().getInt("receiptId"));
     }
 
     /**
      * Initialize any elements being used in the activity.
      */
     public void initElements() {
-        receiptImage = (ImageView) findViewById(R.id.receiptDetails__receiptImage__imageView);
-        imageBaseHeight = receiptImage.findViewById(R.id.receiptDetails__receiptImage__imageView).getLayoutParams().height;
+        receiptImage = findViewById(R.id.receiptDetails__receiptImage__imageView);
+        imageBaseHeight = receiptImage.getLayoutParams().height;
+        closeIcon = findViewById(R.id.receiptDetails__closeIcon__imageView);
     }
 
     /**
@@ -47,6 +45,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
      */
     public void initListeners() {
         receiptImage.setOnClickListener(v -> module.onImageZoomClick(v, imageBaseHeight));
+        closeIcon.setOnClickListener(v -> module.navigateHome());
     }
 
     /**
@@ -54,5 +53,9 @@ public class ReceiptDetailsActivity extends BaseActivity {
      */
     public void initServices() {
         module = new ReceiptDetailsModule(this);
+    }
+
+    public void displayReceipt(int receiptId) {
+        module.getReceiptById(receiptId);
     }
 }

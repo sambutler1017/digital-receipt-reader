@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     android:background="@color/gray_200">
 
+    <ProgressBar
+        android:id="@+id/receiptDetails__loader__progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/white"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/blue_300"
+        android:max="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/receiptDetails__title__textView" />
+
     <TextView
         android:id="@+id/receiptDetails__detailsLabel__textView"
         android:layout_width="match_parent"
@@ -161,7 +176,6 @@
                 android:fontFamily="@font/roboto_medium"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="12dp"
-                android:text="Marc's"
                 android:textAlignment="textEnd"
                 android:textColor="@color/gray_400"
                 android:textSize="20sp" />
@@ -195,7 +209,6 @@
                 android:fontFamily="@font/roboto_medium"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="12dp"
-                android:text="Food"
                 android:textAlignment="textEnd"
                 android:textColor="@color/gray_400"
                 android:textSize="20sp" />
@@ -228,7 +241,6 @@
                 android:fontFamily="@font/roboto_medium"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="12dp"
-                android:text="November 20, 2021"
                 android:textAlignment="textEnd"
                 android:textColor="@color/gray_400"
                 android:textSize="20sp" />
