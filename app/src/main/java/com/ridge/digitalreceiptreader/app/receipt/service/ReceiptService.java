@@ -1,11 +1,11 @@
 package com.ridge.digitalreceiptreader.app.receipt.service;
 
-import android.app.Activity;
-
 import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
 import com.ridge.digitalreceiptreader.common.api.ApiClient;
 
 import org.springframework.http.ResponseEntity;
+
+import android.app.Activity;
 
 /**
  * Receipt Service which will be the middle tier between the application and the
@@ -63,7 +63,6 @@ public class ReceiptService {
         return apiClient.post(String.format("/associate/%d", receiptId), null, Receipt.class);
     }
 
-
     /**
      * This will update information for a users association for the given receipt id
      * in in the request body.
@@ -78,8 +77,8 @@ public class ReceiptService {
     /**
      * Delete the receipt for the given id. It will first check to make sure that
      * the receipt belongs to that user. If it does not then it will throw an
-     * exception. Otherwise it will continue through the process of removing
-     * the receipt from the user and removing it from the S3 bucket.
+     * exception. Otherwise it will continue through the process of removing the
+     * receipt from the user and removing it from the S3 bucket.
      *
      * @param receiptId The id of the receipt that needs deleted.
      */

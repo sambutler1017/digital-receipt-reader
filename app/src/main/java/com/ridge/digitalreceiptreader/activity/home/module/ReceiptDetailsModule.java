@@ -1,8 +1,8 @@
 package com.ridge.digitalreceiptreader.activity.home.module;
 
+import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Handler;
-import android.text.method.PasswordTransformationMethod;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,10 +20,6 @@ import com.ridge.digitalreceiptreader.service.util.RouterService;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
-import org.springframework.http.ResponseEntity;
-
-import java.text.SimpleDateFormat;
 
 /**
  * Receipts details module for doing all the base functionality for processing
@@ -88,16 +84,15 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
     }
 
     /**
-     * This will get called when the user clicks on the image. This will zoom it in so they
-     * can see the image more clearly. It will toggle between the two view everytime they
-     * click on the image.
+     * This will get called when the user clicks on the image. This will zoom it in
+     * so they can see the image more clearly. It will toggle between the two view
+     * everytime they click on the image.
      *
-     * @param v The current view when the image was clicked.
      * @param imageBaseHeight The base height of the image that was originally set.
      */
-    public void onImageZoomClick(View v, int imageBaseHeight) {
+    public void onImageZoomClick(int imageBaseHeight) {
         ViewGroup.LayoutParams layoutParams = receiptImage.getLayoutParams();
-        if(layoutParams.height == ViewGroup.LayoutParams.MATCH_PARENT) {
+        if (layoutParams.height == ViewGroup.LayoutParams.MATCH_PARENT) {
             layoutParams.height = imageBaseHeight;
         } else {
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -119,7 +114,61 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
      */
     public void getReceiptById(int id) {
         show(loader);
-        receiptClient.getUserReceiptById(id).subscribe(res -> appContext.runOnUiThread(() -> populateReceiptFields(res.getBody())));
+        receiptClient.getUserReceiptById(id)
+                .subscribe(res -> appContext.runOnUiThread(() -> populateReceiptFields(res.getBody())));
+        hide(loader);
+    }
+
+    /**
+     * If an error occurs getting the receipt or if the receipt can not be loaded,
+     * then it will show a toast message and route the home page.
+     */
+    public void displayErrorAndNavigateHome() {
+        hide(loader);
+        toastService.showError("Could not load receipt. Try again later.");
+        navigateHome();
+    }
+
+    /**
+     * Delete the current receipt for the given receipt id. Once the receipt has
+     * been deleted it will then route to the home page.
+     *
+     * @param receiptId The id of the receipt to be deleted.
+     */
+    public void onDeleteReceipt(int receiptId) {
+        TextView title = new TextView(appContext);
+        title.setText("Delete Receipt?");
+        title.setPadding(20, 30, 20, 30);
+        title.setTextSize(20F);
+        title.setBackgroundColor(Color.parseColor("#E83345"));
+        title.setTextColor(Color.WHITE);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(appContext);
+        alert.setCustomTitle(title);
+        alert.setMessage(
+                "This will remove the receipt from your account. Once the receipt is deleted you will not have access to it. Do you want to continue?");
+        alert.setPositiveButton("Delete", (dialog, i) -> deleteReceipt(receiptId));
+        alert.setNegativeButton("Cancel", null);
+        alert.setCancelable(false);
+
+        AlertDialog dialog = alert.create();
+        dialog.setOnShowListener(
+                arg0 -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#E83345")));
+        dialog.show();
+    }
+
+    /**
+     * Delete the receipt from the user.m
+     *
+     * @param receiptId The id of the receipt to be deleted
+     */
+    private void deleteReceipt(int receiptId) {
+        show(loader);
+        receiptClient.deleteUserReceipt(receiptId).subscribe(res -> appContext.runOnUiThread(() -> {
+            hide(loader);
+            toastService.showSuccess("Receipt Successfully Deleted!");
+            navigateHome();
+        }));
     }
 
     /**
@@ -127,7 +176,7 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
      *
      * @param receipt The receipt information.
      */
-    public void populateReceiptFields(Receipt receipt) {
+    private void populateReceiptFields(Receipt receipt) {
         Picasso.get().load(receipt.getUrl()).into(receiptImage, new Callback() {
             @Override
             public void onSuccess() {
@@ -145,16 +194,10 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
         });
     }
 
-    public void displayErrorAndNavigateHome() {
-        hide(loader);
-        toastService.showError("Could not load receipt. Try again later.");
-        navigateHome();
-    }
-
     /**
      * After everything is populated, show the data on the page.
      */
-    public void showContent() {
+    private void showContent() {
         show(receiptImage);
         show(detailsLabel);
         show(notesField);
@@ -164,10 +207,10 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
     }
 
     /**
-     * Delays a second for when the loader is hidden again so it gives time for the receipt
-     * image to load.
+     * Delays a second for when the loader is hidden again so it gives time for the
+     * receipt image to load.
      */
-    public void delayLoaderHide() {
+    private void delayLoaderHide() {
         new Handler().postDelayed(() -> hide(loader), 500);
     }
 }

@@ -85,13 +85,9 @@ public class LoginActivityModule extends ActivityModule<LoginActivity> {
      * Login click event for when the user clicks the login button.
      */
     public void onLogin() {
-        String email = emailInput.getText().toString().trim().equals("") ? " " : emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim().equals("") ? " "
-                : passwordInput.getText().toString().trim();
-
         show(loadingIndicator);
         hide(loginButton);
-        authClient.authenticate(email, password).subscribe(res -> appContext.runOnUiThread(() -> validateToken(res)));
+        authClient.authenticate(emailInput.getText().toString().trim(), passwordInput.getText().toString().trim()).subscribe(res -> appContext.runOnUiThread(() -> validateToken(res)));
     }
 
     /**

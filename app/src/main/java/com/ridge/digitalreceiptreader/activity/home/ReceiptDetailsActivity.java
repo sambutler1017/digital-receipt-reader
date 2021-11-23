@@ -1,26 +1,26 @@
 package com.ridge.digitalreceiptreader.activity.home;
 
-import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.home.module.ReceiptDetailsModule;
 import com.ridge.digitalreceiptreader.common.abstracts.BaseActivity;
-import com.squareup.picasso.Picasso;
+
+import android.os.Bundle;
+import android.widget.ImageView;
 
 /**
- * Receipt details activity that will show more information about a
- * receipt
+ * Receipt details activity that will show more information about a receipt
  *
  * @author Sam Butler
  * @since November 20, 2021
  */
 public class ReceiptDetailsActivity extends BaseActivity {
-    ReceiptDetailsModule module;
-    ImageView receiptImage;
-    ImageView closeIcon;
+    private ReceiptDetailsModule module;
+    private ImageView receiptImage;
+    private ImageView closeIcon;
+    private ImageView deleteIcon;
+
     int imageBaseHeight;
+    int currentReceiptId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,11 @@ public class ReceiptDetailsActivity extends BaseActivity {
 
         initialization();
 
-        if(getIntent().getExtras() == null) {
+        if (getIntent().getExtras() == null) {
             module.displayErrorAndNavigateHome();
         } else {
-            displayReceipt(getIntent().getExtras().getInt("receiptId"));
+            currentReceiptId = getIntent().getExtras().getInt("receiptId");
+            displayReceipt(currentReceiptId);
         }
     }
 
@@ -43,14 +44,16 @@ public class ReceiptDetailsActivity extends BaseActivity {
         receiptImage = findViewById(R.id.receiptDetails__receiptImage__imageView);
         imageBaseHeight = receiptImage.getLayoutParams().height;
         closeIcon = findViewById(R.id.receiptDetails__closeIcon__imageView);
+        deleteIcon = findViewById(R.id.receiptDetails__trashIcon__imageView);
     }
 
     /**
      * Initialize the base listeners for the activity
      */
     public void initListeners() {
-        receiptImage.setOnClickListener(v -> module.onImageZoomClick(v, imageBaseHeight));
+        receiptImage.setOnClickListener(v -> module.onImageZoomClick(imageBaseHeight));
         closeIcon.setOnClickListener(v -> module.navigateHome());
+        deleteIcon.setOnClickListener(v -> module.onDeleteReceipt(currentReceiptId));
     }
 
     /**
@@ -60,6 +63,11 @@ public class ReceiptDetailsActivity extends BaseActivity {
         module = new ReceiptDetailsModule(this);
     }
 
+    /**
+     * Get the receipt for the given receipt id.
+     *
+     * @param receiptId The id of the receipt to get.
+     */
     public void displayReceipt(int receiptId) {
         module.getReceiptById(receiptId);
     }

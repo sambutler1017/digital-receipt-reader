@@ -1,15 +1,14 @@
 package com.ridge.digitalreceiptreader.activity.login.module;
 
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.login.ForgotPasswordActivity;
 import com.ridge.digitalreceiptreader.common.abstracts.ActivityModule;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
+
+import android.text.TextUtils;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
 /**
  * Module class to centralize methods being using in the ForgotPasswordActivity.
@@ -47,7 +46,7 @@ public class ForgotPasswordActivityModule extends ActivityModule<ForgotPasswordA
         emailInput = appContext.findViewById(R.id.email_textbox__forgot_password);
         sendButton = appContext.findViewById(R.id.send_button__forgot_password);
         loadingIndicator = appContext.findViewById(R.id.loading_indicator__forgot_password);
-        loadingIndicator.setVisibility(View.GONE);
+        hide(loadingIndicator);
     }
 
     /**
@@ -66,8 +65,7 @@ public class ForgotPasswordActivityModule extends ActivityModule<ForgotPasswordA
         else if (!isValidEmail(email)) {
             toastService.showError("Invalid email address");
         } else {
-            // TODO: update endpoint to use the forgot password method in the {@link
-            // UserClient}
+            // TODO: update endpoint to use the forgot password method in the {@link UserClient}
         }
     }
 

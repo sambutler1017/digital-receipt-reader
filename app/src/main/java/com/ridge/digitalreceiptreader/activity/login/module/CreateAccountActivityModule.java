@@ -1,11 +1,5 @@
 package com.ridge.digitalreceiptreader.activity.login.module;
 
-import android.content.Intent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.home.MainActivity;
 import com.ridge.digitalreceiptreader.activity.login.CreateAccountActivity;
@@ -13,6 +7,12 @@ import com.ridge.digitalreceiptreader.app.auth.client.AuthClient;
 import com.ridge.digitalreceiptreader.common.abstracts.ActivityModule;
 import com.ridge.digitalreceiptreader.common.utils.CommonUtils;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
+
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
 /**
  * Module class to centralize methods being using in the CreateAccountActivity.
@@ -65,7 +65,7 @@ public class CreateAccountActivityModule extends ActivityModule<CreateAccountAct
         confirmPasswordInput = appContext.findViewById(R.id.confirm_password_textbox__create_account);
         createAccountButton = appContext.findViewById(R.id.create_account_button__create_account);
         loadingIndicator = appContext.findViewById(R.id.loading_indicator__create_account);
-        loadingIndicator.setVisibility(View.GONE);
+        hide(loadingIndicator);
     }
 
     /**
