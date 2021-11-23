@@ -145,8 +145,8 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
 
         AlertDialog.Builder alert = new AlertDialog.Builder(appContext);
         alert.setCustomTitle(title);
-        alert.setMessage(
-                "This will remove the receipt from your account. Once the receipt is deleted you will not have access to it. Do you want to continue?");
+        alert.setMessage("This will remove the receipt from your account. Once the receipt " +
+                         "is deleted you will not have access to it. Do you want to continue?");
         alert.setPositiveButton("Delete", (dialog, i) -> deleteReceipt(receiptId));
         alert.setNegativeButton("Cancel", null);
         alert.setCancelable(false);
