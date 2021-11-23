@@ -18,6 +18,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
     private ImageView receiptImage;
     private ImageView closeIcon;
     private ImageView deleteIcon;
+    private ImageView editIcon;
 
     int imageBaseHeight;
     int currentReceiptId;
@@ -45,6 +46,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
         imageBaseHeight = receiptImage.getLayoutParams().height;
         closeIcon = findViewById(R.id.receiptDetails__closeIcon__imageView);
         deleteIcon = findViewById(R.id.receiptDetails__trashIcon__imageView);
+        editIcon = findViewById(R.id.receiptDetails__editIcon__imageView);
     }
 
     /**
@@ -54,6 +56,7 @@ public class ReceiptDetailsActivity extends BaseActivity {
         receiptImage.setOnClickListener(v -> module.onImageZoomClick(imageBaseHeight));
         closeIcon.setOnClickListener(v -> module.navigateHome());
         deleteIcon.setOnClickListener(v -> module.onDeleteReceipt(currentReceiptId));
+        editIcon.setOnClickListener(v -> module.onEditReceipt(currentReceiptId));
     }
 
     /**

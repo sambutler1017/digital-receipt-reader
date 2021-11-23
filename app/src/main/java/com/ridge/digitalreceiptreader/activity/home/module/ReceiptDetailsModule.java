@@ -158,6 +158,16 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
     }
 
     /**
+     * This will show the new intent to edit a receipt information. It will then save
+     * the receiptId in order to know where to save the changes too.
+     *
+     * @param receiptId The id of the receipt.
+     */
+    public void onEditReceipt(int receiptId) {
+        System.out.println("Edit Icon Clicked");
+    }
+
+    /**
      * Delete the receipt from the user.m
      *
      * @param receiptId The id of the receipt to be deleted
