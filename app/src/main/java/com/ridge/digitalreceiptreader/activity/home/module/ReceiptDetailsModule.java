@@ -116,7 +116,6 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
         show(loader);
         receiptClient.getUserReceiptById(id)
                 .subscribe(res -> appContext.runOnUiThread(() -> populateReceiptFields(res.getBody())));
-        hide(loader);
     }
 
     /**
