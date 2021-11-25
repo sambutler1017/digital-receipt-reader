@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.home.MainActivity;
 import com.ridge.digitalreceiptreader.activity.home.ReceiptDetailsActivity;
+import com.ridge.digitalreceiptreader.activity.home.ReceiptDetailsEditActivity;
 import com.ridge.digitalreceiptreader.app.receipt.client.ReceiptClient;
 import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
 import com.ridge.digitalreceiptreader.common.abstracts.ActivityModule;
@@ -113,6 +114,7 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
      * @param id The id of the receipt to get.
      */
     public void getReceiptById(int id) {
+        hideContent();
         show(loader);
         receiptClient.getUserReceiptById(id)
                 .subscribe(res -> appContext.runOnUiThread(() -> populateReceiptFields(res.getBody())));
@@ -163,7 +165,7 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
      * @param receiptId The id of the receipt.
      */
     public void onEditReceipt(int receiptId) {
-        System.out.println("Edit Icon Clicked");
+        router.navigate(ReceiptDetailsEditActivity.class, "receiptId", receiptId);
     }
 
     /**
@@ -204,6 +206,18 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
     }
 
     /**
+     * Hide the content on the page
+     */
+    private void hideContent() {
+        hide(receiptImage);
+        hide(detailsLabel);
+        hide(notesField);
+        hide(notesLabel);
+        hide(detailsLinearLayout);
+        delayLoaderHide();
+    }
+
+    /**
      * After everything is populated, show the data on the page.
      */
     private void showContent() {
@@ -220,6 +234,6 @@ public class ReceiptDetailsModule extends ActivityModule<ReceiptDetailsActivity>
      * receipt image to load.
      */
     private void delayLoaderHide() {
-        new Handler().postDelayed(() -> hide(loader), 500);
+        new Handler().postDelayed(() -> hide(loader), 1000);
     }
 }

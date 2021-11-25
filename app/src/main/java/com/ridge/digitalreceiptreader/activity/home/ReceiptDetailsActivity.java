@@ -30,12 +30,13 @@ public class ReceiptDetailsActivity extends BaseActivity {
 
         initialization();
 
-        if (getIntent().getExtras() == null) {
-            module.displayErrorAndNavigateHome();
-        } else {
-            currentReceiptId = getIntent().getExtras().getInt("receiptId");
-            displayReceipt(currentReceiptId);
-        }
+//        if (getIntent().getExtras() == null) {
+//            module.displayErrorAndNavigateHome();
+//        } else {
+//            currentReceiptId = getIntent().getExtras().getInt("receiptId");
+        currentReceiptId = 28;
+            module.getReceiptById(currentReceiptId);
+//        }
     }
 
     /**
@@ -64,14 +65,5 @@ public class ReceiptDetailsActivity extends BaseActivity {
      */
     public void initServices() {
         module = new ReceiptDetailsModule(this);
-    }
-
-    /**
-     * Get the receipt for the given receipt id.
-     *
-     * @param receiptId The id of the receipt to get.
-     */
-    public void displayReceipt(int receiptId) {
-        module.getReceiptById(receiptId);
     }
 }
