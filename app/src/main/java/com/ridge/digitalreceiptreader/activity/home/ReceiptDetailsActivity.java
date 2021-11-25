@@ -30,13 +30,12 @@ public class ReceiptDetailsActivity extends BaseActivity {
 
         initialization();
 
-//        if (getIntent().getExtras() == null) {
-//            module.displayErrorAndNavigateHome();
-//        } else {
-//            currentReceiptId = getIntent().getExtras().getInt("receiptId");
-        currentReceiptId = 28;
+        if (getIntent().getExtras() == null) {
+            module.displayErrorAndNavigateHome();
+        } else {
+            currentReceiptId = getIntent().getExtras().getInt("receiptId");
             module.getReceiptById(currentReceiptId);
-//        }
+        }
     }
 
     /**
