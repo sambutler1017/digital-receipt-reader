@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Digital Receipt Reader</string>
+    <string name="app_name">E-Receipts</string>
     <string name="title_home">Home</string>
     <string name="title_nfc">NFC Scan</string>
     <string name="title_settings">Settings</string>
