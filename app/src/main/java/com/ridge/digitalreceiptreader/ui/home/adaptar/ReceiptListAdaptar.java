@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
+import com.ridge.digitalreceiptreader.common.utils.CommonUtils;
 
 import java.util.List;
 
@@ -40,10 +41,9 @@ public class ReceiptListAdaptar extends RecyclerView.Adapter<ReceiptListAdaptar.
         else {
             holder.itemView.setBackgroundColor(Color.parseColor("#F6F7F9"));
         }
-        holder.mId.setText(String.valueOf(mData.get(position).getId()));
         holder.mLocation.setText(mData.get(position).getLocation());
         holder.mLabel.setText(mData.get(position).getLabel());
-        holder.mNotes.setText(mData.get(position).getNotes());
+        holder.mDate.setText(CommonUtils.formatDate(mData.get(position).getInsertDate()));
     }
 
     // Total number of rows
@@ -55,17 +55,14 @@ public class ReceiptListAdaptar extends RecyclerView.Adapter<ReceiptListAdaptar.
 
     // Stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView mId;
         TextView mLocation;
         TextView mLabel;
-        TextView mNotes;
-
+        TextView mDate;
         ViewHolder(View itemView) {
             super(itemView);
-            mId = itemView.findViewById(R.id.id__textView);
             mLocation = itemView.findViewById(R.id.location__textView);
             mLabel = itemView.findViewById(R.id.label__textView);
-            mNotes = itemView.findViewById(R.id.notes__textView);
+            mDate  = itemView.findViewById(R.id.date__textView);
             itemView.setOnClickListener(this);
         }
 
@@ -90,7 +87,7 @@ public class ReceiptListAdaptar extends RecyclerView.Adapter<ReceiptListAdaptar.
         void onItemClick(View view, int position);
     }
 
-    public void updateList(List<Receipt> list){
+    public void updateList(List<Receipt> list) {
         //mDisplayedList = list;
         //notifyDataSetChanged();
     }

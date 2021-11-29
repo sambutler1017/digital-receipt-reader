@@ -46,7 +46,7 @@ public class HomeFragment extends BaseFragment implements ReceiptListAdaptar.Ite
         a = getActivity();
         initServices();
 
-        ArrayList<Receipt> receiptArrayList = homeFragmentModule.getReceiptList();
+        homeFragmentModule.getReceiptList();
 
         // This is a test list; this should be removed once the database calls
         // are confirmed to work.
@@ -57,14 +57,7 @@ public class HomeFragment extends BaseFragment implements ReceiptListAdaptar.Ite
         //receiptArrayList.add(r2);
 
         // Inflate receipt list
-        View view = i.inflate(R.layout.fragment_home, c, false);
-
-        // Set up the RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.receipt_list__fragment_home);
-        recyclerView.setLayoutManager(new LinearLayoutManager(a));
-        adapter = new ReceiptListAdaptar(a, receiptArrayList);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
+        //view = i.inflate(R.layout.fragment_home, c, false);
 
         return view;
     }
