@@ -62,4 +62,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.android.support:appcompat-v7:30.0.0'
+    implementation 'com.android.support:recyclerview-v7:30.0.0'
 }
