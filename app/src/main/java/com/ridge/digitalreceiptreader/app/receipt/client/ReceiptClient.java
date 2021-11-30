@@ -3,6 +3,7 @@ package com.ridge.digitalreceiptreader.app.receipt.client;
 import android.app.Activity;
 
 import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
+import com.ridge.digitalreceiptreader.app.receipt.domain.ReceiptGetRequest;
 import com.ridge.digitalreceiptreader.app.receipt.service.ReceiptService;
 
 import org.springframework.http.ResponseEntity;
@@ -41,8 +42,8 @@ public class ReceiptClient {
      *
      * @return {@link Receipt[]}
      */
-    public Single<ResponseEntity<Receipt[]>> getUserReceipts() {
-        Single<ResponseEntity<Receipt[]>> observable = Single.create(s -> s.onSuccess(service.getUserReceipts()));
+    public Single<ResponseEntity<Receipt[]>> getUserReceipts(ReceiptGetRequest request) {
+        Single<ResponseEntity<Receipt[]>> observable = Single.create(s -> s.onSuccess(service.getUserReceipts(request)));
         return observable.subscribeOn(Schedulers.io());
     }
 

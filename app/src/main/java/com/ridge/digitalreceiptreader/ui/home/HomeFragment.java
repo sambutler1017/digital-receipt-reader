@@ -1,10 +1,17 @@
 package com.ridge.digitalreceiptreader.ui.home;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +38,7 @@ public class HomeFragment extends BaseFragment implements ReceiptListAdaptar.Ite
     private ReceiptListAdaptar adapter;
     private ReceiptClient receiptClient;
     private RouterService router;
+    private EditText searchBar;
 
     /**
      * This will create the view for the fragment from the given layout and the view
@@ -46,19 +54,7 @@ public class HomeFragment extends BaseFragment implements ReceiptListAdaptar.Ite
         a = getActivity();
         initServices();
 
-        homeFragmentModule.getReceiptList();
-
-        // This is a test list; this should be removed once the database calls
-        // are confirmed to work.
-        //ArrayList<Receipt> receiptArrayList = new ArrayList<>();
-        //Receipt r1 = new Receipt(28,"location1", "label1", "note1");
-        //Receipt r2 = new Receipt(29,"location2", "label2", "note2");
-        //receiptArrayList.add(r1);
-        //receiptArrayList.add(r2);
-
-        // Inflate receipt list
-        //view = i.inflate(R.layout.fragment_home, c, false);
-
+        homeFragmentModule.getReceiptList("");
         return view;
     }
 
@@ -69,11 +65,20 @@ public class HomeFragment extends BaseFragment implements ReceiptListAdaptar.Ite
         homeFragmentModule = new HomeFragmentModule(this, view);
         receiptClient = new ReceiptClient(a);
         router = new RouterService(a);
+        searchBar = view.findViewById(R.id.search_bar__fragment_home);
+    }
+
+    public void initListeners() {
+        searchBar.setOnEditorActionListener((v, actionId, event) -> {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            homeFragmentModule.getReceiptList(v.getText().toString());
+            return false;
+        });
     }
 
     @Override
     public void onItemClick(View view, int position) {
-        //Toast.makeText(a, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         homeFragmentModule.openReceipt(adapter.getItem(position).getId());
     }
 }

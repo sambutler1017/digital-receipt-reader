@@ -1,16 +1,20 @@
 package com.ridge.digitalreceiptreader.ui.home;
 
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import java.util.Set;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.common.collect.Sets;
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.home.ReceiptDetailsActivity;
 import com.ridge.digitalreceiptreader.activity.home.ReceiptDetailsEditActivity;
 import com.ridge.digitalreceiptreader.app.receipt.client.ReceiptClient;
 import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
+import com.ridge.digitalreceiptreader.app.receipt.domain.ReceiptGetRequest;
 import com.ridge.digitalreceiptreader.common.abstracts.ActivityModule;
 import com.ridge.digitalreceiptreader.common.abstracts.FragmentModule;
 import com.ridge.digitalreceiptreader.service.util.RouterService;
@@ -52,10 +56,12 @@ public class HomeFragmentModule extends FragmentModule<HomeFragment> implements 
         routerService = new RouterService(activity);
     }
 
-    public void getReceiptList() {
+    public void getReceiptList(String search) {
         // Get list of receipts and put them in a list.
+        clearReceipts();
         show(loadingIndicator);
-        receiptClient.getUserReceipts()
+        receiptClient.getUserReceipts(
+                search.trim().equals("") ? new ReceiptGetRequest() : new ReceiptGetRequest(Sets.newHashSet(search), Sets.newHashSet(search), Sets.newHashSet(search)))
                 .subscribe(res -> activity.runOnUiThread(() ->
                         populateReceiptList(res.getBody())));
     }
@@ -69,6 +75,11 @@ public class HomeFragmentModule extends FragmentModule<HomeFragment> implements 
             receiptArrayList.add(r);
         }
 
+        buildReceiptList();
+        hide(loadingIndicator);
+    }
+
+    private void buildReceiptList() {
         // Set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.receipt_list__fragment_home);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
@@ -76,7 +87,12 @@ public class HomeFragmentModule extends FragmentModule<HomeFragment> implements 
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
         view.invalidate();
-        hide(loadingIndicator);
+    }
+
+    private void clearReceipts() {
+        receiptArrayList.removeAll(receiptArrayList);
+        buildReceiptList();
+        view.invalidate();
     }
 
     @Override
