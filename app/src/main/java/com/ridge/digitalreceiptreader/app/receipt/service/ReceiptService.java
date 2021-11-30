@@ -1,6 +1,7 @@
 package com.ridge.digitalreceiptreader.app.receipt.service;
 
 import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
+import com.ridge.digitalreceiptreader.app.receipt.domain.ReceiptGetRequest;
 import com.ridge.digitalreceiptreader.common.api.ApiClient;
 
 import org.springframework.http.ResponseEntity;
@@ -38,8 +39,17 @@ public class ReceiptService {
      *
      * @return {@link Receipt[]}
      */
-    public ResponseEntity<Receipt[]> getUserReceipts() {
-        return apiClient.get("/current-user", Receipt[].class);
+    public ResponseEntity<Receipt[]> getUserReceipts(ReceiptGetRequest r) {
+        String params = "";
+        String label = r.getLabel() != null ? r.getLabel().stream().findFirst().orElse("") : "";
+        String location = r.getLocation() != null ? r.getLocation().stream().findFirst().orElse("") : "";
+        String notes = r.getNotes() != null ?  r.getNotes().stream().findFirst().orElse("") : "";
+
+        if(!label.equals("")) params += "label=" + label + "&";
+        if(!location.equals("")) params += "location=" + location + "&";
+        if(!notes.equals("")) params += "notes=" + notes + "&";
+        params =  params.trim().equals("") ? "" : params.substring(0, params.length() - 1);
+        return apiClient.get(String.format("/current-user%s%s", params.trim().equals("") ? "" : "?", params), Receipt[].class);
     }
 
     /**
