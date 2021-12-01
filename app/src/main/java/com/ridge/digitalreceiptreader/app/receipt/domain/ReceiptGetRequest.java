@@ -5,7 +5,7 @@ import java.util.Set;
 /**
  * Request object used to filter out receipts on a get call.
  *
- * @author Sam Butler
+ * @author Luke Lengel
  * @since November 12, 2021
  */
 public class ReceiptGetRequest {

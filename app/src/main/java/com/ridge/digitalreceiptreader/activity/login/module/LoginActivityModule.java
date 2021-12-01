@@ -78,7 +78,7 @@ public class LoginActivityModule extends ActivityModule<LoginActivity> {
         passwordInput.setTransformationMethod(new PasswordTransformationMethod());
         loginButton = appContext.findViewById(R.id.login_button__login);
         loadingIndicator = appContext.findViewById(R.id.loading_indicator__login);
-        loadingIndicator.setVisibility(View.GONE);
+        hide(loadingIndicator);
     }
 
     /**

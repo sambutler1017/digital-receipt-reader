@@ -44,11 +44,11 @@ public class ProfileFragment extends BaseFragment {
      * Initializes any elements that are being used in the activity.
      */
     public void initElements() {
-        currentPassword = view.findViewById(R.id.profile__currentPassword__textView);
+        currentPassword = view.findViewById(R.id.createAccount__password__editText);
         currentPassword.setTransformationMethod(new PasswordTransformationMethod());
-        newPassword = view.findViewById(R.id.profile__newPassword__textView);
+        newPassword = view.findViewById(R.id.createAccount__confirmPassword__editText);
         newPassword.setTransformationMethod(new PasswordTransformationMethod());
-        saveButton = view.findViewById(R.id.profile__save__button);
+        saveButton = view.findViewById(R.id.createAccount__createAccount__button);
     }
 
     /**

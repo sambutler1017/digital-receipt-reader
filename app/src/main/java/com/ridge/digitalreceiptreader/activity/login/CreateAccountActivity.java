@@ -28,7 +28,8 @@ public class CreateAccountActivity extends BaseActivity {
      * Initializes any elements that are being used in the activity.
      */
     public void initElements() {
-        createAccountButton = findViewById(R.id.create_account_button__create_account);
+        createAccountButton = findViewById(R.id
+                .createAccount__createAccount__button);
     }
 
     /**

@@ -12,29 +12,32 @@ import java.util.Date;
  * @since June 25, 2021
  */
 public class User {
-    @JsonProperty("id")
     private int id;
 
-    @JsonProperty("firstName")
     private String firstName;
 
-    @JsonProperty("lastName")
     private String lastName;
 
-    @JsonProperty("email")
     private String email;
 
-    @JsonProperty("webRole")
     private WebRole webRole;
 
-    @JsonProperty("password")
     private String password;
 
-    @JsonProperty("forgotPassword")
-    private boolean forgotPassword;
+    private long salt;
 
-    @JsonProperty("insertDate")
     private Date insertDate;
+
+    public User() {
+
+    }
+
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
 
     public int getId() {
         return id;
@@ -84,12 +87,13 @@ public class User {
         this.password = password;
     }
 
-    public boolean isForgotPassword() {
-        return forgotPassword;
+
+    public long getSalt() {
+        return salt;
     }
 
-    public void setForgotPassword(boolean forgotPassword) {
-        this.forgotPassword = forgotPassword;
+    public void setSalt(long salt) {
+        this.salt = salt;
     }
 
     public Date getInsertDate() {

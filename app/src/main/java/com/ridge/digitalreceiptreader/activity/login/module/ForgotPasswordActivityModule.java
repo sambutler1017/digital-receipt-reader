@@ -2,13 +2,21 @@ package com.ridge.digitalreceiptreader.activity.login.module;
 
 import com.ridge.digitalreceiptreader.R;
 import com.ridge.digitalreceiptreader.activity.login.ForgotPasswordActivity;
+import com.ridge.digitalreceiptreader.activity.login.LoginActivity;
+import com.ridge.digitalreceiptreader.app.user.client.UserClient;
 import com.ridge.digitalreceiptreader.common.abstracts.ActivityModule;
+import com.ridge.digitalreceiptreader.common.utils.CommonUtils;
+import com.ridge.digitalreceiptreader.service.util.RouterService;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
 
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+
+import org.springframework.http.ResponseEntity;
+
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * Module class to centralize methods being using in the ForgotPasswordActivity.
@@ -18,6 +26,8 @@ import android.widget.ProgressBar;
  */
 public class ForgotPasswordActivityModule extends ActivityModule<ForgotPasswordActivity> {
     private ToastService toastService;
+    private RouterService router;
+    private UserClient userClient;
 
     private EditText emailInput;
     private Button sendButton;
@@ -37,6 +47,14 @@ public class ForgotPasswordActivityModule extends ActivityModule<ForgotPasswordA
      */
     public void initServices() {
         toastService = new ToastService(appContext);
+        router = new RouterService(appContext);
+    }
+
+    /**
+     * Initializes any client classes being used in the activity.
+     */
+    public void initClients() {
+        userClient = new UserClient(appContext);
     }
 
     /**
@@ -46,7 +64,6 @@ public class ForgotPasswordActivityModule extends ActivityModule<ForgotPasswordA
         emailInput = appContext.findViewById(R.id.email_textbox__forgot_password);
         sendButton = appContext.findViewById(R.id.send_button__forgot_password);
         loadingIndicator = appContext.findViewById(R.id.loading_indicator__forgot_password);
-        hide(loadingIndicator);
     }
 
     /**
@@ -62,23 +79,38 @@ public class ForgotPasswordActivityModule extends ActivityModule<ForgotPasswordA
             toastService.showError("Please fill in email field");
         }
         // Validates email field
-        else if (!isValidEmail(email)) {
+        else if (!CommonUtils.isValidEmail(email)) {
             toastService.showError("Invalid email address");
         } else {
-            // TODO: update endpoint to use the forgot password method in the {@link UserClient}
+            show(loadingIndicator);
+            hide(sendButton);
+            userClient.doesEmailExist(email)
+                    .filter(status -> checkEmail(status.getBody()))
+                    .flatMap(res -> userClient.forgotPassword(email).toMaybe())
+                    .subscribe(res -> appContext.runOnUiThread(() -> routeToLogin()));
         }
     }
 
     /**
-     * Validates email address.
+     * Checks to see if the email exists or not.
      *
-     * @see <a href=
-     *      "https://stackoverflow.com/questions/1819142/how-should-i-validate-an-e-mail-address">Email
-     *      Validation</a>
-     * @param target email address
-     * @return if email address is valid or not
+     * @param status The status of the email.
+     * @return {@link Boolean} if the observable should continue.
      */
-    private final static boolean isValidEmail(CharSequence target) {
-        return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    public boolean checkEmail(Boolean status) {
+        if(status) {
+            return true;
+        } else {
+            toastService.showError("Email does not exist!");
+            return false;
+        }
+    }
+
+    /**
+     * Route to the login page and show toast message of status of email.
+     */
+    private void routeToLogin() {
+        toastService.showSuccess("Email has been successfully sent! Follow instructions in email.");
+        router.navigate(LoginActivity.class);
     }
 }

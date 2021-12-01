@@ -6,12 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ridge.digitalreceiptreader.R;
-import com.ridge.digitalreceiptreader.app.receipt.client.ReceiptClient;
-import com.ridge.digitalreceiptreader.app.receipt.domain.Receipt;
 import com.ridge.digitalreceiptreader.common.abstracts.FragmentModule;
 import com.ridge.digitalreceiptreader.service.util.ToastService;
-
-import org.springframework.http.ResponseEntity;
 
 /**
  * Profile Module class to centralize methods being using in login activity.
@@ -46,11 +42,11 @@ public class ProfileFragmentModule extends FragmentModule<ProfileFragment> {
      * Initializes any elements that are being used in the activity.
      */
     public void initElements() {
-        currentPassword = view.findViewById(R.id.profile__currentPassword__textView);
+        currentPassword = view.findViewById(R.id.createAccount__password__editText);
         currentPassword.setTransformationMethod(new PasswordTransformationMethod());
-        newPassword = view.findViewById(R.id.profile__newPassword__textView);
+        newPassword = view.findViewById(R.id.createAccount__confirmPassword__editText);
         newPassword.setTransformationMethod(new PasswordTransformationMethod());
-        saveButton = view.findViewById(R.id.profile__save__button);
+        saveButton = view.findViewById(R.id.createAccount__createAccount__button);
     }
 
     public void saveProfile() {
