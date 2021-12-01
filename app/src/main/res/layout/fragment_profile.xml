@@ -7,21 +7,25 @@
     tools:context=".ui.profile.ProfileFragment">
 
     <LinearLayout
-        android:id="@+id/createAccount__form__linearLayout"
+        android:id="@+id/profile__form__linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/profile_background"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/createAccount__title__linearLayout"
+            android:id="@+id/profile__title__linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="55dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/createAccount__title__label"
+                android:id="@+id/profile__title__label"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -32,7 +36,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/createAccount__nameFields__linearLayout"
+            android:id="@+id/profile__nameFields__linearLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginVertical="16dp"
@@ -40,7 +44,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/createAccount__firstName__linearLayout"
+                android:id="@+id/profile__firstName__linearLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -60,19 +64,20 @@
                 <EditText
                     android:id="@+id/profile__firstName__editText"
                     android:layout_width="fill_parent"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:autoSizeMinTextSize="185dp"
                     android:background="@drawable/input_field"
                     android:ems="10"
                     android:hint="First Name"
                     android:includeFontPadding="true"
                     android:inputType="textPersonName"
+                    android:padding="15dp"
                     android:paddingHorizontal="10dp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/createAccount__lastName__linearLayout"
+                android:id="@+id/profile__lastName__linearLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -80,7 +85,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/createAccount__lastName__label"
+                    android:id="@+id/profile__lastName__label"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Last Name"
@@ -89,21 +94,22 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/createAccount__lastName__editText"
+                    android:id="@+id/profile__lastName__editText"
                     android:layout_width="fill_parent"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/input_field"
                     android:ems="10"
                     android:hint="Last Name"
                     android:includeFontPadding="true"
                     android:inputType="textPersonName"
+                    android:padding="15dp"
                     android:paddingHorizontal="10dp" />
             </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/createAccount__emailFields__linearLayout"
+            android:id="@+id/profile__emailFields__linearLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginVertical="16dp"
@@ -111,14 +117,14 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/createAccount__email__linearLayout"
+                android:id="@+id/profile__email__linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/createAccount__email__label"
+                    android:id="@+id/profile__email__label"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Email"
@@ -127,21 +133,22 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/createAccount__email__editText"
+                    android:id="@+id/profile__email__editText"
                     android:layout_width="fill_parent"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/input_field"
                     android:ems="10"
                     android:hint="Email"
                     android:includeFontPadding="true"
                     android:inputType="textPersonName"
+                    android:padding="15dp"
                     android:paddingHorizontal="10dp" />
 
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/createAccount__passwordFields__linearLayout"
+            android:id="@+id/profile__passwordFields__linearLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginVertical="16dp"
@@ -149,6 +156,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/profile__currentPassword__linearLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -156,7 +164,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/createAccount__password__label"
+                    android:id="@+id/profile__password__label"
                     android:layout_width="185dp"
                     android:layout_height="wrap_content"
                     android:text="Current Password"
@@ -165,20 +173,21 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/createAccount__password__editText"
+                    android:id="@+id/profile__password__editText"
                     android:layout_width="fill_parent"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/input_field"
                     android:ems="10"
                     android:hint="Current Password"
                     android:includeFontPadding="true"
                     android:inputType="textPersonName"
+                    android:padding="15dp"
                     android:paddingHorizontal="10dp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/createAccount__confirmPassword__linearLayout"
+                android:id="@+id/profile__newPassword__linearLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -186,7 +195,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/createAccount__confirmPassword__label"
+                    android:id="@+id/profile__confirmPassword__label"
                     android:layout_width="185dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -196,14 +205,15 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/createAccount__confirmPassword__editText"
+                    android:id="@+id/profile__confirmPassword__editText"
                     android:layout_width="fill_parent"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/input_field"
                     android:ems="10"
                     android:hint="New Password"
                     android:includeFontPadding="true"
                     android:inputType="textPersonName"
+                    android:padding="15dp"
                     android:paddingHorizontal="10dp" />
 
             </LinearLayout>
@@ -211,7 +221,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/createAccount__createAccountButton__linearLayout"
+            android:id="@+id/profile__profileButton__linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
@@ -220,7 +230,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/createAccount__createAccount__button"
+                android:id="@+id/profile__save__button"
                 android:layout_width="164dp"
                 android:layout_height="48dp"
                 android:background="@drawable/blue_gradient_round_button"
