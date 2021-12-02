@@ -8,6 +8,9 @@ import com.ridge.digitalreceiptreader.common.api.ApiClient;
 
 import org.springframework.http.ResponseEntity;
 
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 /**
  * Authentication Service which will be the middle tier between the application
  * and the api.
@@ -31,5 +34,14 @@ public class AuthService {
      */
     public ResponseEntity<DigitalReceiptToken> authenticate(String username, String password) {
         return apiClient.post("/authenticate", new AuthenticationRequest(username, password), DigitalReceiptToken.class);
+    }
+
+    /**
+     * Re-authenticates a user and generates a new token.
+     *
+     * @return a new JWT.
+     */
+    public ResponseEntity<DigitalReceiptToken> reauthenticate() {
+        return apiClient.post("/reauthenticate", null, DigitalReceiptToken.class);
     }
 }

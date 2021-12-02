@@ -37,6 +37,7 @@ public class ProfileFragment extends BaseFragment {
      */
     public View onCreateView(@NonNull LayoutInflater i, ViewGroup c, Bundle sI) {
         initialization(i, c, R.layout.fragment_profile);
+        profileFragmentModule.fillInForm();
         return view;
     }
 
@@ -44,9 +45,9 @@ public class ProfileFragment extends BaseFragment {
      * Initializes any elements that are being used in the activity.
      */
     public void initElements() {
-        currentPassword = view.findViewById(R.id.profile__password__editText);
+        currentPassword = view.findViewById(R.id.profile__currentPassword__editText);
         currentPassword.setTransformationMethod(new PasswordTransformationMethod());
-        newPassword = view.findViewById(R.id.profile__confirmPassword__editText);
+        newPassword = view.findViewById(R.id.profile__newPassword__editText);
         newPassword.setTransformationMethod(new PasswordTransformationMethod());
         saveButton = view.findViewById(R.id.profile__save__button);
     }

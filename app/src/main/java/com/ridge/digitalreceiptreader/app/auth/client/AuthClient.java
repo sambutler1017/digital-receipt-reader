@@ -48,4 +48,15 @@ public class AuthClient {
                 .create(s -> s.onSuccess(authService.authenticate(authRequest.getEmail(), authRequest.getPassword())));
         return observable.subscribeOn(Schedulers.io());
     }
+
+    /**
+     * Re-authenticates a user and generates a new token.
+     *
+     * @return a new JWT.
+     */
+    public Single<ResponseEntity<DigitalReceiptToken>> reauthenticate() {
+        Single<ResponseEntity<DigitalReceiptToken>> observable = Single
+                .create(s -> s.onSuccess(authService.reauthenticate()));
+        return observable.subscribeOn(Schedulers.io());
+    }
 }
